@@ -618,11 +618,11 @@
     <div class="form-grid-2">
       <div class="form-group">
         <label>Nama Posyandu / Desa</label>
-        <input type="text" id="namaPosyandu" class="form-control" value="Posyandu Melati RW 03, Kel. Sendangadi">
+        <input type="text" id="namaPosyandu" class="form-control" oninput="analisis(false)" value="Posyandu Melati RW 03, Kel. Sendangadi">
       </div>
       <div class="form-group">
         <label>Bulan & Tahun Penimbangan</label>
-        <input type="month" id="bulanTimbang" class="form-control" value="2026-09">
+        <input type="month" id="bulanTimbang" class="form-control" onchange="analisis(false)" value="2026-09">
       </div>
     </div>
   </div>
@@ -1003,6 +1003,15 @@ function risiko(zBBU, zTBU, zBBTB) {
 
 function fmtZ(z) { return (z>=0?'+':'')+z.toFixed(2); }
 
+
+function updateDariMatriks(id, field, val) {
+  const el = document.getElementById(field + '-' + id);
+  if (el) {
+    el.value = val;
+  }
+  analisis(false);
+}
+
 let idCounter = 0;
 function tambahBalita(d) {
   d = d || {};
@@ -1011,17 +1020,17 @@ function tambahBalita(d) {
   el.className = 'balita-row';
   el.id = 'row-' + id;
   el.innerHTML = `
-    <div><input type="text" id="nama-${id}" class="form-control" placeholder="Nama lengkap balita" value="${d.nama||''}"></div>
-    <div><input type="number" id="usia-${id}" class="form-control" placeholder="18" min="0" max="60" value="${d.usia||''}"></div>
-    <div><input type="number" id="bb-${id}" class="form-control" placeholder="9.5" step="0.1" value="${d.bb||''}"></div>
-    <div><input type="number" id="tb-${id}" class="form-control" placeholder="76" step="0.1" value="${d.tb||''}"></div>
+    <div><input type="text" id="nama-${id}" class="form-control" placeholder="Nama lengkap balita" value="${d.nama||''}" oninput="analisis(false)"></div>
+    <div><input type="number" id="usia-${id}" class="form-control" placeholder="18" min="0" max="60" value="${d.usia||''}" oninput="analisis(false)"></div>
+    <div><input type="number" id="bb-${id}" class="form-control" placeholder="9.5" step="0.1" value="${d.bb||''}" oninput="analisis(false)"></div>
+    <div><input type="number" id="tb-${id}" class="form-control" placeholder="76" step="0.1" value="${d.tb||''}" oninput="analisis(false)"></div>
     <div>
-      <select id="jk-${id}" class="form-control">
+      <select id="jk-${id}" class="form-control" onchange="analisis(false)">
         <option value="L" ${d.jk==='L'?'selected':''}>Laki-laki</option>
         <option value="P" ${d.jk==='P'?'selected':''}>Perempuan</option>
       </select>
     </div>
-    <button type="button" class="btn-remove-row" onclick="document.getElementById('row-${id}').remove()" title="Hapus baris">
+    <button type="button" class="btn-remove-row" onclick="document.getElementById('row-${id}').remove(); analisis(false);" title="Hapus baris">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
     </button>`;
   document.getElementById('balitaList').appendChild(el);
@@ -1032,9 +1041,13 @@ function resetForm() {
   document.getElementById('hasil').style.display = 'none';
 }
 
-function analisis() {
+function analisis(scroll = true) {
   const rows = document.querySelectorAll('.balita-row');
   if (!rows.length) {
+    if (scroll) alert('Silakan tambahkan minimal 1 data balita terlebih dahulu.');
+    return;
+  }
+  if (false) {
     alert('Silakan tambahkan minimal 1 data balita terlebih dahulu.');
     return;
   }
@@ -1052,7 +1065,7 @@ function analisis() {
     const jk = document.getElementById('jk-'+id).value;
 
     if (!nama || isNaN(usia) || isNaN(bb) || isNaN(tb)) {
-      alert('Mohon lengkapi seluruh kolom input balita (Nama, Usia, BB, TB).');
+      if (scroll) alert('Mohon lengkapi seluruh kolom input balita (Nama, Usia, BB, TB).');
       return;
     }
 
@@ -1074,7 +1087,7 @@ function analisis() {
     const sBBTB = statusBBTB(zBBTB);
     const risk = risiko(zBBU, zTBU, zBBTB);
 
-    hasil.push({ nama, usia, bb, tb, jk, zBBU, zTBU, zBBTB, sBBU, sTBU, sBBTB, risk, refBBU, refTBU, refBBTB });
+    hasil.push({ id, nama, usia, bb, tb, jk, zBBU, zTBU, zBBTB, sBBU, sTBU, sBBTB, risk, refBBU, refTBU, refBBTB });
   }
 
   const total = hasil.length;
@@ -1140,8 +1153,18 @@ function analisis() {
     return `<tr>
       <td style="font-weight:700; color:var(--green-900);">${h.nama} <span style="font-weight:400; color:var(--text-muted); font-size:11.5px;">(${h.jk==='L'?'L':'P'})</span></td>
       <td>${h.usia} bln</td>
-      <td><strong>${h.bb}</strong> kg</td>
-      <td><strong>${h.tb}</strong> cm</td>
+      <td>
+        <div style="display:flex; align-items:center; gap:4px;">
+          <input type="number" step="0.1" value="${h.bb}" class="form-control" style="width:72px; padding:3px 6px; font-weight:700; font-size:12.5px; border-color:var(--green-200); background:#fff;" oninput="updateDariMatriks('${h.id}', 'bb', this.value)" title="Ubah langsung berat badan di sini">
+          <span style="font-size:11px; color:var(--text-muted);">kg</span>
+        </div>
+      </td>
+      <td>
+        <div style="display:flex; align-items:center; gap:4px;">
+          <input type="number" step="0.1" value="${h.tb}" class="form-control" style="width:72px; padding:3px 6px; font-weight:700; font-size:12.5px; border-color:var(--green-200); background:#fff;" oninput="updateDariMatriks('${h.id}', 'tb', this.value)" title="Ubah langsung tinggi badan di sini">
+          <span style="font-size:11px; color:var(--text-muted);">cm</span>
+        </div>
+      </td>
       <td>
         <span class="${getChip(h.sBBU)}">${h.sBBU.label}</span>
         <span class="z-val">${fmtZ(h.zBBU)} SD</span>
@@ -1319,7 +1342,9 @@ Penanggung Jawab Kader Posyandu,                  Bidan Pembina Desa,
   document.getElementById('laporanBox').textContent = rep;
 
   document.getElementById('hasil').style.display = 'block';
-  document.getElementById('hasil').scrollIntoView({ behavior:'smooth', block:'start' });
+  if (scroll) {
+    document.getElementById('hasil').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
 }
 
 function showToast(msg) {
