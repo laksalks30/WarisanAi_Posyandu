@@ -6,7 +6,7 @@
 <title>Warisan.AI — Sistem Deteksi Dini & Rujukan Gizi Balita</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   
@@ -14,70 +14,50 @@
     --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
     
-    /* Slate Neutrals */
-    --slate-50: #f8fafc;
-    --slate-100: #f1f5f9;
-    --slate-200: #e2e8f0;
-    --slate-300: #cbd5e1;
-    --slate-400: #94a3b8;
-    --slate-500: #64748b;
-    --slate-600: #475569;
-    --slate-700: #334155;
-    --slate-800: #1e293b;
-    --slate-900: #0f172a;
+    /* Strict Neutral Palette (Zero Color Slop) */
+    --bg-page: #f8fafc;
+    --surface: #ffffff;
+    --surface-subtle: #f1f5f9;
+    
+    --border-light: #e2e8f0;
+    --border-dark: #0f172a;
+    
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --text-subtle: #94a3b8;
 
-    /* Clinical Emerald Primary */
-    --emerald-50: #ecfdf5;
-    --emerald-100: #d1fae5;
-    --emerald-200: #a7f3d0;
-    --emerald-600: #059669;
-    --emerald-700: #047857;
-    --emerald-800: #065f46;
+    /* Subtle Tonal Indicators (Muted, Not Colorful) */
+    --tag-bg: #f1f5f9;
+    --tag-border: #cbd5e1;
+    --tag-text: #0f172a;
 
-    /* Warning Amber */
-    --amber-50: #fffbeb;
-    --amber-100: #fef3c7;
-    --amber-200: #fde68a;
-    --amber-700: #b45309;
-    --amber-800: #92400e;
-
-    /* Danger Rose */
-    --rose-50: #fff1f2;
-    --rose-100: #ffe4e6;
-    --rose-200: #fecdd3;
-    --rose-600: #e11d48;
-    --rose-700: #be123c;
-    --rose-800: #9f1239;
-
-    /* Tech Indigo Accent */
-    --indigo-50: #eef2ff;
-    --indigo-100: #e0e7ff;
-    --indigo-600: #4f46e5;
-    --indigo-700: #4338ca;
+    --alert-bg: #f8fafc;
+    --alert-border: #0f172a;
   }
 
   body {
     font-family: var(--font-sans);
     font-size: 13.5px;
     line-height: 1.6;
-    background-color: var(--slate-50);
-    color: var(--slate-800);
+    background-color: var(--bg-page);
+    color: var(--text-primary);
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Top Navigation */
+  /* Header */
   header.app-header {
-    background: #ffffff;
-    border-bottom: 1px solid var(--slate-200);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border-light);
     position: sticky;
     top: 0;
     z-index: 50;
   }
   .header-container {
-    max-width: 1040px;
+    max-width: 1020px;
     margin: 0 auto;
     padding: 0 24px;
-    height: 64px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -85,30 +65,30 @@
   .brand-group {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     text-decoration: none;
+    color: var(--text-primary);
   }
   .brand-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: var(--emerald-50);
-    border: 1px solid var(--emerald-200);
-    color: var(--emerald-700);
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: var(--text-primary);
+    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .brand-text h1 {
-    font-size: 16px;
-    font-weight: 800;
-    color: var(--slate-900);
-    letter-spacing: -0.02em;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
     line-height: 1.2;
   }
   .brand-text p {
     font-size: 11.5px;
-    color: var(--slate-500);
+    color: var(--text-muted);
     font-weight: 500;
   }
   .header-badges {
@@ -116,30 +96,22 @@
     align-items: center;
     gap: 8px;
   }
-  .chip {
+  .badge-neutral {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 4px 10px;
-    border-radius: 6px;
+    gap: 5px;
+    padding: 3px 9px;
+    border-radius: 4px;
     font-size: 11.5px;
-    font-weight: 600;
-    border: 1px solid transparent;
-  }
-  .chip-who {
-    background: var(--emerald-50);
-    color: var(--emerald-800);
-    border-color: var(--emerald-200);
-  }
-  .chip-tech {
-    background: var(--indigo-50);
-    color: var(--indigo-700);
-    border-color: var(--indigo-100);
+    font-weight: 500;
+    background: var(--surface-subtle);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-light);
   }
 
-  /* Main Container */
+  /* Main Layout */
   main.main-content {
-    max-width: 1040px;
+    max-width: 1020px;
     margin: 28px auto 80px;
     padding: 0 24px;
   }
@@ -152,27 +124,26 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--emerald-700);
+    color: var(--text-muted);
     margin-bottom: 4px;
   }
   .section-intro h2 {
     font-size: 20px;
     font-weight: 700;
-    color: var(--slate-900);
+    color: var(--text-primary);
     letter-spacing: -0.02em;
   }
   .section-intro p {
     font-size: 13.5px;
-    color: var(--slate-600);
+    color: var(--text-secondary);
     margin-top: 4px;
   }
 
-  /* Cards */
+  /* Cards / Panels */
   .panel {
-    background: #ffffff;
-    border: 1px solid var(--slate-200);
-    border-radius: 10px;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
     padding: 20px 24px;
     margin-bottom: 20px;
   }
@@ -180,22 +151,22 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 14px;
+    padding-bottom: 12px;
     margin-bottom: 16px;
-    border-bottom: 1px solid var(--slate-100);
+    border-bottom: 1px solid var(--border-light);
   }
   .panel-title {
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--slate-600);
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
     display: flex;
     align-items: center;
     gap: 8px;
   }
 
-  /* Form Elements */
+  /* Form Grid */
   .form-grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -205,49 +176,47 @@
     display: block;
     font-size: 12px;
     font-weight: 600;
-    color: var(--slate-700);
-    margin-bottom: 6px;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
   }
   .form-control {
     width: 100%;
-    padding: 8px 12px;
+    padding: 8px 11px;
     font-size: 13.5px;
     font-family: inherit;
-    color: var(--slate-900);
+    color: var(--text-primary);
     background: #ffffff;
-    border: 1px solid var(--slate-300);
+    border: 1px solid var(--border-light);
     border-radius: 6px;
-    transition: all 0.15s ease;
+    transition: border-color 0.15s ease;
   }
   .form-control:focus {
     outline: none;
-    border-color: var(--emerald-600);
-    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
+    border-color: var(--border-dark);
   }
 
-  /* Balita Input Grid */
+  /* Balita Row Form */
   .balita-table-header {
     display: grid;
     grid-template-columns: 2.2fr 85px 85px 85px 120px 38px;
     gap: 10px;
-    padding: 0 12px 8px;
+    padding: 0 10px 8px;
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--slate-500);
+    color: var(--text-muted);
   }
   .balita-row {
     display: grid;
     grid-template-columns: 2.2fr 85px 85px 85px 120px 38px;
     gap: 10px;
     align-items: center;
-    padding: 8px 12px;
-    background: var(--slate-50);
-    border: 1px solid var(--slate-200);
+    padding: 8px 10px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-light);
     border-radius: 6px;
     margin-bottom: 8px;
-    transition: border-color 0.15s ease;
   }
   .balita-row:focus-within {
     border-color: var(--slate-400);
@@ -257,28 +226,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     background: transparent;
-    border: 1px solid var(--slate-200);
-    border-radius: 6px;
-    color: var(--slate-400);
+    border: 1px solid var(--border-light);
+    border-radius: 5px;
+    color: var(--text-subtle);
     cursor: pointer;
     transition: all 0.15s ease;
   }
   .btn-remove-row:hover {
-    background: var(--rose-50);
-    color: var(--rose-700);
-    border-color: var(--rose-200);
+    background: var(--surface-subtle);
+    color: var(--text-primary);
+    border-color: var(--slate-400);
   }
 
   .btn-add-dashed {
     width: 100%;
-    padding: 10px;
-    border: 1px dashed var(--slate-300);
+    padding: 9px;
+    border: 1px dashed var(--border-light);
     border-radius: 6px;
     background: transparent;
-    color: var(--slate-600);
+    color: var(--text-secondary);
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
@@ -290,19 +259,19 @@
     margin-top: 6px;
   }
   .btn-add-dashed:hover {
-    border-color: var(--emerald-600);
-    color: var(--emerald-700);
-    background: var(--emerald-50);
+    border-color: var(--border-dark);
+    color: var(--text-primary);
+    background: var(--surface-subtle);
   }
 
-  /* Action Buttons */
+  /* Actions Toolbar */
   .action-toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 18px;
+    margin-top: 16px;
     padding-top: 16px;
-    border-top: 1px solid var(--slate-100);
+    border-top: 1px solid var(--border-light);
   }
   .btn-group {
     display: flex;
@@ -312,7 +281,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
+    gap: 6px;
     padding: 8px 16px;
     border-radius: 6px;
     font-size: 13px;
@@ -321,29 +290,21 @@
     transition: all 0.15s ease;
     border: 1px solid transparent;
   }
-  .btn-primary {
-    background: var(--emerald-700);
+  .btn-dark {
+    background: var(--text-primary);
     color: #ffffff;
-    box-shadow: 0 1px 2px rgba(4, 120, 87, 0.2);
   }
-  .btn-primary:hover {
-    background: var(--emerald-800);
+  .btn-dark:hover {
+    background: #1e293b;
   }
-  .btn-secondary {
+  .btn-ghost {
     background: #ffffff;
-    color: var(--slate-700);
-    border-color: var(--slate-300);
+    color: var(--text-secondary);
+    border-color: var(--border-light);
   }
-  .btn-secondary:hover {
-    background: var(--slate-100);
-    color: var(--slate-900);
-  }
-  .btn-wa {
-    background: #15803d;
-    color: #ffffff;
-  }
-  .btn-wa:hover {
-    background: #166534;
+  .btn-ghost:hover {
+    background: var(--surface-subtle);
+    color: var(--text-primary);
   }
 
   /* Results Section */
@@ -351,7 +312,7 @@
     display: none;
   }
 
-  /* Stats KPI Grid */
+  /* Minimal Stats Grid */
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -359,67 +320,49 @@
     margin-bottom: 20px;
   }
   .stat-card {
-    background: #ffffff;
-    border: 1px solid var(--slate-200);
-    border-radius: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
     padding: 16px 20px;
-    border-top: 3px solid var(--slate-300);
   }
-  .stat-card.c-total { border-top-color: var(--slate-500); }
-  .stat-card.c-safe { border-top-color: var(--emerald-600); }
-  .stat-card.c-warn { border-top-color: var(--amber-700); }
-  .stat-card.c-danger { border-top-color: var(--rose-600); }
-  
+  .stat-card.featured {
+    border-left: 3px solid var(--border-dark);
+  }
   .stat-num {
-    font-size: 28px;
-    font-weight: 800;
+    font-size: 26px;
+    font-weight: 700;
     line-height: 1;
-    color: var(--slate-900);
+    color: var(--text-primary);
     font-variant-numeric: tabular-nums;
   }
   .stat-label {
     font-size: 12px;
-    font-weight: 600;
-    color: var(--slate-500);
+    font-weight: 500;
+    color: var(--text-muted);
     margin-top: 6px;
   }
 
-  /* Alert Strips */
-  .alert-banner {
+  /* Clean Minimal Alert */
+  .alert-box {
     border-radius: 6px;
     padding: 12px 16px;
     margin-bottom: 10px;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    border: 1px solid;
-  }
-  .alert-banner.danger {
-    background: var(--rose-50);
-    border-color: var(--rose-200);
-    color: var(--rose-800);
-  }
-  .alert-banner.warn {
-    background: var(--amber-50);
-    border-color: var(--amber-200);
-    color: var(--amber-800);
-  }
-  .alert-banner.ok {
-    background: var(--emerald-50);
-    border-color: var(--emerald-200);
-    color: var(--emerald-800);
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-light);
+    border-left: 3px solid var(--border-dark);
   }
   .alert-title {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 13px;
+    color: var(--text-primary);
     margin-bottom: 2px;
   }
   .alert-desc {
     font-size: 12.5px;
-    opacity: 0.9;
+    color: var(--text-secondary);
   }
 
-  /* Data Tables */
+  /* Clinical Table */
   .table-responsive {
     overflow-x: auto;
   }
@@ -430,130 +373,120 @@
   }
   table.clinical-table th {
     text-align: left;
-    padding: 10px 14px;
+    padding: 9px 12px;
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--slate-600);
-    background: var(--slate-50);
-    border-bottom: 1px solid var(--slate-200);
+    color: var(--text-secondary);
+    background: var(--surface-subtle);
+    border-bottom: 1px solid var(--border-light);
     white-space: nowrap;
-  }}
+  }
   table.clinical-table td {
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--slate-100);
-    color: var(--slate-800);
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-primary);
     vertical-align: middle;
   }
   table.clinical-table tr:hover td {
-    background: var(--slate-50);
+    background: var(--surface-subtle);
   }
   
-  /* Status Badges */
-  .badge-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 3px 8px;
-    border-radius: 5px;
+  /* Status Chips (Monochrome / Muted Neutral) */
+  .status-chip {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
     font-size: 11px;
     font-weight: 600;
-    border: 1px solid transparent;
+    border: 1px solid var(--border-light);
+    background: var(--surface-subtle);
+    color: var(--text-primary);
   }
-  .badge-status.badge-ok {
-    background: var(--emerald-50);
-    color: var(--emerald-800);
-    border-color: var(--emerald-200);
+  .status-chip.flagged {
+    background: var(--text-primary);
+    color: #ffffff;
+    border-color: var(--text-primary);
   }
-  .badge-status.badge-warn {
-    background: var(--amber-50);
-    color: var(--amber-800);
-    border-color: var(--amber-200);
-  }
-  .badge-status.badge-bad {
-    background: #fff7ed;
-    color: #9a3412;
-    border-color: #ffedd5;
-  }
-  .badge-status.badge-crit {
-    background: var(--rose-50);
-    color: var(--rose-800);
-    border-color: var(--rose-200);
+  .status-chip.warning {
+    background: #ffffff;
+    border-color: var(--border-dark);
+    color: var(--text-primary);
   }
 
   .z-val {
     font-family: var(--font-mono);
-    font-size: 11.5px;
-    color: var(--slate-500);
+    font-size: 11px;
+    color: var(--text-muted);
     display: block;
     margin-top: 2px;
   }
 
   /* Counseling Cards */
   .counseling-item {
-    border: 1px solid var(--slate-200);
-    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
     padding: 16px;
-    margin-bottom: 14px;
-    background: #ffffff;
+    margin-bottom: 12px;
+    background: var(--surface);
   }
   .counseling-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-light);
   }
   .counseling-name {
     font-weight: 700;
-    font-size: 14px;
-    color: var(--slate-900);
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 13.5px;
+    color: var(--text-primary);
   }
   .counseling-meta {
     font-size: 12px;
-    color: var(--slate-500);
-    font-weight: 500;
+    color: var(--text-muted);
   }
   .counseling-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   .counseling-indicator {
-    background: var(--slate-50);
-    border: 1px solid var(--slate-200);
-    border-radius: 6px;
-    padding: 10px 12px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    padding: 8px 10px;
   }
   .counseling-ind-title {
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--slate-500);
-    margin-bottom: 4px;
+    color: var(--text-muted);
+    margin-bottom: 3px;
   }
   .counseling-ind-body {
-    font-size: 12.5px;
-    color: var(--slate-700);
-    line-height: 1.5;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.4;
   }
   .counseling-conclusion {
-    padding: 10px 14px;
-    border-radius: 6px;
-    font-size: 13px;
-    border: 1px solid;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12.5px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-light);
+    color: var(--text-primary);
   }
 
-  /* CDSS & Agent Box */
+  /* CDSS Box */
   .cdss-panel {
-    background: #ffffff;
-    border: 1px solid var(--slate-200);
-    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
     padding: 20px 24px;
     margin-bottom: 20px;
   }
@@ -562,63 +495,57 @@
     align-items: center;
     gap: 6px;
     flex-wrap: wrap;
-    background: var(--slate-50);
-    border: 1px solid var(--slate-200);
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 11.5px;
-    color: var(--slate-600);
-    margin-bottom: 14px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
   }
   .cdss-step {
-    display: flex;
-    align-items: center;
-    gap: 4px;
     font-weight: 600;
-    color: var(--slate-800);
+    color: var(--text-primary);
   }
   .cdss-arrow {
-    color: var(--slate-400);
-    font-size: 11px;
+    color: var(--text-subtle);
   }
   .cdss-content {
-    font-size: 13.5px;
-    line-height: 1.7;
-    color: var(--slate-700);
-    margin-bottom: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
   }
 
-  /* Report Document Container */
+  /* Report Sheet */
   .report-sheet {
-    background: #ffffff;
-    border: 1px solid var(--slate-200);
-    border-radius: 8px;
-    padding: 24px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 20px;
     font-family: var(--font-mono);
     font-size: 12px;
     line-height: 1.8;
-    color: var(--slate-800);
+    color: var(--text-primary);
     white-space: pre-wrap;
-    background-color: #fafbfc;
   }
 
-  /* Toast */
+  /* Toast Notification */
   #toast {
     position: fixed;
     bottom: 24px;
     right: 24px;
-    background: var(--slate-900);
+    background: var(--text-primary);
     color: #ffffff;
     padding: 10px 18px;
     border-radius: 6px;
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 500;
     display: none;
     z-index: 999;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
   }
 
-  /* Print Styles */
+  /* Print */
   @media print {
     header.app-header, .section-intro, .panel:not(#reportPanel), .action-toolbar, .header-badges, .btn-group, #toast {
       display: none !important;
@@ -646,19 +573,19 @@
   <div class="header-container">
     <a href="#" class="brand-group">
       <div class="brand-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
           <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
           <path d="M12 5v14"/>
         </svg>
       </div>
       <div class="brand-text">
         <h1>WARISAN.AI</h1>
-        <p>Sistem Deteksi Dini & Rujukan Gizi Balita Posyandu</p>
+        <p>Sistem Deteksi Dini & Rujukan Gizi Balita</p>
       </div>
     </a>
     <div class="header-badges">
-      <span class="chip chip-who">WHO Child Growth Standards / Permenkes No. 2/2020</span>
-      <span class="chip chip-tech">IBM Langflow & Bob Platform</span>
+      <span class="badge-neutral">WHO Standards / Permenkes 2/2020</span>
+      <span class="badge-neutral">IBM Langflow & Bob Platform</span>
     </div>
   </div>
 </header>
@@ -669,15 +596,12 @@
   <div class="section-intro">
     <div class="eyebrow">Modul Pencatatan Antropometri</div>
     <h2>Registrasi Penimbangan Posyandu</h2>
-    <p>Masukkan data pengukuran balita. Sistem akan menghitung deviasi standar Z-Score (BB/U, TB/U, BB/TB) dan menghasilkan rekomendasi klinis terstruktur.</p>
+    <p>Masukkan data pengukuran balita. Sistem menghitung deviasi standar Z-Score (BB/U, TB/U, BB/TB) dan menyusun rekomendasi klinis terstruktur.</p>
   </div>
 
   <div class="panel">
     <div class="panel-header">
-      <span class="panel-title">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        Informasi Posyandu & Periode
-      </span>
+      <span class="panel-title">Informasi Posyandu & Periode</span>
     </div>
     <div class="form-grid-2">
       <div class="form-group">
@@ -693,11 +617,8 @@
 
   <div class="panel">
     <div class="panel-header">
-      <span class="panel-title">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Data Pengukuran Balita
-      </span>
-      <span style="font-size:12px; color:var(--slate-500);">Standar rentang usia: 0–60 bulan</span>
+      <span class="panel-title">Data Pengukuran Balita</span>
+      <span style="font-size:12px; color:var(--text-muted);">Rentang usia acuan: 0–60 bulan</span>
     </div>
 
     <div class="balita-table-header">
@@ -712,22 +633,20 @@
     <div id="balitaList"></div>
 
     <button type="button" class="btn-add-dashed" onclick="tambahBalita()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Tambah Baris Balita
+      + Tambah Baris Balita
     </button>
 
     <div class="action-toolbar">
       <div class="btn-group">
-        <button class="btn btn-secondary" type="button" onclick="isiSample()" title="Muat 5 data simulasi kasus klinis">
-          Gunakan 5 Data Sampel Demo
+        <button class="btn btn-ghost" type="button" onclick="isiSample()" title="Muat 5 data simulasi kasus klinis">
+          Gunakan 5 Data Kasus Demo
         </button>
-        <button class="btn btn-secondary" type="button" onclick="resetForm()">
+        <button class="btn btn-ghost" type="button" onclick="resetForm()">
           Kosongkan Formulir
         </button>
       </div>
       <div class="btn-group">
-        <button class="btn btn-primary" type="button" onclick="analisis()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <button class="btn btn-dark" type="button" onclick="analisis()">
           Proses Analisis Status Gizi
         </button>
       </div>
@@ -737,21 +656,18 @@
   <!-- HASIL ANALISIS -->
   <div id="hasil">
     <div class="section-intro" style="margin-top: 36px;">
-      <div class="eyebrow">Hasil Evaluasi Antropometri</div>
+      <div class="eyebrow">Evaluasi Antropometri</div>
       <h2>Ringkasan Status & Evaluasi Klinis</h2>
       <p id="hasilSub"></p>
     </div>
 
-    <!-- 4 KPI Cards -->
+    <!-- 4 Stats Cards -->
     <div class="stats-grid" id="statsBox"></div>
 
     <!-- Peringatan Dini -->
     <div class="panel">
       <div class="panel-header">
-        <span class="panel-title">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          Peringatan Dini & Klasifikasi Triase
-        </span>
+        <span class="panel-title">Peringatan Dini & Klasifikasi Triase</span>
       </div>
       <div id="peringatanBox"></div>
     </div>
@@ -759,10 +675,7 @@
     <!-- Tabel Klasifikasi -->
     <div class="panel">
       <div class="panel-header">
-        <span class="panel-title">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-          Matriks Klasifikasi Status Gizi Berdasarkan Standar WHO
-        </span>
+        <span class="panel-title">Matriks Klasifikasi Status Gizi (Standar WHO)</span>
       </div>
       <div class="table-responsive">
         <table class="clinical-table">
@@ -786,48 +699,30 @@
     <!-- Clinical Decision Support (IBM Langflow Engine) -->
     <div class="cdss-panel">
       <div class="panel-header">
-        <span class="panel-title" style="color:var(--slate-800);">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-          Sistem Pendukung Keputusan Klinis (IBM Langflow & Bob Engine)
-        </span>
-        <span style="font-size:11.5px; color:var(--slate-500); font-family:var(--font-mono);">flow: warisan-ai-flow.json · MCP streamable</span>
+        <span class="panel-title">Sistem Pendukung Keputusan Klinis (IBM Langflow & Bob)</span>
+        <span style="font-size:11.5px; color:var(--text-muted); font-family:var(--font-mono);">flow: warisan-ai-flow.json · MCP streamable</span>
       </div>
 
       <div class="cdss-flow-indicator">
-        <div class="cdss-step">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-          ChatInput Payload
-        </div>
+        <span class="cdss-step">ChatInput Payload</span>
         <span class="cdss-arrow">→</span>
-        <div class="cdss-step">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          Antropometri Prompt
-        </div>
+        <span class="cdss-step">WHO Antropometri Prompt</span>
         <span class="cdss-arrow">→</span>
-        <div class="cdss-step">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          Inferensi Kognitif LLM
-        </div>
+        <span class="cdss-step">Inferensi Kognitif LLM</span>
         <span class="cdss-arrow">→</span>
-        <div class="cdss-step">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          Rekomendasi Terstruktur
-        </div>
+        <span class="cdss-step">Rekomendasi Terstruktur</span>
       </div>
 
       <div class="cdss-content" id="aiAgentOutput"></div>
 
-      <div style="display:flex; flex-wrap:wrap; gap:10px; padding-top:14px; border-top:1px solid var(--slate-100);">
-        <button class="btn btn-wa" type="button" onclick="bagikanKeWhatsApp()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.075-2.227-.565-1.961-.818-3.21-2.825-3.308-2.955-.097-.13-.787-1.047-.787-1.996 0-.949.497-1.413.673-1.606.177-.193.385-.242.513-.242.129 0 .257.001.37.007.12.005.28-.046.438.334.162.388.552 1.346.6 1.444.048.098.08.213.016.342-.064.13-.097.21-.192.323-.097.113-.203.253-.29.34-.097.097-.198.203-.085.397.113.194.502.828 1.077 1.341.741.661 1.365.865 1.559.962.194.097.307.081.42-.048.113-.13.484-.565.613-.759.129-.194.258-.161.435-.097.178.065 1.13.533 1.324.63.194.097.323.145.371.226.048.08.048.468-.096.873z"/></svg>
-          Kirim Rekapitulasi ke WhatsApp Bidan Desa
+      <div style="display:flex; flex-wrap:wrap; gap:8px; padding-top:12px; border-top:1px solid var(--border-light);">
+        <button class="btn btn-dark" type="button" onclick="bagikanKeWhatsApp()">
+          Kirim Rekapitulasi via WhatsApp
         </button>
-        <button class="btn btn-secondary" type="button" onclick="salinPesanIbu()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+        <button class="btn btn-ghost" type="button" onclick="salinPesanIbu()">
           Salin Pesan Konseling Orang Tua
         </button>
-        <button class="btn btn-secondary" type="button" onclick="salinLaporan()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <button class="btn btn-ghost" type="button" onclick="salinLaporan()">
           Salin Dokumen Laporan
         </button>
       </div>
@@ -836,13 +731,10 @@
     <!-- Edukasi Bahasa Ibu -->
     <div class="panel">
       <div class="panel-header">
-        <span class="panel-title">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Panduan Komunikasi & Edukasi Orang Tua Balita
-        </span>
+        <span class="panel-title">Panduan Komunikasi & Edukasi Orang Tua Balita</span>
       </div>
-      <p style="font-size:12.5px; color:var(--slate-500); margin-bottom:16px;">
-        Format penjelasan berbasis bahasa komunikatif sehari-hari untuk kader saat berhadapan langsung dengan orang tua di meja posyandu.
+      <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:14px;">
+        Format penjelasan berbasis bahasa komunikatif sehari-hari untuk kader saat berhadapan langsung dengan orang tua balita.
       </p>
       <div id="penjelasanBox"></div>
     </div>
@@ -850,10 +742,7 @@
     <!-- Rencana Tindak Lanjut -->
     <div class="panel">
       <div class="panel-header">
-        <span class="panel-title">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          Rencana Intervensi & Rujukan Medis
-        </span>
+        <span class="panel-title">Rencana Intervensi & Rujukan Medis</span>
       </div>
       <div id="rekomendasiBox"></div>
     </div>
@@ -861,12 +750,8 @@
     <!-- Surat Rekapitulasi Posyandu -->
     <div class="panel" id="reportPanel">
       <div class="panel-header">
-        <span class="panel-title">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          Format Surat Rekapitulasi Pemantauan Tumbuh Kembang (Bidan Desa)
-        </span>
-        <button class="btn btn-secondary" style="padding:4px 10px; font-size:12px;" onclick="window.print()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        <span class="panel-title">Format Surat Rekapitulasi Pemantauan Tumbuh Kembang</span>
+        <button class="btn btn-ghost" style="padding:4px 10px; font-size:12px;" onclick="window.print()">
           Cetak Dokumen
         </button>
       </div>
@@ -1078,24 +963,24 @@ function calcZ(val, ref) {
 }
 
 function statusBBU(z) {
-  if (z < -3) return { label:'Gizi Buruk', cls:'badge-crit', arti:'Berat badan di bawah -3 SD (Gizi Buruk Akut).' };
-  if (z < -2) return { label:'Gizi Kurang', cls:'badge-bad', arti:'Berat badan di bawah -2 SD (Underweight).' };
-  if (z <=  2) return { label:'Gizi Baik', cls:'badge-ok', arti:'Berat badan berada dalam batas normal sesuai usia.' };
-  return { label:'Gizi Lebih', cls:'badge-warn', arti:'Berat badan berada di atas +2 SD usia.' };
+  if (z < -3) return { label:'Gizi Buruk', isCrit: true, arti:'Berat badan di bawah -3 SD (Gizi Buruk Akut).' };
+  if (z < -2) return { label:'Gizi Kurang', isWarn: true, arti:'Berat badan di bawah -2 SD (Underweight).' };
+  if (z <=  2) return { label:'Gizi Baik', isOk: true, arti:'Berat badan berada dalam batas normal sesuai usia.' };
+  return { label:'Gizi Lebih', isWarn: true, arti:'Berat badan berada di atas +2 SD usia.' };
 }
 
 function statusTBU(z) {
-  if (z < -3) return { label:'Sangat Pendek (Severely Stunted)', cls:'badge-crit', arti:'Tinggi badan berada di bawah -3 SD (Stunting Berat).' };
-  if (z < -2) return { label:'Pendek (Stunted)', cls:'badge-bad', arti:'Tinggi badan berada di bawah -2 SD (Indikasi Stunting).' };
-  if (z <=  2) return { label:'Normal', cls:'badge-ok', arti:'Tinggi badan normal proporsional dengan usia.' };
-  return { label:'Tinggi', cls:'badge-warn', arti:'Tinggi badan di atas +2 SD usia.' };
+  if (z < -3) return { label:'Sangat Pendek (Stunted Akut)', isCrit: true, arti:'Tinggi badan berada di bawah -3 SD (Stunting Berat).' };
+  if (z < -2) return { label:'Pendek (Stunted)', isWarn: true, arti:'Tinggi badan berada di bawah -2 SD (Indikasi Stunting).' };
+  if (z <=  2) return { label:'Normal', isOk: true, arti:'Tinggi badan normal proporsional dengan usia.' };
+  return { label:'Tinggi', isWarn: true, arti:'Tinggi badan di atas +2 SD usia.' };
 }
 
 function statusBBTB(z) {
-  if (z < -3) return { label:'Sangat Kurus (Severely Wasted)', cls:'badge-crit', arti:'Kekurangan berat badan akut terhadap tinggi badan (Wasting Berat).' };
-  if (z < -2) return { label:'Kurus (Wasted)', cls:'badge-bad', arti:'Tubuh kurus terhadap proporsi tinggi badan (Defisit Gizi Akut).' };
-  if (z <=  2) return { label:'Normal', cls:'badge-ok', arti:'Proporsi berat badan selaras dengan tinggi badan.' };
-  return { label:'Berisiko Gemuk', cls:'badge-warn', arti:'Berat badan berlebih terhadap tinggi badan.' };
+  if (z < -3) return { label:'Sangat Kurus (Wasted Akut)', isCrit: true, arti:'Kekurangan berat badan akut terhadap tinggi badan (Wasting Berat).' };
+  if (z < -2) return { label:'Kurus (Wasted)', isWarn: true, arti:'Tubuh kurus terhadap proporsi tinggi badan (Defisit Gizi Akut).' };
+  if (z <=  2) return { label:'Normal', isOk: true, arti:'Proporsi berat badan selaras dengan tinggi badan.' };
+  return { label:'Berisiko Gemuk', isWarn: true, arti:'Berat badan berlebih terhadap tinggi badan.' };
 }
 
 function risiko(zBBU, zTBU, zBBTB) {
@@ -1187,22 +1072,22 @@ function analisis() {
 
   document.getElementById('hasilSub').textContent = `${posyandu} · Periode ${bln} · Terdaftar ${total} Balita`;
 
-  // Render 4 Stats Cards
+  // Render 4 Stats Cards (Monochrome Minimalist)
   document.getElementById('statsBox').innerHTML = `
-    <div class="stat-card c-total">
+    <div class="stat-card">
       <div class="stat-num">${total}</div>
-      <div class="stat-label">Total Balita Ditimbang</div>
+      <div class="stat-label">Total Ditimbang</div>
     </div>
-    <div class="stat-card c-safe">
-      <div class="stat-num" style="color:var(--emerald-700)">${aman}</div>
+    <div class="stat-card">
+      <div class="stat-num">${aman}</div>
       <div class="stat-label">Gizi Baik (Normal)</div>
     </div>
-    <div class="stat-card c-warn">
-      <div class="stat-num" style="color:var(--amber-700)">${sedang}</div>
+    <div class="stat-card ${sedang > 0 ? 'featured' : ''}">
+      <div class="stat-num">${sedang}</div>
       <div class="stat-label">Perlu Pemantauan</div>
     </div>
-    <div class="stat-card c-danger">
-      <div class="stat-num" style="color:var(--rose-700)">${tinggi}</div>
+    <div class="stat-card ${tinggi > 0 ? 'featured' : ''}">
+      <div class="stat-num">${tinggi}</div>
       <div class="stat-label">Prioritas Rujukan</div>
     </div>
   `;
@@ -1211,85 +1096,78 @@ function analisis() {
   const berisiko = hasil.filter(h => h.risk !== 'AMAN');
   let pBox = '';
   if (tinggi > 0) {
-    pBox += `<div class="alert-banner danger">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      <div>
-        <div class="alert-title">Perhatian: ${tinggi} Balita Memerlukan Rujukan Segera ke Puskesmas</div>
-        <div class="alert-desc">${hasil.filter(h=>h.risk==='TINGGI').map(h=>`<strong>${h.nama}</strong> (Z-Score kritis: ${[h.zBBU<-3?`BB/U ${fmtZ(h.zBBU)}`:null, h.zTBU<-3?`TB/U ${fmtZ(h.zTBU)}`:null, h.zBBTB<-3?`BB/TB ${fmtZ(h.zBBTB)}`:null].filter(Boolean).join(', ')})`).join('; ')}</div>
-      </div>
+    pBox += `<div class="alert-box">
+      <div class="alert-title">Perhatian: ${tinggi} Balita Terindikasi Prioritas Rujukan Puskesmas</div>
+      <div class="alert-desc">${hasil.filter(h=>h.risk==='TINGGI').map(h=>`<strong>${h.nama}</strong> (${[h.zBBU<-3?`BB/U ${fmtZ(h.zBBU)}`:null, h.zTBU<-3?`TB/U ${fmtZ(h.zTBU)}`:null, h.zBBTB<-3?`BB/TB ${fmtZ(h.zBBTB)}`:null].filter(Boolean).join(', ')})`).join('; ')}</div>
     </div>`;
   }
   if (sedang > 0) {
-    pBox += `<div class="alert-banner warn">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      <div>
-        <div class="alert-title">${sedang} Balita Memerlukan Pemantauan Gizi Ketat (Siklus 14 Hari)</div>
-        <div class="alert-desc">Terindikasi berat atau tinggi badan di bawah -2 SD. Jadwalkan penimbangan ulang 2 minggu ke depan dan pemberian PMT protein hewani.</div>
-      </div>
+    pBox += `<div class="alert-box">
+      <div class="alert-title">${sedang} Balita Dalam Pemantauan Siklus 14 Hari</div>
+      <div class="alert-desc">Terindikasi berat atau tinggi badan di bawah -2 SD. Jadwalkan penimbangan ulang 2 minggu ke depan dan pemberian PMT protein hewani.</div>
     </div>`;
   }
   if (!berisiko.length) {
-    pBox = `<div class="alert-banner ok">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      <div>
-        <div class="alert-title">Kondisi Pertumbuhan Optimal</div>
-        <div class="alert-desc">Seluruh balita yang terdaftar berada dalam kurva pertumbuhan normal standar WHO / Kemenkes RI.</div>
-      </div>
+    pBox = `<div class="alert-box">
+      <div class="alert-title">Kondisi Pertumbuhan Optimal</div>
+      <div class="alert-desc">Seluruh balita yang terdaftar berada dalam kurva pertumbuhan normal standar WHO / Kemenkes RI.</div>
     </div>`;
   }
   document.getElementById('peringatanBox').innerHTML = pBox;
 
-  // Render Tabel
+  // Render Table
   document.getElementById('hasilTabel').innerHTML = hasil.map(h => {
-    const riskBadge = h.risk==='TINGGI'
-      ? '<span class="badge-status badge-crit">Rujukan Prioritas</span>'
+    const riskChip = h.risk==='TINGGI'
+      ? '<span class="status-chip flagged">Rujukan Prioritas</span>'
       : h.risk==='SEDANG'
-      ? '<span class="badge-status badge-warn">Perlu Pantau</span>'
-      : '<span class="badge-status badge-ok">Normal (Aman)</span>';
+      ? '<span class="status-chip warning">Perlu Pantau</span>'
+      : '<span class="status-chip">Normal</span>';
+
+    const getChip = (s) => s.isCrit ? 'status-chip flagged' : (s.isWarn ? 'status-chip warning' : 'status-chip');
       
     return `<tr>
-      <td style="font-weight:600; color:var(--slate-900);">${h.nama} <span style="font-weight:400; color:var(--slate-500); font-size:11.5px;">(${h.jk==='L'?'Laki-laki':'Perempuan'})</span></td>
+      <td style="font-weight:600; color:var(--text-primary);">${h.nama} <span style="font-weight:400; color:var(--text-muted); font-size:11.5px;">(${h.jk==='L'?'L':'P'})</span></td>
       <td>${h.usia} bln</td>
       <td><strong>${h.bb}</strong> kg</td>
       <td><strong>${h.tb}</strong> cm</td>
       <td>
-        <span class="badge-status ${h.sBBU.cls}">${h.sBBU.label}</span>
+        <span class="${getChip(h.sBBU)}">${h.sBBU.label}</span>
         <span class="z-val">${fmtZ(h.zBBU)} SD</span>
       </td>
       <td>
-        <span class="badge-status ${h.sTBU.cls}">${h.sTBU.label}</span>
+        <span class="${getChip(h.sTBU)}">${h.sTBU.label}</span>
         <span class="z-val">${fmtZ(h.zTBU)} SD</span>
       </td>
       <td>
-        <span class="badge-status ${h.sBBTB.cls}">${h.sBBTB.label}</span>
+        <span class="${getChip(h.sBBTB)}">${h.sBBTB.label}</span>
         <span class="z-val">${fmtZ(h.zBBTB)} SD</span>
       </td>
-      <td>${riskBadge}</td>
+      <td>${riskChip}</td>
     </tr>`;
   }).join('');
 
-  // Render CDSS / Agent Reasoning Box
+  // Render CDSS Box
   window.currentHasil = hasil;
   const aiBox = document.getElementById('aiAgentOutput');
   let aiText = '';
   if (tinggi > 0 || sedang > 0) {
     aiText = `
-      <div style="margin-bottom:10px;">
-        Sistem evaluasi kognitif mendeteksi <strong>${tinggi} balita berindikasi defisit gizi berat / stunting</strong> dan <strong>${sedang} balita dalam pemantauan</strong> dari total ${total} balita yang diperiksa.
+      <div style="margin-bottom:8px;">
+        Sistem evaluasi kognitif mendeteksi <strong>${tinggi} balita rujukan prioritas</strong> dan <strong>${sedang} balita dalam pemantauan</strong> dari total ${total} balita.
       </div>
-      <div style="background:var(--slate-50); border:1px solid var(--slate-200); border-radius:6px; padding:12px 14px;">
-        <div style="font-weight:700; color:var(--slate-900); margin-bottom:6px;">Instruksi Tindak Lanjut Terpadu:</div>
-        <ul style="padding-left:18px; margin:0; line-height:1.7; font-size:13px; color:var(--slate-700);">
-          ${tinggi > 0 ? `<li><strong>Prosedur Rujukan Cepat:</strong> Laporkan segera data ${hasil.filter(h=>h.risk==='TINGGI').map(h=>h.nama).join(', ')} kepada Bidan Desa hari ini guna rujukan dokter spesialis anak / Puskesmas.</li>` : ''}
-          ${sedang > 0 ? `<li><strong>Intervensi PMT Lokal (Protein Hewani):</strong> Prioritaskan konsumsi 1 butir telur/hari, daging/ikan lokal, dan suplementasi mineral mikro selama 14 hari.</li>` : ''}
-          <li><strong>Komunikasi Efektif:</strong> Gunakan draf pesan konseling yang telah diadaptasi untuk orang tua agar tidak menimbulkan kepanikan sosial di Posyandu.</li>
+      <div style="background:var(--surface-subtle); border:1px solid var(--border-light); border-radius:4px; padding:10px 12px;">
+        <div style="font-weight:600; color:var(--text-primary); margin-bottom:4px;">Instruksi Klinis Terpadu:</div>
+        <ul style="padding-left:16px; margin:0; line-height:1.6; font-size:12.5px; color:var(--text-secondary);">
+          ${tinggi > 0 ? `<li><strong>Prosedur Rujukan Cepat:</strong> Laporkan segera data ${hasil.filter(h=>h.risk==='TINGGI').map(h=>h.nama).join(', ')} kepada Bidan Desa hari ini guna rujukan Puskesmas.</li>` : ''}
+          ${sedang > 0 ? `<li><strong>Intervensi PMT Lokal (Protein Hewani):</strong> Berikan 1 butir telur/hari atau ikan lokal serta pemantauan kenaikan berat badan tiap 14 hari.</li>` : ''}
+          <li><strong>Konseling Edukatif:</strong> Gunakan draf narasi empatik agar orang tua teredukasi tanpa kepanikan.</li>
         </ul>
       </div>
     `;
   } else {
     aiText = `
-      <div style="color:var(--emerald-800); background:var(--emerald-50); border:1px solid var(--emerald-200); padding:12px; border-radius:6px;">
-        <strong>Status Komunitas Terjaga Baik:</strong> Seluruh balita yang ditimbang berada dalam rentang pertumbuhan sehat. Direkomendasikan mempertahankan pola asuh ASI/MPASI bergizi seimbang dan imunisasi lengkap.
+      <div style="background:var(--surface-subtle); border:1px solid var(--border-light); padding:10px 12px; border-radius:4px;">
+        <strong>Kondisi Komunitas Optimal:</strong> Seluruh balita yang ditimbang berada dalam rentang pertumbuhan sehat standar WHO. Lanjutkan pola makan gizi seimbang dan jadwal posyandu bulanan.
       </div>
     `;
   }
@@ -1304,33 +1182,26 @@ function analisis() {
     const bbTbNormalMin = h.refBBTB[2].toFixed(1);
     const bbTbNormalMax = h.refBBTB[5].toFixed(1);
 
-    let bbText = h.zBBU < -3 ? `Berat badan anak (${h.bb} kg) berada jauh di bawah berat acuan ideal (${bbNormalMin}–${bbNormalMax} kg).` :
+    let bbText = h.zBBU < -3 ? `Berat badan anak (${h.bb} kg) di bawah berat acuan ideal (${bbNormalMin}–${bbNormalMax} kg).` :
                  h.zBBU < -2 ? `Berat badan anak (${h.bb} kg) sedikit di bawah rentang acuan (${bbNormalMin}–${bbNormalMax} kg).` :
-                 `Berat badan (${h.bb} kg) sangat baik dan sesuai usia (${bbNormalMin}–${bbNormalMax} kg).`;
+                 `Berat badan (${h.bb} kg) normal dan sesuai usia (${bbNormalMin}–${bbNormalMax} kg).`;
 
-    let tbText = h.zTBU < -3 ? `Tinggi badan anak (${h.tb} cm) jauh di bawah tinggi standar seusianya (${tbNormalMin}–${tbNormalMax} cm). Ini tanda stunting kronis.` :
-                 h.zTBU < -2 ? `Tinggi badan anak (${h.tb} cm) di bawah standar seusianya (${tbNormalMin}–${tbNormalMax} cm). Perlu dorongan gizi tulang.` :
-                 `Tinggi badan (${h.tb} cm) proporsional dan tumbuh baik sesuai usia (${tbNormalMin}–${tbNormalMax} cm).`;
+    let tbText = h.zTBU < -3 ? `Tinggi badan anak (${h.tb} cm) di bawah standar seusianya (${tbNormalMin}–${tbNormalMax} cm). Indikasi stunting.` :
+                 h.zTBU < -2 ? `Tinggi badan anak (${h.tb} cm) sedikit di bawah standar seusianya (${tbNormalMin}–${tbNormalMax} cm).` :
+                 `Tinggi badan (${h.tb} cm) tumbuh proporsional sesuai usia (${tbNormalMin}–${tbNormalMax} cm).`;
 
-    let bbtbText = h.zBBTB < -3 ? `Proporsi tubuh tampak sangat kurus. Berat (${h.bb} kg) tidak sebanding dengan tinggi (${h.tb} cm), idealnya ${bbTbNormalMin}–${bbTbNormalMax} kg.` :
-                   h.zBBTB < -2 ? `Proporsi badan cenderung kurus untuk tinggi badannya (${h.tb} cm).` :
-                   `Proporsi berat badan terhadap tinggi badannya seimbang dan proporsional.`;
+    let bbtbText = h.zBBTB < -3 ? `Proporsi tubuh sangat kurus. Berat (${h.bb} kg) kurang proporsional terhadap tinggi (${h.tb} cm), idealnya ${bbTbNormalMin}–${bbTbNormalMax} kg.` :
+                   h.zBBTB < -2 ? `Proporsi tubuh cenderung kurus untuk tinggi badannya (${h.tb} cm).` :
+                   `Proporsi berat badan terhadap tinggi badannya proporsional dan seimbang.`;
 
-    let concStyle = h.risk === 'TINGGI' ? 'background:var(--rose-50); border-color:var(--rose-200); color:var(--rose-800);' :
-                    h.risk === 'SEDANG' ? 'background:var(--amber-50); border-color:var(--amber-200); color:var(--amber-800);' :
-                    'background:var(--emerald-50); border-color:var(--emerald-200); color:var(--emerald-800);';
-
-    let concText = h.risk === 'TINGGI' ? '<strong>Kesimpulan:</strong> Perlu segera berkonsultasi dengan dokter / Bidan Puskesmas guna pemeriksaan intensif.' :
-                   h.risk === 'SEDANG' ? '<strong>Kesimpulan:</strong> Perlu perhatian ekstra pada asupan nutrisi protein hewani harian dan timbang 2 minggu lagi.' :
+    let concText = h.risk === 'TINGGI' ? '<strong>Kesimpulan:</strong> Perlu segera berkonsultasi dengan Bidan Desa / Puskesmas.' :
+                   h.risk === 'SEDANG' ? '<strong>Kesimpulan:</strong> Tingkatkan asupan protein hewani (telur/ikan) dan timbang 2 minggu lagi.' :
                    '<strong>Kesimpulan:</strong> Pertumbuhan sangat baik. Lanjutkan pola makan gizi seimbang.';
 
     return `
       <div class="counseling-item">
         <div class="counseling-header">
-          <div class="counseling-name">
-            <span style="display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:var(--slate-100); color:var(--slate-700); font-size:11px; font-weight:700;">${h.nama.charAt(0)}</span>
-            ${h.nama}
-          </div>
+          <div class="counseling-name">${h.nama}</div>
           <div class="counseling-meta">${h.usia} Bulan · ${h.jk==='L'?'Laki-laki':'Perempuan'} · BB ${h.bb} kg · TB ${h.tb} cm</div>
         </div>
         <div class="counseling-grid">
@@ -1347,32 +1218,32 @@ function analisis() {
             <div class="counseling-ind-body">${bbtbText}</div>
           </div>
         </div>
-        <div class="counseling-conclusion" style="${concStyle}">
+        <div class="counseling-conclusion">
           ${concText}
         </div>
       </div>
     `;
   }).join('');
 
-  // Render Rekomendasi Tindak Lanjut
+  // Render Rekomendasi
   document.getElementById('rekomendasiBox').innerHTML = hasil.map(h => {
     let actionHeader, steps;
     if (h.risk === 'TINGGI') {
-      actionHeader = '<span style="color:var(--rose-700); font-weight:700;">Rujukan Medis Segera</span>';
+      actionHeader = '<strong>Rujukan Medis Segera</strong>';
       steps = [
         'Hubungi Bidan Desa hari ini untuk pembuatan surat rujukan Puskesmas.',
         'Pemberian Makanan Tambahan Pemulihan (PMT-P) berbasis protein hewani setiap hari.',
         'Evaluasi asupan kalori dan pemantauan penambahan berat badan tiap pekan.'
       ];
     } else if (h.risk === 'SEDANG') {
-      actionHeader = '<span style="color:var(--amber-700); font-weight:700;">Pemantauan Ketat & Suplementasi Gizi</span>';
+      actionHeader = '<strong>Pemantauan Ketat & Suplementasi Gizi</strong>';
       steps = [
         'Timbang berat dan ukur tinggi badan setiap 14 hari (tidak menunggu posyandu bulan depan).',
         'Tambahkan 1 butir telur rebus atau ikan lokal setiap hari dalam menu MPASI.',
         'Edukasi higiene sanitasi dan air bersih keluarga guna mencegah infeksi berulang.'
       ];
     } else {
-      actionHeader = '<span style="color:var(--emerald-700); font-weight:700;">Pertahankan Pola Tumbuh Kembang</span>';
+      actionHeader = '<strong>Pertahankan Pola Tumbuh Kembang</strong>';
       steps = [
         'Hadir rutin pada jadwal penimbangan Posyandu setiap bulan.',
         'Pertahankan keberlanjutan gizi seimbang dan pemenuhan jadwal imunisasi nasional.'
@@ -1380,10 +1251,10 @@ function analisis() {
     }
 
     return `
-      <div style="padding:12px 0; border-bottom:1px solid var(--slate-100);">
-        <div style="font-weight:700; font-size:13.5px; color:var(--slate-900); margin-bottom:4px;">${h.nama} — ${actionHeader}</div>
-        <ul style="padding-left:18px; margin:0; font-size:12.5px; color:var(--slate-600); line-height:1.7;">
-          ${steps.map(s => `<li>${s}</li>`).join('')}
+      <div style="padding:10px 0; border-bottom:1px solid var(--border-light);">
+        <div style="font-size:13px; color:var(--text-primary); margin-bottom:4px;">${h.nama} — ${actionHeader}</div>
+        <ul style="padding-left:18px; margin:0; font-size:12px; color:var(--text-secondary); line-height:1.6;">
+          ${steps.map(s => `<li>${s}</li>`).join('')}}
         </ul>
       </div>
     `;
@@ -1445,7 +1316,7 @@ function showToast(msg) {
 function salinLaporan() {
   const lap = document.getElementById('laporanBox').textContent;
   navigator.clipboard.writeText(lap).then(() => {
-    showToast('Dokumen Rekapitulasi Posyandu berhasil disalin ke clipboard.');
+    showToast('Dokumen Rekapitulasi berhasil disalin ke clipboard.');
   }).catch(() => {
     showToast('Gagal menyalin otomatis, silakan blok dan salin teks.');
   });
@@ -1468,13 +1339,13 @@ function salinPesanIbu() {
 `;
     t += `• Proporsi Tubuh (BB/TB): ${h.sBBTB.label}
 `;
-    t += `• Arahan Kader: ${h.risk==='TINGGI' ? 'Disarankan konsultasi ke Bidan Desa / Puskesmas minggu ini.' : h.risk==='SEDANG' ? 'Tambahkan porsi protein hewani (telur/ikan/ayam) dan timbang 2 minggu lagi.' : 'Pertumbuhan sangat baik, pertahankan pola makan bergizi!'}
+    t += `• Arahan Kader: ${h.risk==='TINGGI' ? 'Disarankan konsultasi ke Bidan Desa / Puskesmas minggu ini.' : h.risk==='SEDANG' ? 'Tambahkan porsi protein hewani (telur/ikan) dan timbang 2 minggu lagi.' : 'Pertumbuhan sangat baik, pertahankan pola makan bergizi!'}
 
 `;
   });
   t += `_Disusun melalui Warisan.AI Standar WHO / Kemenkes RI_`;
   navigator.clipboard.writeText(t).then(() => {
-    showToast('Pesan konseling WhatsApp orang tua berhasil disalin.');
+    showToast('Pesan konseling WhatsApp berhasil disalin.');
   });
 }
 
@@ -1531,7 +1402,6 @@ function isiSample() {
   ].forEach(tambahBalita);
 }
 
-// Initialize with sample data on load
 isiSample();
 </script>
 </body>
