@@ -1,0 +1,387 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>AI Exam Study Plan</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    background: #ffffff;
+    color: #1f2328;
+    padding: 32px 16px 48px;
+  }
+  .page { max-width: 760px; margin: 0 auto; }
+
+  h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { color: #57606a; font-size: 13px; margin-bottom: 28px; }
+  .badge {
+    display: inline-block;
+    background: #f7f8fa;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 12px;
+    color: #57606a;
+    margin-right: 8px;
+  }
+  .badges { margin-bottom: 28px; }
+
+  /* Section headings */
+  h2 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #57606a;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+    margin-top: 32px;
+  }
+
+  /* Topic allocation table */
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  thead th {
+    background: #f7f8fa;
+    border: 1px solid #e5e7eb;
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #1f2328;
+  }
+  tbody td {
+    border: 1px solid #e5e7eb;
+    padding: 8px 12px;
+    vertical-align: middle;
+  }
+  tbody tr:nth-child(even) td { background: #fafafa; }
+  .exam-row td { background: #f0f6ff !important; font-weight: 600; color: #3b82d4; }
+  .review-row td { background: #fdf6e3 !important; }
+
+  .days-pill {
+    display: inline-block;
+    min-width: 28px;
+    text-align: center;
+    background: #3b82d4;
+    color: #fff;
+    border-radius: 12px;
+    padding: 1px 8px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .days-pill.gray { background: #57606a; }
+  .days-pill.gold { background: #b08800; }
+
+  /* Timeline cards */
+  .blocks { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+  .block {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .block-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #f7f8fa;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .block-num {
+    min-width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #3b82d4;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .block-num.gold { background: #b08800; }
+  .block-title { font-weight: 600; font-size: 14px; }
+  .block-dates { margin-left: auto; color: #57606a; font-size: 12px; white-space: nowrap; }
+  .block-body { padding: 10px 14px; }
+  .block-body ul { list-style: none; padding: 0; }
+  .block-body ul li {
+    padding: 3px 0 3px 16px;
+    position: relative;
+    font-size: 13.5px;
+    color: #1f2328;
+  }
+  .block-body ul li::before {
+    content: "›";
+    position: absolute;
+    left: 0;
+    color: #3b82d4;
+    font-weight: 700;
+  }
+  .day-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #57606a;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 8px;
+    margin-bottom: 2px;
+  }
+  .day-label:first-child { margin-top: 0; }
+
+  /* Tips */
+  .tips { background: #f7f8fa; border: 1px solid #e5e7eb; border-radius: 6px; padding: 14px 16px; margin-top: 6px; }
+  .tips ul { list-style: none; padding: 0; }
+  .tips ul li { padding: 4px 0 4px 18px; position: relative; font-size: 13.5px; }
+  .tips ul li::before { content: "✓"; position: absolute; left: 0; color: #3b82d4; font-weight: 700; }
+
+  /* Exam countdown */
+  .exam-banner {
+    background: #3b82d4;
+    color: #fff;
+    border-radius: 6px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  .exam-banner .label { font-size: 13px; opacity: 0.85; }
+  .exam-banner .date { font-size: 20px; font-weight: 700; }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 14px;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+    font-size: 12px;
+    color: #57606a;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>AI Exam Study Plan</h1>
+  <p class="subtitle">Personalised schedule · 1 hour per day · Exam on October 20</p>
+
+  <div class="badges">
+    <span class="badge">23 study days</span>
+    <span class="badge">23 hours total</span>
+    <span class="badge">6 topics</span>
+  </div>
+
+  
+  <h2>Topic Allocation</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Topic</th>
+        <th>Hours</th>
+        <th>Dates</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Introduction to AI</td>
+        <td><span class="days-pill">3</span></td>
+        <td>Sep 27 – Sep 29</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Supervised Learning</td>
+        <td><span class="days-pill">5</span></td>
+        <td>Sep 30 – Oct 4</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Unsupervised Learning</td>
+        <td><span class="days-pill">4</span></td>
+        <td>Oct 5 – Oct 8</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Reinforcement Learning</td>
+        <td><span class="days-pill">4</span></td>
+        <td>Oct 9 – Oct 12</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Generative AI</td>
+        <td><span class="days-pill">4</span></td>
+        <td>Oct 13 – Oct 16</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Responsible AI</td>
+        <td><span class="days-pill">2</span></td>
+        <td>Oct 17 – Oct 18</td>
+      </tr>
+      <tr class="review-row">
+        <td>7</td>
+        <td>Full Review &amp; Practice</td>
+        <td><span class="days-pill gold">1</span></td>
+        <td>Oct 19</td>
+      </tr>
+      <tr class="exam-row">
+        <td>—</td>
+        <td>🎓 Exam Day</td>
+        <td><span class="days-pill gray">—</span></td>
+        <td>Oct 20</td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+  <h2>Daily Breakdown</h2>
+  <div class="blocks">
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-num">1</div>
+        <div class="block-title">Introduction to AI</div>
+        <div class="block-dates">Sep 27 – Sep 29 · 3 hrs</div>
+      </div>
+      <div class="block-body">
+        <div class="day-label">Day 1 — Sep 27</div>
+        <ul><li>History of AI, key milestones, narrow vs. general vs. super AI</li></ul>
+        <div class="day-label">Day 2 — Sep 28</div>
+        <ul><li>AI vs. ML vs. Deep Learning distinctions; real-world applications</li></ul>
+        <div class="day-label">Day 3 — Sep 29</div>
+        <ul><li>Review notes, write a 5-bullet memory summary, self-quiz</li></ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-num">2</div>
+        <div class="block-title">Supervised Learning</div>
+        <div class="block-dates">Sep 30 – Oct 4 · 5 hrs</div>
+      </div>
+      <div class="block-body">
+        <div class="day-label">Day 1 — Sep 30</div>
+        <ul><li>Core concept: labeled data, training/test split, loss functions</li></ul>
+        <div class="day-label">Day 2 — Oct 1</div>
+        <ul><li>Classification: logistic regression, decision trees, SVM</li></ul>
+        <div class="day-label">Day 3 — Oct 2</div>
+        <ul><li>Regression: linear regression, evaluation metrics (MSE, R²)</li></ul>
+        <div class="day-label">Day 4 — Oct 3</div>
+        <ul><li>Overfitting, regularisation (L1/L2), cross-validation</li></ul>
+        <div class="day-label">Day 5 — Oct 4</div>
+        <ul><li>Review + practice problems on classification &amp; regression</li></ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-num">3</div>
+        <div class="block-title">Unsupervised Learning</div>
+        <div class="block-dates">Oct 5 – Oct 8 · 4 hrs</div>
+      </div>
+      <div class="block-body">
+        <div class="day-label">Day 1 — Oct 5</div>
+        <ul><li>Core concept: unlabeled data, clustering vs. dimensionality reduction</li></ul>
+        <div class="day-label">Day 2 — Oct 6</div>
+        <ul><li>K-Means, hierarchical clustering, silhouette score</li></ul>
+        <div class="day-label">Day 3 — Oct 7</div>
+        <ul><li>PCA, autoencoders, t-SNE overview</li></ul>
+        <div class="day-label">Day 4 — Oct 8</div>
+        <ul><li>Review notes + self-quiz; compare supervised vs. unsupervised</li></ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-num">4</div>
+        <div class="block-title">Reinforcement Learning</div>
+        <div class="block-dates">Oct 9 – Oct 12 · 4 hrs</div>
+      </div>
+      <div class="block-body">
+        <div class="day-label">Day 1 — Oct 9</div>
+        <ul><li>Agent, environment, state, action, reward, policy — core vocabulary</li></ul>
+        <div class="day-label">Day 2 — Oct 10</div>
+        <ul><li>Markov Decision Processes, Q-Learning fundamentals</li></ul>
+        <div class="day-label">Day 3 — Oct 11</div>
+        <ul><li>Deep RL basics (DQN), exploration vs. exploitation trade-off</li></ul>
+        <div class="day-label">Day 4 — Oct 12</div>
+        <ul><li>Review + practice problems; real-world RL use cases</li></ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-num">5</div>
+        <div class="block-title">Generative AI</div>
+        <div class="block-dates">Oct 13 – Oct 16 · 4 hrs</div>
+      </div>
+      <div class="block-body">
+        <div class="day-label">Day 1 — Oct 13</div>
+        <ul><li>GANs: generator vs. discriminator architecture and use cases</li></ul>
+        <div class="day-label">Day 2 — Oct 14</div>
+        <ul><li>VAEs and diffusion models overview</li></ul>
+        <div class="day-label">Day 3 — Oct 15</div>
+        <ul><li>LLMs, transformer architecture, prompt engineering basics</li></ul>
+        <div class="day-label">Day 4 — Oct 16</div>
+        <ul><li>Review + self-quiz; compare GenAI model types</li></ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-num">6</div>
+        <div class="block-title">Responsible AI</div>
+        <div class="block-dates">Oct 17 – Oct 18 · 2 hrs</div>
+      </div>
+      <div class="block-body">
+        <div class="day-label">Day 1 — Oct 17</div>
+        <ul><li>Bias, fairness, transparency, explainability (XAI)</li></ul>
+        <div class="day-label">Day 2 — Oct 18</div>
+        <ul><li>Ethics frameworks, AI governance, real-world case studies</li></ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-num gold">7</div>
+        <div class="block-title">Full Review &amp; Practice</div>
+        <div class="block-dates">Oct 19 · 1 hr</div>
+      </div>
+      <div class="block-body">
+        <ul>
+          <li>Skim your 5-bullet memory summaries for all 6 topics</li>
+          <li>Re-do any quiz questions you previously got wrong</li>
+          <li>No new material — rest well tonight</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  
+  <h2>Study Tips</h2>
+  <div class="tips">
+    <ul>
+      <li>After each topic block, write a 5-bullet summary <em>from memory</em> before checking your notes.</li>
+      <li>Flag weak sub-topics on the last day of each block so Oct 19 review is targeted.</li>
+      <li>Keep each session to exactly 1 hour — consistency beats cramming.</li>
+      <li>Use the Feynman technique: explain each concept as if teaching someone else.</li>
+    </ul>
+  </div>
+
+  
+  <div class="exam-banner" style="margin-top:28px">
+    <div>
+      <div class="label">Exam Day</div>
+      <div class="date">October 20, 2026</div>
+    </div>
+    <div style="font-size:28px">🎓</div>
+  </div>
+
+  <footer>Made with IBM Bob</footer>
+</div>
+</body>
+</html>

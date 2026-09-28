@@ -1,0 +1,17 @@
+# System & OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Logs & temp
+*.log
+*.tmp
+*.bak
+
+# Node & Python
+node_modules/
+__pycache__/
+*.pyc
+.env
