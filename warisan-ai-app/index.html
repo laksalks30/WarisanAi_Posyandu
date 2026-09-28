@@ -6,7 +6,7 @@
 <title>Warisan.AI — Sistem Deteksi Dini & Rujukan Gizi Balita</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   
@@ -14,26 +14,32 @@
     --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
     
-    /* Strict Neutral Palette (Zero Color Slop) */
-    --bg-page: #f8fafc;
+    /* Harmonious Posyandu Green Palette */
+    --green-900: #0f3d26;
+    --green-800: #14532d;
+    --green-700: #15803d;
+    --green-600: #16a34a;
+    --green-500: #22c55e;
+    --green-200: #bbf7d0;
+    --green-100: #dcfce7;
+    --green-50:  #f0fdf4;
+    
+    --bg-page: #f6faf7;
     --surface: #ffffff;
-    --surface-subtle: #f1f5f9;
+    --surface-tint: #f0fdf4;
     
     --border-light: #e2e8f0;
-    --border-dark: #0f172a;
+    --border-green: #bbf7d0;
+    --border-green-dark: #166534;
     
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
+    --text-primary: #0f291e;
+    --text-secondary: #334155;
     --text-muted: #64748b;
-    --text-subtle: #94a3b8;
+    --text-green: #15803d;
 
-    /* Subtle Tonal Indicators (Muted, Not Colorful) */
-    --tag-bg: #f1f5f9;
-    --tag-border: #cbd5e1;
-    --tag-text: #0f172a;
-
-    --alert-bg: #f8fafc;
-    --alert-border: #0f172a;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 10px;
   }
 
   body {
@@ -48,16 +54,17 @@
   /* Header */
   header.app-header {
     background: var(--surface);
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-green);
     position: sticky;
     top: 0;
     z-index: 50;
+    box-shadow: 0 1px 2px rgba(20, 83, 45, 0.03);
   }
   .header-container {
     max-width: 1020px;
     margin: 0 auto;
     padding: 0 24px;
-    height: 60px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -65,48 +72,49 @@
   .brand-group {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     text-decoration: none;
     color: var(--text-primary);
   }
   .brand-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    background: var(--text-primary);
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    background: var(--green-800);
     color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 2px 4px rgba(20, 83, 45, 0.2);
   }
   .brand-text h1 {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--green-900);
     letter-spacing: -0.01em;
     line-height: 1.2;
   }
   .brand-text p {
     font-size: 11.5px;
-    color: var(--text-muted);
-    font-weight: 500;
+    color: var(--text-green);
+    font-weight: 600;
   }
   .header-badges {
     display: flex;
     align-items: center;
     gap: 8px;
   }
-  .badge-neutral {
+  .badge-green {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    padding: 3px 9px;
-    border-radius: 4px;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
     font-size: 11.5px;
-    font-weight: 500;
-    background: var(--surface-subtle);
-    color: var(--text-secondary);
-    border: 1px solid var(--border-light);
+    font-weight: 600;
+    background: var(--green-50);
+    color: var(--green-800);
+    border: 1px solid var(--green-200);
   }
 
   /* Main Layout */
@@ -124,13 +132,13 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--text-muted);
+    color: var(--green-700);
     margin-bottom: 4px;
   }
   .section-intro h2 {
     font-size: 20px;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--green-900);
     letter-spacing: -0.02em;
   }
   .section-intro p {
@@ -139,12 +147,13 @@
     margin-top: 4px;
   }
 
-  /* Cards / Panels */
+  /* Panels */
   .panel {
     background: var(--surface);
     border: 1px solid var(--border-light);
-    border-radius: 8px;
-    padding: 20px 24px;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px rgba(15, 61, 38, 0.04);
+    padding: 22px 24px;
     margin-bottom: 20px;
   }
   .panel-header {
@@ -153,20 +162,20 @@
     justify-content: space-between;
     padding-bottom: 12px;
     margin-bottom: 16px;
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-green);
   }
   .panel-title {
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--text-secondary);
+    color: var(--green-800);
     display: flex;
     align-items: center;
     gap: 8px;
   }
 
-  /* Form Grid */
+  /* Form Elements */
   .form-grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -176,78 +185,80 @@
     display: block;
     font-size: 12px;
     font-weight: 600;
-    color: var(--text-secondary);
-    margin-bottom: 5px;
+    color: var(--green-900);
+    margin-bottom: 6px;
   }
   .form-control {
     width: 100%;
-    padding: 8px 11px;
+    padding: 9px 12px;
     font-size: 13.5px;
     font-family: inherit;
     color: var(--text-primary);
     background: #ffffff;
     border: 1px solid var(--border-light);
-    border-radius: 6px;
-    transition: border-color 0.15s ease;
+    border-radius: var(--radius-sm);
+    transition: all 0.15s ease;
   }
   .form-control:focus {
     outline: none;
-    border-color: var(--border-dark);
+    border-color: var(--green-600);
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
   }
 
-  /* Balita Row Form */
+  /* Balita Table Input */
   .balita-table-header {
     display: grid;
     grid-template-columns: 2.2fr 85px 85px 85px 120px 38px;
     gap: 10px;
-    padding: 0 10px 8px;
+    padding: 0 12px 8px;
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--text-muted);
+    color: var(--green-800);
   }
   .balita-row {
     display: grid;
     grid-template-columns: 2.2fr 85px 85px 85px 120px 38px;
     gap: 10px;
     align-items: center;
-    padding: 8px 10px;
-    background: var(--surface-subtle);
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
+    padding: 8px 12px;
+    background: var(--surface-tint);
+    border: 1px solid var(--green-200);
+    border-radius: var(--radius-sm);
     margin-bottom: 8px;
+    transition: all 0.15s ease;
   }
   .balita-row:focus-within {
-    border-color: var(--slate-400);
+    border-color: var(--green-600);
     background: #ffffff;
   }
   .btn-remove-row {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     background: transparent;
-    border: 1px solid var(--border-light);
-    border-radius: 5px;
-    color: var(--text-subtle);
+    border: 1px solid var(--green-200);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
     cursor: pointer;
     transition: all 0.15s ease;
   }
   .btn-remove-row:hover {
-    background: var(--surface-subtle);
-    color: var(--text-primary);
-    border-color: var(--slate-400);
+    background: #fee2e2;
+    color: #991b1b;
+    border-color: #fca5a5;
   }
 
   .btn-add-dashed {
     width: 100%;
-    padding: 9px;
-    border: 1px dashed var(--border-light);
-    border-radius: 6px;
+    padding: 10px;
+    border: 1px dashed var(--green-600);
+    border-radius: var(--radius-sm);
     background: transparent;
-    color: var(--text-secondary);
+    color: var(--green-800);
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
@@ -259,17 +270,15 @@
     margin-top: 6px;
   }
   .btn-add-dashed:hover {
-    border-color: var(--border-dark);
-    color: var(--text-primary);
-    background: var(--surface-subtle);
+    background: var(--green-50);
   }
 
-  /* Actions Toolbar */
+  /* Action Buttons */
   .action-toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 16px;
+    margin-top: 18px;
     padding-top: 16px;
     border-top: 1px solid var(--border-light);
   }
@@ -282,29 +291,29 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 8px 16px;
-    border-radius: 6px;
+    padding: 9px 18px;
+    border-radius: var(--radius-sm);
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.15s ease;
     border: 1px solid transparent;
   }
-  .btn-dark {
-    background: var(--text-primary);
+  .btn-green-primary {
+    background: var(--green-800);
     color: #ffffff;
+    box-shadow: 0 1px 3px rgba(20, 83, 45, 0.25);
   }
-  .btn-dark:hover {
-    background: #1e293b;
+  .btn-green-primary:hover {
+    background: var(--green-900);
   }
-  .btn-ghost {
+  .btn-green-secondary {
     background: #ffffff;
-    color: var(--text-secondary);
-    border-color: var(--border-light);
+    color: var(--green-800);
+    border-color: var(--green-200);
   }
-  .btn-ghost:hover {
-    background: var(--surface-subtle);
-    color: var(--text-primary);
+  .btn-green-secondary:hover {
+    background: var(--green-50);
   }
 
   /* Results Section */
@@ -312,7 +321,7 @@
     display: none;
   }
 
-  /* Minimal Stats Grid */
+  /* Stats Cards Grid */
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -322,39 +331,41 @@
   .stat-card {
     background: var(--surface);
     border: 1px solid var(--border-light);
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     padding: 16px 20px;
+    border-top: 3px solid var(--green-700);
   }
   .stat-card.featured {
-    border-left: 3px solid var(--border-dark);
+    border-top-color: var(--green-800);
+    background: linear-gradient(180deg, #ffffff 0%, var(--green-50) 100%);
   }
   .stat-num {
-    font-size: 26px;
-    font-weight: 700;
+    font-size: 28px;
+    font-weight: 800;
     line-height: 1;
-    color: var(--text-primary);
+    color: var(--green-900);
     font-variant-numeric: tabular-nums;
   }
   .stat-label {
     font-size: 12px;
-    font-weight: 500;
-    color: var(--text-muted);
+    font-weight: 600;
+    color: var(--text-green);
     margin-top: 6px;
   }
 
-  /* Clean Minimal Alert */
+  /* Alert Boxes */
   .alert-box {
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     padding: 12px 16px;
     margin-bottom: 10px;
-    background: var(--surface-subtle);
-    border: 1px solid var(--border-light);
-    border-left: 3px solid var(--border-dark);
+    background: var(--green-50);
+    border: 1px solid var(--green-200);
+    border-left: 4px solid var(--green-700);
   }
   .alert-title {
-    font-weight: 600;
+    font-weight: 700;
     font-size: 13px;
-    color: var(--text-primary);
+    color: var(--green-900);
     margin-bottom: 2px;
   }
   .alert-desc {
@@ -373,51 +384,51 @@
   }
   table.clinical-table th {
     text-align: left;
-    padding: 9px 12px;
+    padding: 10px 14px;
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--text-secondary);
-    background: var(--surface-subtle);
-    border-bottom: 1px solid var(--border-light);
+    color: var(--green-800);
+    background: var(--green-50);
+    border-bottom: 1px solid var(--green-200);
     white-space: nowrap;
   }
   table.clinical-table td {
-    padding: 10px 12px;
+    padding: 12px 14px;
     border-bottom: 1px solid var(--border-light);
     color: var(--text-primary);
     vertical-align: middle;
   }
   table.clinical-table tr:hover td {
-    background: var(--surface-subtle);
+    background: var(--green-50);
   }
   
-  /* Status Chips (Monochrome / Muted Neutral) */
+  /* Status Chips */
   .status-chip {
     display: inline-block;
-    padding: 2px 7px;
+    padding: 3px 8px;
     border-radius: 4px;
     font-size: 11px;
     font-weight: 600;
-    border: 1px solid var(--border-light);
-    background: var(--surface-subtle);
-    color: var(--text-primary);
+    background: var(--green-100);
+    color: var(--green-800);
+    border: 1px solid var(--green-200);
   }
   .status-chip.flagged {
-    background: var(--text-primary);
-    color: #ffffff;
-    border-color: var(--text-primary);
+    background: #fef2f2;
+    color: #991b1b;
+    border-color: #fecaca;
   }
   .status-chip.warning {
-    background: #ffffff;
-    border-color: var(--border-dark);
-    color: var(--text-primary);
+    background: #fffbeb;
+    color: #92400e;
+    border-color: #fde68a;
   }
 
   .z-val {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 11.5px;
     color: var(--text-muted);
     display: block;
     margin-top: 2px;
@@ -425,8 +436,8 @@
 
   /* Counseling Cards */
   .counseling-item {
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
+    border: 1px solid var(--border-green);
+    border-radius: var(--radius-md);
     padding: 16px;
     margin-bottom: 12px;
     background: var(--surface);
@@ -437,16 +448,17 @@
     justify-content: space-between;
     margin-bottom: 10px;
     padding-bottom: 8px;
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-green);
   }
   .counseling-name {
     font-weight: 700;
-    font-size: 13.5px;
-    color: var(--text-primary);
+    font-size: 14px;
+    color: var(--green-900);
   }
   .counseling-meta {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--text-green);
+    font-weight: 500;
   }
   .counseling-grid {
     display: grid;
@@ -455,38 +467,38 @@
     margin-bottom: 10px;
   }
   .counseling-indicator {
-    background: var(--surface-subtle);
-    border: 1px solid var(--border-light);
-    border-radius: 4px;
-    padding: 8px 10px;
+    background: var(--green-50);
+    border: 1px solid var(--green-200);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
   }
   .counseling-ind-title {
-    font-size: 10px;
+    font-size: 10.5px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--text-muted);
+    color: var(--green-800);
     margin-bottom: 3px;
   }
   .counseling-ind-body {
     font-size: 12px;
     color: var(--text-secondary);
-    line-height: 1.4;
+    line-height: 1.5;
   }
   .counseling-conclusion {
-    padding: 8px 12px;
-    border-radius: 4px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
     font-size: 12.5px;
-    background: var(--surface-subtle);
-    border: 1px solid var(--border-light);
-    color: var(--text-primary);
+    background: var(--green-50);
+    border: 1px solid var(--green-200);
+    color: var(--green-900);
   }
 
   /* CDSS Box */
   .cdss-panel {
     background: var(--surface);
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
+    border: 1px solid var(--green-200);
+    border-radius: var(--radius-lg);
     padding: 20px 24px;
     margin-bottom: 20px;
   }
@@ -495,38 +507,37 @@
     align-items: center;
     gap: 6px;
     flex-wrap: wrap;
-    background: var(--surface-subtle);
-    border: 1px solid var(--border-light);
-    border-radius: 4px;
-    padding: 6px 10px;
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-bottom: 12px;
+    background: var(--green-50);
+    border: 1px solid var(--green-200);
+    border-radius: var(--radius-sm);
+    padding: 7px 12px;
+    font-size: 11.5px;
+    color: var(--green-800);
+    margin-bottom: 14px;
   }
   .cdss-step {
     font-weight: 600;
-    color: var(--text-primary);
   }
   .cdss-arrow {
-    color: var(--text-subtle);
+    color: var(--green-600);
   }
   .cdss-content {
-    font-size: 13px;
-    line-height: 1.6;
+    font-size: 13.5px;
+    line-height: 1.65;
     color: var(--text-secondary);
     margin-bottom: 14px;
   }
 
   /* Report Sheet */
   .report-sheet {
-    background: var(--surface-subtle);
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    padding: 20px;
+    background: var(--green-50);
+    border: 1px solid var(--green-200);
+    border-radius: var(--radius-sm);
+    padding: 22px;
     font-family: var(--font-mono);
     font-size: 12px;
-    line-height: 1.8;
-    color: var(--text-primary);
+    line-height: 1.85;
+    color: var(--green-900);
     white-space: pre-wrap;
   }
 
@@ -535,14 +546,15 @@
     position: fixed;
     bottom: 24px;
     right: 24px;
-    background: var(--text-primary);
+    background: var(--green-900);
     color: #ffffff;
     padding: 10px 18px;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     font-size: 12.5px;
     font-weight: 500;
     display: none;
     z-index: 999;
+    box-shadow: 0 4px 12px rgba(20, 83, 45, 0.25);
   }
 
   /* Print */
@@ -573,19 +585,19 @@
   <div class="header-container">
     <a href="#" class="brand-group">
       <div class="brand-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
           <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
           <path d="M12 5v14"/>
         </svg>
       </div>
       <div class="brand-text">
         <h1>WARISAN.AI</h1>
-        <p>Sistem Deteksi Dini & Rujukan Gizi Balita</p>
+        <p>Sistem Deteksi Dini & Rujukan Gizi Balita Posyandu</p>
       </div>
     </a>
     <div class="header-badges">
-      <span class="badge-neutral">WHO Standards / Permenkes 2/2020</span>
-      <span class="badge-neutral">IBM Langflow & Bob Platform</span>
+      <span class="badge-green">Standar WHO / Permenkes No. 2/2020</span>
+      <span class="badge-green">IBM Langflow & Bob Platform</span>
     </div>
   </div>
 </header>
@@ -618,7 +630,7 @@
   <div class="panel">
     <div class="panel-header">
       <span class="panel-title">Data Pengukuran Balita</span>
-      <span style="font-size:12px; color:var(--text-muted);">Rentang usia acuan: 0–60 bulan</span>
+      <span style="font-size:12px; color:var(--text-green); font-weight:600;">Rentang usia acuan: 0–60 bulan</span>
     </div>
 
     <div class="balita-table-header">
@@ -638,15 +650,15 @@
 
     <div class="action-toolbar">
       <div class="btn-group">
-        <button class="btn btn-ghost" type="button" onclick="isiSample()" title="Muat 5 data simulasi kasus klinis">
+        <button class="btn btn-green-secondary" type="button" onclick="isiSample()" title="Muat 5 data simulasi kasus klinis">
           Gunakan 5 Data Kasus Demo
         </button>
-        <button class="btn btn-ghost" type="button" onclick="resetForm()">
+        <button class="btn btn-green-secondary" type="button" onclick="resetForm()">
           Kosongkan Formulir
         </button>
       </div>
       <div class="btn-group">
-        <button class="btn btn-dark" type="button" onclick="analisis()">
+        <button class="btn btn-green-primary" type="button" onclick="analisis()">
           Proses Analisis Status Gizi
         </button>
       </div>
@@ -700,7 +712,7 @@
     <div class="cdss-panel">
       <div class="panel-header">
         <span class="panel-title">Sistem Pendukung Keputusan Klinis (IBM Langflow & Bob)</span>
-        <span style="font-size:11.5px; color:var(--text-muted); font-family:var(--font-mono);">flow: warisan-ai-flow.json · MCP streamable</span>
+        <span style="font-size:11.5px; color:var(--green-700); font-family:var(--font-mono);">flow: warisan-ai-flow.json · MCP streamable</span>
       </div>
 
       <div class="cdss-flow-indicator">
@@ -715,14 +727,14 @@
 
       <div class="cdss-content" id="aiAgentOutput"></div>
 
-      <div style="display:flex; flex-wrap:wrap; gap:8px; padding-top:12px; border-top:1px solid var(--border-light);">
-        <button class="btn btn-dark" type="button" onclick="bagikanKeWhatsApp()">
-          Kirim Rekapitulasi via WhatsApp
+      <div style="display:flex; flex-wrap:wrap; gap:8px; padding-top:14px; border-top:1px solid var(--border-green);">
+        <button class="btn btn-green-primary" type="button" onclick="bagikanKeWhatsApp()">
+          Kirim Rekapitulasi via WhatsApp Bidan
         </button>
-        <button class="btn btn-ghost" type="button" onclick="salinPesanIbu()">
+        <button class="btn btn-green-secondary" type="button" onclick="salinPesanIbu()">
           Salin Pesan Konseling Orang Tua
         </button>
-        <button class="btn btn-ghost" type="button" onclick="salinLaporan()">
+        <button class="btn btn-green-secondary" type="button" onclick="salinLaporan()">
           Salin Dokumen Laporan
         </button>
       </div>
@@ -733,7 +745,7 @@
       <div class="panel-header">
         <span class="panel-title">Panduan Komunikasi & Edukasi Orang Tua Balita</span>
       </div>
-      <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:14px;">
+      <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:14px;">
         Format penjelasan berbasis bahasa komunikatif sehari-hari untuk kader saat berhadapan langsung dengan orang tua balita.
       </p>
       <div id="penjelasanBox"></div>
@@ -751,7 +763,7 @@
     <div class="panel" id="reportPanel">
       <div class="panel-header">
         <span class="panel-title">Format Surat Rekapitulasi Pemantauan Tumbuh Kembang</span>
-        <button class="btn btn-ghost" style="padding:4px 10px; font-size:12px;" onclick="window.print()">
+        <button class="btn btn-green-secondary" style="padding:4px 10px; font-size:12px;" onclick="window.print()">
           Cetak Dokumen
         </button>
       </div>
@@ -970,14 +982,14 @@ function statusBBU(z) {
 }
 
 function statusTBU(z) {
-  if (z < -3) return { label:'Sangat Pendek (Stunted Akut)', isCrit: true, arti:'Tinggi badan berada di bawah -3 SD (Stunting Berat).' };
+  if (z < -3) return { label:'Sangat Pendek (Stunting Akut)', isCrit: true, arti:'Tinggi badan berada di bawah -3 SD (Stunting Berat).' };
   if (z < -2) return { label:'Pendek (Stunted)', isWarn: true, arti:'Tinggi badan berada di bawah -2 SD (Indikasi Stunting).' };
   if (z <=  2) return { label:'Normal', isOk: true, arti:'Tinggi badan normal proporsional dengan usia.' };
   return { label:'Tinggi', isWarn: true, arti:'Tinggi badan di atas +2 SD usia.' };
 }
 
 function statusBBTB(z) {
-  if (z < -3) return { label:'Sangat Kurus (Wasted Akut)', isCrit: true, arti:'Kekurangan berat badan akut terhadap tinggi badan (Wasting Berat).' };
+  if (z < -3) return { label:'Sangat Kurus (Wasting Akut)', isCrit: true, arti:'Kekurangan berat badan akut terhadap tinggi badan (Wasting Berat).' };
   if (z < -2) return { label:'Kurus (Wasted)', isWarn: true, arti:'Tubuh kurus terhadap proporsi tinggi badan (Defisit Gizi Akut).' };
   if (z <=  2) return { label:'Normal', isOk: true, arti:'Proporsi berat badan selaras dengan tinggi badan.' };
   return { label:'Berisiko Gemuk', isWarn: true, arti:'Berat badan berlebih terhadap tinggi badan.' };
@@ -1072,22 +1084,22 @@ function analisis() {
 
   document.getElementById('hasilSub').textContent = `${posyandu} · Periode ${bln} · Terdaftar ${total} Balita`;
 
-  // Render 4 Stats Cards (Monochrome Minimalist)
+  // Render 4 Stats Cards (Green Healthtech)
   document.getElementById('statsBox').innerHTML = `
     <div class="stat-card">
       <div class="stat-num">${total}</div>
       <div class="stat-label">Total Ditimbang</div>
     </div>
-    <div class="stat-card">
-      <div class="stat-num">${aman}</div>
+    <div class="stat-card featured">
+      <div class="stat-num" style="color:var(--green-700);">${aman}</div>
       <div class="stat-label">Gizi Baik (Normal)</div>
     </div>
-    <div class="stat-card ${sedang > 0 ? 'featured' : ''}">
-      <div class="stat-num">${sedang}</div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:#d97706;">${sedang}</div>
       <div class="stat-label">Perlu Pemantauan</div>
     </div>
-    <div class="stat-card ${tinggi > 0 ? 'featured' : ''}">
-      <div class="stat-num">${tinggi}</div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:#dc2626;">${tinggi}</div>
       <div class="stat-label">Prioritas Rujukan</div>
     </div>
   `;
@@ -1096,20 +1108,20 @@ function analisis() {
   const berisiko = hasil.filter(h => h.risk !== 'AMAN');
   let pBox = '';
   if (tinggi > 0) {
-    pBox += `<div class="alert-box">
-      <div class="alert-title">Perhatian: ${tinggi} Balita Terindikasi Prioritas Rujukan Puskesmas</div>
+    pBox += `<div class="alert-box" style="border-left-color:#dc2626; background:#fff1f2; border-color:#fecaca;">
+      <div class="alert-title" style="color:#991b1b;">Perhatian: ${tinggi} Balita Terindikasi Prioritas Rujukan Puskesmas</div>
       <div class="alert-desc">${hasil.filter(h=>h.risk==='TINGGI').map(h=>`<strong>${h.nama}</strong> (${[h.zBBU<-3?`BB/U ${fmtZ(h.zBBU)}`:null, h.zTBU<-3?`TB/U ${fmtZ(h.zTBU)}`:null, h.zBBTB<-3?`BB/TB ${fmtZ(h.zBBTB)}`:null].filter(Boolean).join(', ')})`).join('; ')}</div>
     </div>`;
   }
   if (sedang > 0) {
-    pBox += `<div class="alert-box">
-      <div class="alert-title">${sedang} Balita Dalam Pemantauan Siklus 14 Hari</div>
+    pBox += `<div class="alert-box" style="border-left-color:#d97706; background:#fffbeb; border-color:#fde68a;">
+      <div class="alert-title" style="color:#92400e;">${sedang} Balita Dalam Pemantauan Siklus 14 Hari</div>
       <div class="alert-desc">Terindikasi berat atau tinggi badan di bawah -2 SD. Jadwalkan penimbangan ulang 2 minggu ke depan dan pemberian PMT protein hewani.</div>
     </div>`;
   }
   if (!berisiko.length) {
     pBox = `<div class="alert-box">
-      <div class="alert-title">Kondisi Pertumbuhan Optimal</div>
+      <div class="alert-title">Kondisi Pertumbuhan Komunitas Baik</div>
       <div class="alert-desc">Seluruh balita yang terdaftar berada dalam kurva pertumbuhan normal standar WHO / Kemenkes RI.</div>
     </div>`;
   }
@@ -1126,7 +1138,7 @@ function analisis() {
     const getChip = (s) => s.isCrit ? 'status-chip flagged' : (s.isWarn ? 'status-chip warning' : 'status-chip');
       
     return `<tr>
-      <td style="font-weight:600; color:var(--text-primary);">${h.nama} <span style="font-weight:400; color:var(--text-muted); font-size:11.5px;">(${h.jk==='L'?'L':'P'})</span></td>
+      <td style="font-weight:700; color:var(--green-900);">${h.nama} <span style="font-weight:400; color:var(--text-muted); font-size:11.5px;">(${h.jk==='L'?'L':'P'})</span></td>
       <td>${h.usia} bln</td>
       <td><strong>${h.bb}</strong> kg</td>
       <td><strong>${h.tb}</strong> cm</td>
@@ -1155,8 +1167,8 @@ function analisis() {
       <div style="margin-bottom:8px;">
         Sistem evaluasi kognitif mendeteksi <strong>${tinggi} balita rujukan prioritas</strong> dan <strong>${sedang} balita dalam pemantauan</strong> dari total ${total} balita.
       </div>
-      <div style="background:var(--surface-subtle); border:1px solid var(--border-light); border-radius:4px; padding:10px 12px;">
-        <div style="font-weight:600; color:var(--text-primary); margin-bottom:4px;">Instruksi Klinis Terpadu:</div>
+      <div style="background:var(--green-50); border:1px solid var(--green-200); border-radius:6px; padding:12px 14px;">
+        <div style="font-weight:700; color:var(--green-900); margin-bottom:4px;">Instruksi Klinis Terpadu:</div>
         <ul style="padding-left:16px; margin:0; line-height:1.6; font-size:12.5px; color:var(--text-secondary);">
           ${tinggi > 0 ? `<li><strong>Prosedur Rujukan Cepat:</strong> Laporkan segera data ${hasil.filter(h=>h.risk==='TINGGI').map(h=>h.nama).join(', ')} kepada Bidan Desa hari ini guna rujukan Puskesmas.</li>` : ''}
           ${sedang > 0 ? `<li><strong>Intervensi PMT Lokal (Protein Hewani):</strong> Berikan 1 butir telur/hari atau ikan lokal serta pemantauan kenaikan berat badan tiap 14 hari.</li>` : ''}
@@ -1166,7 +1178,7 @@ function analisis() {
     `;
   } else {
     aiText = `
-      <div style="background:var(--surface-subtle); border:1px solid var(--border-light); padding:10px 12px; border-radius:4px;">
+      <div style="background:var(--green-50); border:1px solid var(--green-200); padding:10px 12px; border-radius:6px; color:var(--green-800);">
         <strong>Kondisi Komunitas Optimal:</strong> Seluruh balita yang ditimbang berada dalam rentang pertumbuhan sehat standar WHO. Lanjutkan pola makan gizi seimbang dan jadwal posyandu bulanan.
       </div>
     `;
@@ -1229,21 +1241,21 @@ function analisis() {
   document.getElementById('rekomendasiBox').innerHTML = hasil.map(h => {
     let actionHeader, steps;
     if (h.risk === 'TINGGI') {
-      actionHeader = '<strong>Rujukan Medis Segera</strong>';
+      actionHeader = '<strong style="color:#dc2626;">Rujukan Medis Segera</strong>';
       steps = [
         'Hubungi Bidan Desa hari ini untuk pembuatan surat rujukan Puskesmas.',
         'Pemberian Makanan Tambahan Pemulihan (PMT-P) berbasis protein hewani setiap hari.',
         'Evaluasi asupan kalori dan pemantauan penambahan berat badan tiap pekan.'
       ];
     } else if (h.risk === 'SEDANG') {
-      actionHeader = '<strong>Pemantauan Ketat & Suplementasi Gizi</strong>';
+      actionHeader = '<strong style="color:#d97706;">Pemantauan Ketat & Suplementasi Gizi</strong>';
       steps = [
         'Timbang berat dan ukur tinggi badan setiap 14 hari (tidak menunggu posyandu bulan depan).',
         'Tambahkan 1 butir telur rebus atau ikan lokal setiap hari dalam menu MPASI.',
         'Edukasi higiene sanitasi dan air bersih keluarga guna mencegah infeksi berulang.'
       ];
     } else {
-      actionHeader = '<strong>Pertahankan Pola Tumbuh Kembang</strong>';
+      actionHeader = '<strong style="color:var(--green-700);">Pertahankan Pola Tumbuh Kembang</strong>';
       steps = [
         'Hadir rutin pada jadwal penimbangan Posyandu setiap bulan.',
         'Pertahankan keberlanjutan gizi seimbang dan pemenuhan jadwal imunisasi nasional.'
@@ -1254,7 +1266,7 @@ function analisis() {
       <div style="padding:10px 0; border-bottom:1px solid var(--border-light);">
         <div style="font-size:13px; color:var(--text-primary); margin-bottom:4px;">${h.nama} — ${actionHeader}</div>
         <ul style="padding-left:18px; margin:0; font-size:12px; color:var(--text-secondary); line-height:1.6;">
-          ${steps.map(s => `<li>${s}</li>`).join('')}}
+          ${steps.map(s => `<li>${s}</li>`).join('')}
         </ul>
       </div>
     `;
