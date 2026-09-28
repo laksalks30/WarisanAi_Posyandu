@@ -1289,21 +1289,25 @@ Total Balita Terdaftar : ${total} anak
 - Perlu Pemantauan     : ${sedang} anak
 - Rujukan Puskesmas    : ${tinggi} anak
 
-II. BALITA PERLU TINDAK LANJUT PRIORITAS
+II. DAFTAR SELURUH BALITA YANG DITIMBANG (${total} Anak)
 `;
+  hasil.forEach((h, idx) => {
+    const statusTxt = h.risk === 'AMAN' ? 'GIZI BAIK' : (h.risk === 'SEDANG' ? 'PERLU PANTAU' : 'RUJUKAN PRIORITAS');
+    rep += `${idx+1}. ${h.nama.padEnd(20)} | ${h.usia} bln | BB: ${h.bb}kg | TB: ${h.tb}cm | Status: [${statusTxt}]\n   BB/U: ${fmtZ(h.zBBU)} (${h.sBBU.label}), TB/U: ${fmtZ(h.zTBU)} (${h.sTBU.label}), BB/TB: ${fmtZ(h.zBBTB)} (${h.sBBTB.label})\n`;
+  });
+
+  rep += `\nIII. TINDAK LANJUT PRIORITAS KHUSUS (${berisiko.length} Anak)\n`;
   if (berisiko.length) {
     berisiko.forEach((h, idx) => {
-      rep += `${idx+1}. ${h.nama.padEnd(20)} | ${h.usia} bln | BB: ${h.bb}kg | TB: ${h.tb}cm | Risk: [${h.risk}]
-   BB/U: ${fmtZ(h.zBBU)} (${h.sBBU.label}), TB/U: ${fmtZ(h.zTBU)} (${h.sTBU.label}), BB/TB: ${fmtZ(h.zBBTB)} (${h.sBBTB.label})
-`;
+      const tind = h.risk === 'TINGGI' ? 'Rujuk segera ke Puskesmas / Dokter Anak + PMT Pemulihan' : 'Pemantauan ketat siklus 14 hari + Suplementasi Protein Hewani';
+      rep += `• ${h.nama} (${h.usia} bln) -> ${tind}\n`;
     });
   } else {
-    rep += `Tidak ada balita terindikasi stunting atau malnutrisi akut.
-`;
+    rep += `Seluruh balita dalam batas kurva tumbuh kembang optimal (Gizi Baik).\n`;
   }
 
   rep += `
-III. CATATAN & TINDAK LANJUT
+IV. CATATAN & PENGESAHAN
 - Data dievaluasi secara otomatis oleh platform Warisan.AI didukung inferensi kognitif IBM Langflow.
 - Balita berstatus rujukan agar segera ditindaklanjuti pada jadwal kunjungan Bidan Desa terdekat.
 --------------------------------------------------------------------------------
