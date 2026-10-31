@@ -1056,7 +1056,7 @@
       event.preventDefault();
       const nama = document.getElementById('loginEmail').value.trim() || 'Sri Wahyuni (Kader Posyandu)';
       try {
-        const resp = await fetch('/api/auth/login', {
+        const resp = await fetch('/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username: nama, password: '' })
@@ -1437,7 +1437,7 @@
 
       // Sinkronkan ke server bila online
       try {
-        const resp = await fetch('/api/sync', {
+        const resp = await fetch('/sync', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -1477,7 +1477,7 @@
 
       // 2. Perbarui dari server jika endpoint aktif
       try {
-        const resp = await fetch('/api/records', { cache: 'no-cache' });
+        const resp = await fetch('/records', { cache: 'no-cache' });
         if (resp.ok) {
           const res = await resp.json();
           if (res.records && res.records.length) {
@@ -1719,7 +1719,7 @@
           anonymize: isPrivacy
         };
 
-        const resp = await fetch('/api/ai/counsel', {
+        const resp = await fetch('/ai/counsel', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -1875,7 +1875,7 @@ Penanggung Jawab Penimbangan,                     Bidan Pembina Desa,
       formData.append('file', file);
 
       try {
-        const resp = await fetch('/api/ingest/excel', {
+        const resp = await fetch('/ingest/excel', {
           method: 'POST',
           body: formData
         });
@@ -1999,7 +1999,7 @@ Penanggung Jawab Penimbangan,                     Bidan Pembina Desa,
         document.body.removeChild(link);
         showToast('Mengunduh berkas template Excel posyandu standar...');
       } catch (err) {
-        window.location.href = '/api/template/excel';
+        window.location.href = '/template/excel';
       }
     }
 
@@ -2042,7 +2042,7 @@ Penanggung Jawab Penimbangan,                     Bidan Pembina Desa,
           summary: window.currentSummary || {}
         };
 
-        const res = await fetch('/api/export/pdf', {
+        const res = await fetch('/export/pdf', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
