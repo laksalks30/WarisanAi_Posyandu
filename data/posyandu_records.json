@@ -1,5 +1,164 @@
 [
   {
+    "session_id": "POSY-1793435719",
+    "posyandu": "Posyandu Melati RW 03",
+    "periode": "2026-09",
+    "recorded_at": "2026-09-15T09:00:00Z",
+    "synced_at": "2026-10-31T15:35:19.385583",
+    "total_balita": 2,
+    "summary": {
+      "total": 2,
+      "tinggi": 1,
+      "sedang": 1,
+      "aman": 0
+    },
+    "notes": "Sync test from automated suite",
+    "balita_list": [
+      {
+        "nama": "Andi Pratama",
+        "nama_asli": "Andi Pratama",
+        "usia_bulan": 21,
+        "bb": 8.5,
+        "tb": 78.0,
+        "tb_adjusted": 78.0,
+        "jk": "L",
+        "jk_label": "Laki-laki",
+        "cara_ukur": "terlentang",
+        "conversion_note": null,
+        "z_bbu": -2.73,
+        "z_tbu": -2.56,
+        "z_bbtb": -2.32,
+        "status_bbu": {
+          "label": "Gizi Kurang",
+          "code": "UNDERWEIGHT",
+          "is_crit": false,
+          "is_warn": true
+        },
+        "status_tbu": {
+          "label": "Pendek (Stunted)",
+          "code": "STUNTED",
+          "is_crit": false,
+          "is_warn": true
+        },
+        "status_bbtb": {
+          "label": "Gizi Kurang (Wasted)",
+          "code": "WASTED",
+          "is_crit": false,
+          "is_warn": true
+        },
+        "trend": {
+          "has_trend_data": true,
+          "bb_diff": 0.1,
+          "bb_pct_change": 1.2,
+          "is_acute_drop": false,
+          "is_stagnant": false,
+          "trend_label": "Kenaikan Positif (+0.10 kg)"
+        },
+        "risk_level": "SEDANG",
+        "risk_label": "Perlu Pemantauan Khusus",
+        "parity_warnings": [],
+        "ref_bbu": [
+          11.5,
+          8.2,
+          9.3,
+          10.3,
+          12.7,
+          14.2,
+          15.8
+        ],
+        "ref_tbu": [
+          85.1,
+          76.8,
+          79.5,
+          82.3,
+          87.3,
+          90.2,
+          93.2
+        ],
+        "ref_bbtb": [
+          10.08,
+          8.120000000000001,
+          8.68,
+          9.28,
+          11.0,
+          11.96,
+          13.08
+        ]
+      },
+      {
+        "nama": "Budi Santoso",
+        "nama_asli": "Budi Santoso",
+        "usia_bulan": 16,
+        "bb": 7.1,
+        "tb": 70.0,
+        "tb_adjusted": 70.0,
+        "jk": "L",
+        "jk_label": "Laki-laki",
+        "cara_ukur": "terlentang",
+        "conversion_note": null,
+        "z_bbu": -3.4,
+        "z_tbu": -4.0,
+        "z_bbtb": -2.6,
+        "status_bbu": {
+          "label": "Gizi Buruk",
+          "code": "SEVERELY_UNDERWEIGHT",
+          "is_crit": true,
+          "is_warn": false
+        },
+        "status_tbu": {
+          "label": "Sangat Pendek (Stunting Akut)",
+          "code": "SEVERELY_STUNTED",
+          "is_crit": true,
+          "is_warn": false
+        },
+        "status_bbtb": {
+          "label": "Gizi Kurang (Wasted)",
+          "code": "WASTED",
+          "is_crit": false,
+          "is_warn": true
+        },
+        "trend": {
+          "has_trend_data": true,
+          "bb_diff": -0.9,
+          "bb_pct_change": -11.3,
+          "is_acute_drop": true,
+          "is_stagnant": false,
+          "trend_label": "Penurunan BB Akut (-11.3% dari bulan lalu)"
+        },
+        "risk_level": "TINGGI",
+        "risk_label": "Rujukan Prioritas Puskesmas",
+        "parity_warnings": [],
+        "ref_bbu": [
+          10.5,
+          7.5,
+          8.5,
+          9.4,
+          11.7,
+          13.1,
+          14.6
+        ],
+        "ref_tbu": [
+          80.2,
+          72.5,
+          75.0,
+          77.6,
+          82.4,
+          85.1,
+          87.8
+        ],
+        "ref_bbtb": [
+          8.6,
+          6.9,
+          7.4,
+          7.9,
+          9.3,
+          10.1,
+          11.0
+        ]
+      }
+    ]
+  },
+  {
     "session_id": "POSY-1793434634",
     "posyandu": "Posyandu Melati RW 03",
     "periode": "2026-09",
