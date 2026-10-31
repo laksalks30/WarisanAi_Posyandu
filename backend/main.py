@@ -352,6 +352,14 @@ async def sync_offline_session(req: SyncRequest):
                 records = json.load(f)
         except Exception:
             records = []
+    else:
+        bundled_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data', 'posyandu_records.json'))
+        if os.path.exists(bundled_path):
+            try:
+                with open(bundled_path, 'r', encoding='utf-8') as f:
+                    records = json.load(f)
+            except Exception:
+                records = []
 
     new_record = {
         "session_id": f"POSY-{int(time.time())}",
@@ -378,15 +386,48 @@ async def sync_offline_session(req: SyncRequest):
 
 @app.get("/api/records")
 def get_historical_records():
-    """Mengambil daftar riwayat sesi penimbangan yang telah disinkronkan."""
-    if not os.path.exists(RECORDS_FILE):
-        return {"records": []}
-    try:
-        with open(RECORDS_FILE, 'r', encoding='utf-8') as f:
-            records = json.load(f)
-        return {"records": records}
-    except Exception as e:
-        return {"records": [], "error": str(e)}
+    """Mengambil daftar riwayat sesi penimbangan yang telah disinkronkan (mendukung Vercel Serverless)."""
+    # 1. Cek di RECORDS_FILE (/tmp/data jika di Vercel)
+    if os.path.exists(RECORDS_FILE):
+        try:
+            with open(RECORDS_FILE, 'r', encoding='utf-8') as f:
+                records = json.load(f)
+            if records:
+                return {"records": records}
+        except Exception:
+            pass
+
+    # 2. Cek di repo data/posyandu_records.json jika berjalan di Vercel
+    bundled_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data', 'posyandu_records.json'))
+    if os.path.exists(bundled_path):
+        try:
+            with open(bundled_path, 'r', encoding='utf-8') as f:
+                records = json.load(f)
+            # Salin ke /tmp untuk sesi serverless berikutnya
+            try:
+                with open(RECORDS_FILE, 'w', encoding='utf-8') as f:
+                    json.dump(records, f, indent=2, ensure_ascii=False)
+            except Exception:
+                pass
+            return {"records": records}
+        except Exception:
+            pass
+
+    # 3. Fallback default sesi demo Posyandu Dusun Nayan
+    return {
+        "records": [
+            {
+                "session_id": "POSY-NAYAN-01",
+                "posyandu": "Posyandu Dusun Nayan, Maguwoharjo",
+                "periode": "2026-09",
+                "recorded_at": "2026-09-15T09:00:00Z",
+                "synced_at": datetime.now().isoformat(),
+                "total_balita": 5,
+                "summary": {"total": 5, "tinggi": 2, "sedang": 2, "aman": 1},
+                "notes": "Sesi penimbangan Posyandu Dusun Nayan, Maguwoharjo"
+            }
+        ]
+    }
 
 
 @app.get("/api/health")
