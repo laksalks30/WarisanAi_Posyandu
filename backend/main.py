@@ -38,8 +38,18 @@ LANGFLOW_BASE_URL = os.getenv("LANGFLOW_BASE_URL", "http://127.0.0.1:7860")
 LANGFLOW_FLOW_ID = os.getenv("LANGFLOW_FLOW_ID", "33240ff5-f4df-453c-9150-0767519d1d23")
 LANGFLOW_API_KEY = os.getenv("LANGFLOW_API_KEY", "")
 
-DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
-os.makedirs(DATA_DIR, exist_ok=True)
+# Direktori penyimpanan data riwayat (kompatibel dengan filesystem read-only Vercel /tmp)
+if os.getenv("VERCEL"):
+    DATA_DIR = os.path.join('/tmp', 'data')
+else:
+    DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
+
+try:
+    os.makedirs(DATA_DIR, exist_ok=True)
+except (OSError, PermissionError):
+    DATA_DIR = os.path.join('/tmp', 'data')
+    os.makedirs(DATA_DIR, exist_ok=True)
+
 RECORDS_FILE = os.path.join(DATA_DIR, 'posyandu_records.json')
 
 app = FastAPI(
