@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Warisan.AI — Portal Deteksi Dini & Rujukan Gizi Balita Posyandu</title>
+  <title>Warisan.AI — Sistem Deteksi Dini & Rujukan Gizi Balita Posyandu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -14,10 +14,9 @@
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       
-      /* Institutional Kemenkes / Posyandu Green Palette */
-      --green-950: #061c10;
+      /* Institutional Posyandu Green Palette */
+      --green-950: #072314;
       --green-900: #0f3d26;
-      --green-850: #12472b;
       --green-800: #14532d;
       --green-700: #15803d;
       --green-600: #16a34a;
@@ -28,11 +27,9 @@
       
       --bg-page: #f6faf7;
       --surface: #ffffff;
-      --surface-subtle: #f8fafc;
       
       --border-light: #e2e8f0;
       --border-green: #bbf7d0;
-      --border-green-dark: #166534;
       
       --text-primary: #0f291e;
       --text-secondary: #334155;
@@ -55,26 +52,6 @@
       flex-direction: column;
     }
 
-    /* TOP BANNER KEMENKES */
-    .top-gov-bar {
-      background: var(--green-950);
-      color: #bbf7d0;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 5px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      letter-spacing: 0.02em;
-    }
-    .top-gov-bar a {
-      color: #bbf7d0;
-      text-decoration: none;
-    }
-    .top-gov-bar a:hover {
-      text-decoration: underline;
-    }
-
     /* APP HEADER */
     .app-header {
       background-color: var(--surface);
@@ -85,7 +62,7 @@
       box-shadow: 0 1px 2px rgba(0,0,0,0.03);
     }
     .header-inner {
-      max-width: 1240px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 12px 24px;
       display: flex;
@@ -130,7 +107,7 @@
     .header-right {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
     }
     .badge {
@@ -171,181 +148,88 @@
       display: inline-block;
     }
 
-    /* USER PROFILE BADGE */
+    /* USER BADGE & LOGOUT */
     .user-profile-menu {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 4px 8px 4px 4px;
+      gap: 8px;
+      padding: 3px 10px 3px 4px;
       background: #f8fafc;
       border: 1px solid var(--border-light);
       border-radius: 9999px;
+      font-size: 12px;
     }
     .user-avatar {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       background: var(--green-700);
       color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
     }
-    .user-info {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
-    .user-name {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-    .user-role {
-      font-size: 10px;
-      color: var(--text-muted);
-    }
-    .btn-logout {
+    .btn-link-logout {
       background: none;
       border: none;
       color: #dc2626;
       cursor: pointer;
-      padding: 4px 8px;
       font-size: 11px;
       font-weight: 600;
-      border-radius: 4px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+      padding: 2px 4px;
+      margin-left: 4px;
     }
-    .btn-logout:hover {
-      background: #fee2e2;
-    }
-
-    /* NAVIGATION TABS */
-    .nav-tabs-bar {
-      background: #ffffff;
-      border-bottom: 1px solid var(--border-light);
-    }
-    .nav-tabs-inner {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-    }
-    .nav-tab-btn {
-      background: none;
-      border: none;
-      border-bottom: 3px solid transparent;
-      padding: 12px 14px;
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      white-space: nowrap;
-      transition: color 0.15s, border-color 0.15s;
-    }
-    .nav-tab-btn:hover {
-      color: var(--green-800);
-    }
-    .nav-tab-btn.active {
-      color: var(--green-900);
-      border-bottom-color: var(--green-700);
-      font-weight: 700;
+    .btn-link-logout:hover {
+      text-decoration: underline;
     }
 
     /* MAIN CONTAINER */
     .main-content {
-      max-width: 1240px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 24px 24px 60px;
       width: 100%;
       flex: 1;
     }
 
-    /* LOGIN SCREEN STYLING */
+    /* LOGIN CARD (MODAL / SCREEN) */
     .login-container {
-      max-width: 460px;
-      margin: 50px auto 20px;
+      max-width: 440px;
+      margin: 50px auto;
       background: #ffffff;
       border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
-      padding: 32px 36px;
+      padding: 32px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
     }
     .login-header {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .login-logo {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       background: var(--green-800);
       border-radius: var(--radius-md);
       color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
-      margin: 0 auto 12px;
+      margin: 0 auto 10px;
     }
     .login-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: var(--green-900);
-      letter-spacing: -0.02em;
     }
     .login-sub {
-      font-size: 12.5px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-    .quick-login-box {
-      margin-top: 20px;
-      padding-top: 18px;
-      border-top: 1px dashed var(--border-light);
-    }
-    .quick-login-title {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-bottom: 8px;
-      text-align: center;
-    }
-    .quick-login-grid {
-      display: grid;
-      gap: 6px;
-    }
-    .btn-quick-role {
-      background: #f8fafc;
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-sm);
-      padding: 8px 12px;
       font-size: 12px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      cursor: pointer;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: background 0.15s, border-color 0.15s;
-    }
-    .btn-quick-role:hover {
-      background: var(--green-50);
-      border-color: var(--green-200);
-      color: var(--green-900);
+      color: var(--text-muted);
+      margin-top: 3px;
     }
 
     /* PANELS */
@@ -380,7 +264,7 @@
       color: var(--text-muted);
     }
 
-    /* FORMS & CONTROLS */
+    /* FORMS & INPUTS */
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -392,8 +276,8 @@
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      margin-bottom: 14px;
+      gap: 5px;
+      margin-bottom: 12px;
     }
     .form-label {
       font-size: 12.5px;
@@ -458,6 +342,30 @@
       color: var(--text-primary);
     }
 
+    /* UPLOAD ACCORDION / BOX */
+    .profiler-box {
+      border: 1px dashed var(--border-green);
+      background: var(--green-50);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .profiler-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--green-900);
+      margin-bottom: 2px;
+    }
+    .profiler-desc {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+    }
+
     /* BALITA ROWS */
     .balita-row-header {
       display: grid;
@@ -516,7 +424,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
     @media (max-width: 768px) {
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -754,12 +662,6 @@
 </head>
 <body>
 
-  <!-- TOP GOV BANNER -->
-  <div class="top-gov-bar">
-    <div>KEMENTERIAN KESEHATAN REPUBLIK INDONESIA • DIREKTORAT GIZI DAN KESEHATAN IBU DAN ANAK</div>
-    <div>Sistem Pelaporan Terpadu Posyandu & Puskesmas (PPGBM Feeder)</div>
-  </div>
-
   <!-- APP HEADER -->
   <header class="app-header">
     <div class="header-inner">
@@ -767,53 +669,28 @@
         <div class="brand-logo">W</div>
         <div>
           <div class="brand-name">WARISAN.AI</div>
-          <div class="brand-subtitle">Sistem Deteksi Dini & Rujukan Gizi Balita Posyandu</div>
+          <div class="brand-subtitle">Platform Cerdas Deteksi Dini Gizi & Rujukan Balita Posyandu</div>
         </div>
       </div>
 
       <div class="header-right">
-        <span class="badge badge-primary">Standar WHO / Permenkes 2/2020</span>
+        <span class="badge badge-primary">Standar WHO & Permenkes No. 2/2020</span>
         <span id="networkBadge" class="badge badge-online">
           <span class="status-dot"></span> Online (Cloud Sync Aktif)
         </span>
 
         <!-- USER PROFILE BADGE (LOGGED IN) -->
         <div id="userProfileArea" class="user-profile-menu" style="display:none;">
-          <div id="userAvatar" class="user-avatar">SW</div>
-          <div class="user-info">
-            <span id="userName" class="user-name">Sri Wahyuni, A.Md.</span>
-            <span id="userRole" class="user-role">Kader Posyandu</span>
+          <div id="userAvatar" class="user-avatar">K</div>
+          <div>
+            <strong id="userName">Kader Posyandu</strong>
+            <span style="color:var(--text-muted); font-size:11px;">(Meja 4)</span>
           </div>
-          <button type="button" class="btn-logout" onclick="lakukanLogout()" title="Keluar">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            Keluar
-          </button>
+          <button type="button" class="btn-link-logout" onclick="lakukanLogout()">[Keluar]</button>
         </div>
       </div>
     </div>
   </header>
-
-  <!-- NAVIGATION TABS (ACTIVE WHEN LOGGED IN) -->
-  <nav id="navTabsBar" class="nav-tabs-bar" style="display:none;">
-    <div class="nav-tabs-inner">
-      <button type="button" class="nav-tab-btn active" onclick="gantiTab('tab-antropometri')">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Meja 4: Antropometri & Triase Balita
-      </button>
-      <button type="button" class="nav-tab-btn" onclick="gantiTab('tab-profiler')">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        Legacy Data Profiler (Excel / CSV)
-      </button>
-      <button type="button" class="nav-tab-btn" onclick="gantiTab('tab-riwayat')">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Arsip Riwayat Penimbangan
-      </button>
-      <button type="button" class="nav-tab-btn" onclick="gantiTab('tab-pedoman')">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        Pedoman Standar WHO & Kemenkes
-      </button>
-    </div>
-  </nav>
 
   <!-- TOAST NOTIFICATION -->
   <div id="toast">Notifikasi</div>
@@ -822,76 +699,50 @@
   <main class="main-content">
 
     <!-- ============================================================== -->
-    <!-- VIEW 0: PORTAL LOGIN RESMI (JIKA BELUM LOGIN)                   -->
+    <!-- VIEW 0: LOGIN KADER POSYANDU                                   -->
     <!-- ============================================================== -->
     <div id="loginView" class="login-container">
       <div class="login-header">
         <div class="login-logo">W</div>
-        <div class="login-title">Portal Masuk Warisan.AI</div>
-        <div class="login-sub">Sistem Deteksi Dini & Rujukan Gizi Balita Posyandu Terintegrasi Standar WHO & IBM Ecosystem</div>
+        <div class="login-title">Masuk Sistem Posyandu</div>
+        <div class="login-sub">Sistem Pencatatan Antropometri & Deteksi Dini Gizi Balita Meja 4</div>
       </div>
 
       <form id="loginForm" onsubmit="prosesLoginManual(event)">
         <div class="form-group">
-          <label class="form-label" for="loginEmail">Email / NIK / ID Kader</label>
-          <input type="text" id="loginEmail" class="form-control" placeholder="kader@posyandu.id" required>
+          <label class="form-label" for="loginEmail">Nama Kader / ID Posyandu</label>
+          <input type="text" id="loginEmail" class="form-control" placeholder="misal: Sri Wahyuni / Posyandu Melati" value="Sri Wahyuni (Kader Posyandu Melati)">
         </div>
         <div class="form-group">
-          <label class="form-label" for="loginPassword">Kata Sandi</label>
-          <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
+          <label class="form-label" for="loginPassword">PIN / Kata Sandi</label>
+          <input type="password" id="loginPassword" class="form-control" placeholder="123456" value="123456">
         </div>
-        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:9px; font-size:13.5px; margin-top:6px;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-          Masuk ke Portal Penimbangan
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:9px; font-size:13.5px; margin-top:8px;">
+          Masuk ke Aplikasi Penimbangan
         </button>
       </form>
 
-      <!-- DEMO AKUN CEPAT UNTUK JURI / EVALUATOR -->
-      <div class="quick-login-box">
-        <div class="quick-login-title">Akses Cepat Demo Pengguna (1-Klik)</div>
-        <div class="quick-login-grid">
-          <button type="button" class="btn-quick-role" onclick="quickLogin('kader')">
-            <div>
-              <strong>Kader Posyandu</strong>
-              <div style="font-size:11px; color:var(--text-muted);">Sri Wahyuni, A.Md. (Meja 4 Posyandu Melati)</div>
-            </div>
-            <span class="status-chip">Masuk →</span>
-          </button>
-          <button type="button" class="btn-quick-role" onclick="quickLogin('bidan')">
-            <div>
-              <strong>Bidan Pembina Desa</strong>
-              <div style="font-size:11px; color:var(--text-muted);">Bd. Siti Nurhaliza (Pustu Sendangadi)</div>
-            </div>
-            <span class="status-chip">Masuk →</span>
-          </button>
-          <button type="button" class="btn-quick-role" onclick="quickLogin('gizi')">
-            <div>
-              <strong>Koordinator Gizi Puskesmas</strong>
-              <div style="font-size:11px; color:var(--text-muted);">dr. Hendra Pratama (Puskesmas Mlati I)</div>
-            </div>
-            <span class="status-chip">Masuk →</span>
-          </button>
-        </div>
-      </div>
-
-      <div style="font-size:11px; color:var(--text-muted); text-align:center; margin-top:20px; line-height:1.4;">
-        🔒 Dilindungi standar enkripsi TLS & Kepatuhan UU Pelindungan Data Pribadi (UU PDP No. 27/2022).
+      <div style="margin-top:16px; padding-top:14px; border-top:1px dashed var(--border-light); text-align:center;">
+        <button type="button" class="btn btn-outline" style="width:100%; justify-content:center;" onclick="quickLogin()">
+          ⚡ Masuk Langsung (1-Klik Tanpa Sandi)
+        </button>
+        <div style="font-size:11px; color:var(--text-muted); margin-top:8px;">Akses cepat untuk evaluasi dan simulasi penimbangan balita.</div>
       </div>
     </div>
 
     <!-- ============================================================== -->
-    <!-- VIEW 1: TAB 1 - MEJA 4: ANTROPOMETRI & TRIASE BALITA           -->
+    <!-- VIEW 1: WORKSPACE PENIMBANGAN POSYANDU UTAMA                   -->
     <!-- ============================================================== -->
-    <div id="tab-antropometri" class="tab-content" style="display:none;">
-      
-      <!-- INFORMASI POSYANDU & PERIODE -->
+    <div id="workspaceView" style="display:none;">
+
+      <!-- INFORMASI POSYANDU -->
       <div class="panel">
         <div class="panel-header">
           <div class="panel-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             Informasi Posyandu & Periode Penimbangan
           </div>
-          <div class="panel-sub">Disinkronkan otomatis ke penyimpanan lokal kader</div>
+          <div class="panel-sub">Tersimpan otomatis di penyimpanan lokal perangkat kader</div>
         </div>
         <div class="grid-2">
           <div class="form-group">
@@ -905,19 +756,44 @@
         </div>
       </div>
 
-      <!-- ROSTER PENIMBANGAN AKTIF -->
+      <!-- LEGACY DATA PROFILER (EXCEL / CSV) -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            Legacy Data Profiler (Unggah Berkas Excel / CSV Posyandu)
+          </div>
+          <div class="panel-sub">Ekstraksi berkas lama dengan Parity Validator batas biologis WHO</div>
+        </div>
+        <div class="profiler-box">
+          <div>
+            <div class="profiler-title">Punya Rekapitulasi Excel / CSV Bulan Lalu?</div>
+            <div class="profiler-desc">Sistem memetakan kolom secara otomatis dan melakukan validasi kelayakan data sebelum masuk ke roster aktif.</div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <input type="file" id="excelFileInput" accept=".xlsx,.xls,.csv" style="display:none;" onchange="handleFileUpload(event)">
+            <button type="button" class="btn btn-primary" onclick="document.getElementById('excelFileInput').click()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Unggah Berkas Excel / CSV
+            </button>
+            <button type="button" class="btn btn-outline" onclick="unduhTemplateExcel()">
+              Unduh Template Standar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROSTER PENIMBANGAN AKTIF (MEJA 4) -->
       <div class="panel">
         <div class="panel-header">
           <div class="panel-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            Daftar Penimbangan Balita Aktif (Meja 4 Posyandu)
+            Daftar Pengukuran Balita (Meja 4 Posyandu)
           </div>
-          <div style="display:flex; align-items:center; gap:12px;">
-            <label style="font-size:12px; display:inline-flex; align-items:center; gap:6px; cursor:pointer; color:var(--text-secondary);">
-              <input type="checkbox" id="privacyToggle" onchange="analisis(false)">
-              <span>Mode Privasi (Sensor Nama Balita - UU PDP)</span>
-            </label>
-          </div>
+          <label style="font-size:12px; display:inline-flex; align-items:center; gap:6px; cursor:pointer; color:var(--text-secondary);">
+            <input type="checkbox" id="privacyToggle" onchange="analisis(false)">
+            <span>Mode Privasi (Sensor Nama Balita - UU PDP)</span>
+          </label>
         </div>
 
         <div class="balita-row-header">
@@ -939,7 +815,7 @@
               Tambah Baris Balita
             </button>
             <button type="button" class="btn btn-secondary" onclick="isiSample();">
-              Gunakan 5 Data Kasus Demo
+              Gunakan 5 Data Demo
             </button>
             <button type="button" class="btn btn-secondary" onclick="resetForm(); simpanKePenyimpananLokal();">
               Kosongkan Formulir
@@ -952,7 +828,7 @@
         </div>
       </div>
 
-      <!-- HASIL ANALISIS & CDSS -->
+      <!-- HASIL EVALUASI KLINIS -->
       <div id="hasil" style="display:none;">
         
         <!-- RINGKASAN STATISTIK -->
@@ -962,12 +838,10 @@
               <div class="panel-title">Ringkasan Status & Evaluasi Klinis Komunitas</div>
               <div id="hasilSub" class="panel-sub"></div>
             </div>
-            <div style="display:flex; gap:8px;">
-              <button type="button" class="btn btn-outline" onclick="sinkronkanSesiManual()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-                Sinkronkan Data ke Server
-              </button>
-            </div>
+            <button type="button" class="btn btn-outline" onclick="sinkronkanSesiManual()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              Sinkronkan Data ke Server
+            </button>
           </div>
 
           <div id="statsBox" class="stats-grid"></div>
@@ -979,7 +853,7 @@
           <div class="panel-header">
             <div>
               <div class="panel-title">Matriks Klasifikasi Status Gizi & Tren Pertumbuhan (WHO)</div>
-              <div class="panel-sub">Evaluasi deterministik BB/U, TB/U (stunting), BB/TB (wasting), serta tren kenaikan/penurunan berturut-turut</div>
+              <div class="panel-sub">Kalkulasi deterministik BB/U, TB/U (stunting), BB/TB (wasting), serta tren antar-kunjungan</div>
             </div>
           </div>
           <div class="table-wrap">
@@ -1008,7 +882,7 @@
             <div>
               <div class="panel-title">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
-                Sistem Pendukung Keputusan Klinis (IBM Langflow & Bob)
+                Instruksi Klinis & Rujukan (IBM Langflow & Bob)
               </div>
               <div id="aiEngineBadge" class="panel-sub">Alur Inferensi Kognitif: Terkoneksi ke Bridge AI Warisan.AI</div>
             </div>
@@ -1021,7 +895,7 @@
           <div class="panel-header">
             <div>
               <div class="panel-title">Panduan Komunikasi & Edukasi Orang Tua Balita</div>
-              <div class="panel-sub">Narasi empatik dan solutif berbasis bahasa komunikatif sehari-hari untuk kader saat bertatap muka dengan ibu</div>
+              <div class="panel-sub">Narasi empatik sehari-hari untuk kader saat berhadapan langsung dengan ibu balita</div>
             </div>
             <button type="button" class="btn btn-outline" onclick="salinPesanIbu()">
               Salin Pesan Konseling WhatsApp
@@ -1050,76 +924,18 @@
         </div>
 
       </div>
-    </div>
 
-    <!-- ============================================================== -->
-    <!-- VIEW 2: TAB 2 - LEGACY DATA PROFILER (EXCEL / CSV)             -->
-    <!-- ============================================================== -->
-    <div id="tab-profiler" class="tab-content" style="display:none;">
-      <div class="panel">
+      <!-- ARSIP SESI PENIMBANGAN (COLLAPSIBLE) -->
+      <div class="panel" style="margin-top:24px;">
         <div class="panel-header">
-          <div>
-            <div class="panel-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-              Legacy Data Profiler & Parity Validator
-            </div>
-            <div class="panel-sub">Membaca dan memetakan berkas pencatatan Posyandu lama (Excel & CSV) serta mendeteksi nilai anomali</div>
-          </div>
-        </div>
-
-        <div style="border: 2px dashed var(--border-green); background: var(--green-50); border-radius: var(--radius-md); padding: 24px; text-align: center; margin-bottom: 20px;">
-          <div style="width:48px; height:48px; background:var(--green-200); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 12px; color:var(--green-900);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          </div>
-          <div style="font-size:15px; font-weight:700; color:var(--green-900); margin-bottom:4px;">Unggah Berkas Pencatatan Posyandu (.xlsx / .csv)</div>
-          <div style="font-size:12.5px; color:var(--text-secondary); max-width:540px; margin:0 auto 16px;">Sistem secara otomatis membaca format kolom kader, melakukan verifikasi Parity Validator terhadap batas biologis WHO, dan menampilkan layar konfirmasi ulang sebelum masuk ke data aktif.</div>
-          
-          <input type="file" id="tabExcelFileInput" accept=".xlsx,.xls,.csv" style="display:none;" onchange="handleFileUpload(event)">
-          <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-            <button type="button" class="btn btn-primary" onclick="document.getElementById('tabExcelFileInput').click()">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-              Pilih Berkas Excel / CSV
-            </button>
-            <button type="button" class="btn btn-outline" onclick="unduhTemplateExcel()">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Unduh Template Posyandu Standar
-            </button>
-          </div>
-        </div>
-
-        <div style="background:#ffffff; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px;">
-          <div style="font-weight:700; font-size:13px; color:var(--green-900); margin-bottom:6px;">Format Kolom yang Didukung Secara Otomatis:</div>
-          <ul style="padding-left:18px; margin:0; font-size:12px; color:var(--text-secondary); line-height:1.6;">
-            <li><strong>Nama Balita:</strong> <code>nama</code>, <code>nama anak</code>, <code>nama balita</code>, <code>nama lengkap</code></li>
-            <li><strong>Usia Anak:</strong> <code>usia</code>, <code>umur</code>, <code>umur (bln)</code>, <code>usia (bulan)</code>, <code>bln</code></li>
-            <li><strong>Berat Badan:</strong> <code>bb</code>, <code>berat</code>, <code>berat badan</code>, <code>bb (kg)</code>, <code>berat (kg)</code></li>
-            <li><strong>Tinggi/Panjang:</strong> <code>tb</code>, <code>tinggi</code>, <code>panjang</code>, <code>pb</code>, <code>tb (cm)</code></li>
-            <li><strong>Jenis Kelamin:</strong> <code>jk</code>, <code>jenis kelamin</code>, <code>l/p</code>, <code>sex</code>, <code>gender</code></li>
-            <li><strong>Berat Bulan Lalu (Opsional):</strong> <code>bb lalu</code>, <code>bb bulan lalu</code>, <code>bb_prev</code></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- ============================================================== -->
-    <!-- VIEW 3: TAB 3 - ARSIP RIWAYAT PENIMBANGAN KOMUNITAS           -->
-    <!-- ============================================================== -->
-    <div id="tab-riwayat" class="tab-content" style="display:none;">
-      <div class="panel">
-        <div class="panel-header">
-          <div>
-            <div class="panel-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              Arsip Riwayat Sesi Penimbangan Tersinkronisasi
-            </div>
-            <div class="panel-sub">Rekapitulasi berkas penimbangan yang telah dilaporkan dan tersimpan di basis data server</div>
+          <div class="panel-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Riwayat Sesi Penimbangan Tersimpan
           </div>
           <button type="button" class="btn btn-outline" onclick="muatRiwayatServer()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-            Perbarui Daftar
+            Perbarui Riwayat
           </button>
         </div>
-
         <div class="table-wrap">
           <table>
             <thead>
@@ -1136,80 +952,13 @@
             </thead>
             <tbody id="riwayatTableBody">
               <tr>
-                <td colspan="8" style="text-align:center; padding:24px; color:var(--text-muted);">Memuat riwayat sesi penimbangan...</td>
+                <td colspan="8" style="text-align:center; padding:18px; color:var(--text-muted);">Memuat riwayat sesi penimbangan...</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-    </div>
 
-    <!-- ============================================================== -->
-    <!-- VIEW 4: TAB 4 - PEDOMAN STANDAR WHO & KEMENKES NO. 2/2020      -->
-    <!-- ============================================================== -->
-    <div id="tab-pedoman" class="tab-content" style="display:none;">
-      <div class="panel">
-        <div class="panel-header">
-          <div>
-            <div class="panel-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              Pedoman Standar Antropometri Anak Kemenkes RI No. 2 Tahun 2020
-            </div>
-            <div class="panel-sub">Klasifikasi Z-Score Indeks Antropometri WHO Child Growth Standards</div>
-          </div>
-        </div>
-
-        <div class="grid-2" style="margin-bottom:20px;">
-          <div style="background:#ffffff; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px;">
-            <div style="font-weight:700; color:var(--green-900); margin-bottom:8px;">1. Indeks Berat Badan menurut Umur (BB/U)</div>
-            <table style="font-size:12px;">
-              <tr><th>Kategori Status</th><th>Ambang Batas (Z-Score)</th></tr>
-              <tr><td><span class="status-chip flagged">Gizi Buruk</span></td><td>&lt; -3.0 SD</td></tr>
-              <tr><td><span class="status-chip warning">Gizi Kurang</span></td><td>-3.0 SD s/d -2.0 SD</td></tr>
-              <tr><td><span class="status-chip">Gizi Baik (Normal)</span></td><td>-2.0 SD s/d +1.0 SD</td></tr>
-              <tr><td><span class="status-chip warning">Berisiko Gizi Lebih</span></td><td>&gt; +1.0 SD</td></tr>
-            </table>
-          </div>
-
-          <div style="background:#ffffff; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px;">
-            <div style="font-weight:700; color:var(--green-900); margin-bottom:8px;">2. Indeks Tinggi/Panjang menurut Umur (TB/U) — Stunting</div>
-            <table style="font-size:12px;">
-              <tr><th>Kategori Status</th><th>Ambang Batas (Z-Score)</th></tr>
-              <tr><td><span class="status-chip flagged">Sangat Pendek (Severely Stunted)</span></td><td>&lt; -3.0 SD</td></tr>
-              <tr><td><span class="status-chip warning">Pendek (Stunted)</span></td><td>-3.0 SD s/d -2.0 SD</td></tr>
-              <tr><td><span class="status-chip">Normal</span></td><td>-2.0 SD s/d +3.0 SD</td></tr>
-              <tr><td><span class="status-chip">Tinggi</span></td><td>&gt; +3.0 SD</td></tr>
-            </table>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div style="background:#ffffff; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px;">
-            <div style="font-weight:700; color:var(--green-900); margin-bottom:8px;">3. Indeks Berat menurut Tinggi Badan (BB/TB) — Wasting</div>
-            <table style="font-size:12px;">
-              <tr><th>Kategori Status</th><th>Ambang Batas (Z-Score)</th></tr>
-              <tr><td><span class="status-chip flagged">Gizi Buruk (Severely Wasted)</span></td><td>&lt; -3.0 SD</td></tr>
-              <tr><td><span class="status-chip warning">Gizi Kurang (Wasted)</span></td><td>-3.0 SD s/d -2.0 SD</td></tr>
-              <tr><td><span class="status-chip">Gizi Baik (Normal)</span></td><td>-2.0 SD s/d +1.0 SD</td></tr>
-              <tr><td><span class="status-chip">Berisiko Gizi Lebih</span></td><td>&gt; +1.0 SD s/d +2.0 SD</td></tr>
-              <tr><td><span class="status-chip warning">Gizi Lebih (Overweight)</span></td><td>&gt; +2.0 SD s/d +3.0 SD</td></tr>
-              <tr><td><span class="status-chip flagged">Obesitas</span></td><td>&gt; +3.0 SD</td></tr>
-            </table>
-          </div>
-
-          <div style="background:#ffffff; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px;">
-            <div style="font-weight:700; color:var(--green-900); margin-bottom:8px;">4. Ketentuan Baku Pengukuran (Panjang vs Tinggi)</div>
-            <div style="font-size:12px; color:var(--text-secondary); line-height:1.6;">
-              <p style="margin-bottom:8px;"><strong>Usia &lt; 24 Bulan:</strong> Pengukuran baku dilakukan secara <em>terlentang</em> menggunakan infantometer (Panjang Badan / PB).</p>
-              <p style="margin-bottom:8px;"><strong>Usia &ge; 24 Bulan:</strong> Pengukuran baku dilakukan secara <em>berdiri tegak</em> menggunakan stadiometer (Tinggi Badan / TB).</p>
-              <div style="background:var(--green-50); border:1px solid var(--green-200); padding:10px; border-radius:6px; margin-top:10px;">
-                <strong>Koreksi Standar WHO:</strong> Jika anak usia &lt;24 bulan diukur berdiri, maka <code>PB = TB + 0.7 cm</code>. Sebaliknya jika anak &ge;24 bulan diukur terlentang, maka <code>TB = PB - 0.7 cm</code>.
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
     </div>
 
   </main>
@@ -1255,14 +1004,14 @@
 
   <!-- APP FOOTER -->
   <footer class="app-footer">
-    <div><strong>Warisan.AI</strong> — Sistem Deteksi Dini Stunting & Malnutrisi Balita Berbasis Standar WHO & IBM Ecosystem</div>
-    <div style="margin-top:4px;">Dikembangkan untuk National Hackathon Preliminary (IBM SkillsBuild x Hacktiv8). Hak Cipta &copy; 2026.</div>
+    <div><strong>Warisan.AI</strong> — Sistem Deteksi Dini Stunting & Malnutrisi Balita Posyandu (Standar WHO & Kemenkes No. 2/2020)</div>
+    <div style="margin-top:4px;">Inovasi Mandiri untuk National Hackathon Preliminary (IBM SkillsBuild x Hacktiv8).</div>
   </footer>
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
     // ==============================================================================
-    // MANAJEMEN AUTENTIKASI PENGGUNA (LOGIN / LOGOUT / ROLES)
+    // MANAJEMEN AUTENTIKASI KADER POSYANDU
     // ==============================================================================
     let currentUser = null;
 
@@ -1271,137 +1020,69 @@
       if (saved) {
         try {
           currentUser = JSON.parse(saved);
-          tampilkanPortalUtama();
+          bukaWorkspace();
           return;
         } catch (e) {
           localStorage.removeItem('warisan_auth_user');
         }
       }
-      tampilkanHalamanLogin();
+      tampilkanLogin();
     }
 
-    function tampilkanHalamanLogin() {
+    function tampilkanLogin() {
       document.getElementById('loginView').style.display = 'block';
+      document.getElementById('workspaceView').style.display = 'none';
       document.getElementById('userProfileArea').style.display = 'none';
-      document.getElementById('navTabsBar').style.display = 'none';
-      sembunyikanSeluruhTab();
     }
 
-    function tampilkanPortalUtama() {
+    function bukaWorkspace() {
       document.getElementById('loginView').style.display = 'none';
+      document.getElementById('workspaceView').style.display = 'block';
       document.getElementById('userProfileArea').style.display = 'flex';
-      document.getElementById('navTabsBar').style.display = 'block';
-
-      // Set Profile Header
-      const initials = currentUser.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
-      document.getElementById('userAvatar').textContent = initials || 'US';
-      document.getElementById('userName').textContent = currentUser.name;
-      document.getElementById('userRole').textContent = currentUser.role_label || currentUser.role;
-
-      // Buka Tab Antropometri Meja 4
-      gantiTab('tab-antropometri');
-
-      // Tampilkan toast selamat datang
-      showToast(`Selamat datang di Warisan.AI, ${currentUser.name}`);
+      
+      const name = currentUser ? currentUser.name : 'Kader Posyandu';
+      document.getElementById('userName').textContent = name;
+      document.getElementById('userAvatar').textContent = name[0] || 'K';
+      
+      muatRiwayatServer();
+      showToast(`Selamat bertugas di Meja 4 Posyandu, ${name}`);
     }
 
     async function prosesLoginManual(event) {
       event.preventDefault();
-      const username = document.getElementById('loginEmail').value.trim();
-      const password = document.getElementById('loginPassword').value.trim();
-
+      const nama = document.getElementById('loginEmail').value.trim() || 'Sri Wahyuni (Kader Posyandu)';
       try {
         const resp = await fetch('/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password })
+          body: JSON.stringify({ username: nama, password: '' })
         });
         if (resp.ok) {
           const res = await resp.json();
           currentUser = res.user;
-          localStorage.setItem('warisan_auth_token', res.token);
           localStorage.setItem('warisan_auth_user', JSON.stringify(res.user));
-          tampilkanPortalUtama();
-        } else {
-          const err = await resp.json();
-          alert(err.detail || 'Kredensial login tidak cocok.');
+          bukaWorkspace();
+          return;
         }
-      } catch (e) {
-        // Fallback login offline
-        quickLogin('kader');
-      }
-    }
-
-    function quickLogin(roleKey) {
-      const mockUsers = {
-        kader: {
-          id: 'USR-001',
-          name: 'Sri Wahyuni, A.Md.',
-          email: 'kader@posyandu.id',
-          role: 'KADER',
-          role_label: 'Kader Posyandu (Meja 4)',
-          unit: 'Posyandu Melati RW 03, Kel. Sendangadi'
-        },
-        bidan: {
-          id: 'USR-002',
-          name: 'Bd. Siti Nurhaliza, S.Tr.Keb',
-          email: 'bidan@desa.id',
-          role: 'BIDAN',
-          role_label: 'Bidan Pembina Desa',
-          unit: 'Puskesmas Pembantu Sendangadi'
-        },
-        gizi: {
-          id: 'USR-003',
-          name: 'dr. Hendra Pratama, Sp.A',
-          email: 'gizi@puskesmas.go.id',
-          role: 'DINKES',
-          role_label: 'Koordinator Gizi Puskesmas',
-          unit: 'Puskesmas Mlati I, Kab. Sleman'
-        }
-      };
-      currentUser = mockUsers[roleKey] || mockUsers['kader'];
-      localStorage.setItem('warisan_auth_token', 'DEMO-TOKEN-' + Date.now());
-      localStorage.setItem('warisan_auth_user', JSON.stringify(currentUser));
-      tampilkanPortalUtama();
-    }
-
-    async function lakukanLogout() {
-      try {
-        const token = localStorage.getItem('warisan_auth_token');
-        await fetch(`/api/auth/logout?token=${token || ''}`, { method: 'POST' });
       } catch (e) {}
-      localStorage.removeItem('warisan_auth_token');
+
+      // Fallback offline
+      currentUser = { name: nama, role: 'KADER' };
+      localStorage.setItem('warisan_auth_user', JSON.stringify(currentUser));
+      bukaWorkspace();
+    }
+
+    function quickLogin() {
+      currentUser = { name: 'Sri Wahyuni, A.Md. (Kader Melati)', role: 'KADER' };
+      localStorage.setItem('warisan_auth_user', JSON.stringify(currentUser));
+      bukaWorkspace();
+    }
+
+    function lakukanLogout() {
       localStorage.removeItem('warisan_auth_user');
       currentUser = null;
-      tampilkanHalamanLogin();
-      showToast('Sesi Anda telah berakhir.');
-    }
-
-    // ==============================================================================
-    // MANAJEMEN TAB PORTAL
-    // ==============================================================================
-    function sembunyikanSeluruhTab() {
-      document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
-    }
-
-    function gantiTab(tabId) {
-      sembunyikanSeluruhTab();
-      document.querySelectorAll('.nav-tab-btn').forEach(btn => btn.classList.remove('active'));
-
-      const target = document.getElementById(tabId);
-      if (target) {
-        target.style.display = 'block';
-      }
-
-      // Tandai button active
-      const tabBtns = document.querySelectorAll('.nav-tab-btn');
-      if (tabId === 'tab-antropometri' && tabBtns[0]) tabBtns[0].classList.add('active');
-      if (tabId === 'tab-profiler' && tabBtns[1]) tabBtns[1].classList.add('active');
-      if (tabId === 'tab-riwayat' && tabBtns[2]) {
-        tabBtns[2].classList.add('active');
-        muatRiwayatServer();
-      }
-      if (tabId === 'tab-pedoman' && tabBtns[3]) tabBtns[3].classList.add('active');
+      tampilkanLogin();
+      showToast('Anda telah keluar dari aplikasi.');
     }
 
     // ==============================================================================
@@ -1563,7 +1244,7 @@
     }
 
     // ==============================================================================
-    // MANAJEMEN BARIS PENIMBANGAN (ROSTER)
+    // MANAJEMEN ROSTER BALITA
     // ==============================================================================
     let idCounter = 0;
 
@@ -1617,9 +1298,7 @@
 
     function updateDariMatriks(id, field, val) {
       const el = document.getElementById(field + '-' + id);
-      if (el) {
-        el.value = val;
-      }
+      if (el) el.value = val;
       simpanKePenyimpananLokal();
       analisis(false);
     }
@@ -1694,7 +1373,7 @@
         recorded_at: new Date().toISOString(),
         balita_list: window.currentHasil,
         summary: window.currentSummary || {},
-        notes: `Dilaporkan oleh ${currentUser ? currentUser.name : 'Kader Posyandu'}`
+        notes: `Tercatat oleh ${currentUser ? currentUser.name : 'Kader Posyandu'}`
       };
 
       try {
@@ -1704,13 +1383,13 @@
           body: JSON.stringify(payload)
         });
         if (resp.ok) {
-          showToast('Data penimbangan posyandu berhasil disinkronkan ke server pusat.');
+          showToast('Data penimbangan posyandu berhasil disinkronkan ke server.');
           muatRiwayatServer();
         } else {
-          showToast('Server offline. Data tetap tersimpan aman di penyimpanan lokal HP kader.');
+          showToast('Server offline. Data tetap tersimpan aman di HP kader.');
         }
       } catch (err) {
-        showToast('Mode offline aktif. Data tersimpan di HP dan siap disinkronkan saat tersambung internet.');
+        showToast('Mode offline aktif. Data tersimpan di HP kader.');
       }
     }
 
@@ -1722,7 +1401,7 @@
           const res = await resp.json();
           const records = res.records || [];
           if (!records.length) {
-            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:24px; color:var(--text-muted);">Belum ada arsip sesi penimbangan yang disinkronkan ke server.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:18px; color:var(--text-muted);">Belum ada arsip sesi penimbangan yang disinkronkan.</td></tr>';
             return;
           }
           tbody.innerHTML = records.map(r => {
@@ -1742,7 +1421,7 @@
           }).join('');
         }
       } catch (e) {
-        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:24px; color:var(--text-muted);">Server tidak terjangkau (Mode Offline). Data riwayat lokal tetap tersimpan di perangkat.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:18px; color:var(--text-muted);">Mode Offline: Riwayat lokal tetap tersimpan di perangkat.</td></tr>';
       }
     }
 
@@ -1886,7 +1565,7 @@
       if (!berisiko.length) {
         pBox = `<div class="alert-box">
           <div class="alert-title">Kondisi Pertumbuhan Komunitas Baik</div>
-          <div class="alert-desc">Seluruh balita yang terdaftar berada dalam kurva pertumbuhan normal standar WHO / Kemenkes RI.</div>
+          <div class="alert-desc">Seluruh balita yang terdaftar berada dalam kurva pertumbuhan normal standar WHO / Permenkes RI No. 2/2020.</div>
         </div>`;
       }
       document.getElementById('peringatanBox').innerHTML = pBox;
@@ -1955,7 +1634,7 @@
       aiBox.innerHTML = `
         <div style="padding:16px; text-align:center; color:var(--text-muted); font-size:13px;">
           <svg style="animation:spin 1s linear infinite; display:inline-block; vertical-align:middle; margin-right:8px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-          Menghubungkan ke IBM Langflow Engine untuk sintesis rekomendasi klinis terpadu...
+          Menghubungkan ke IBM Langflow Engine untuk sintesis instruksi rujukan klinis...
         </div>
       `;
 
@@ -2070,16 +1749,14 @@
     function renderLaporanFormal(posyandu, bln, hasil, tinggi, sedang, aman) {
       const now = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
       const officer = currentUser ? currentUser.name : 'Sri Wahyuni, A.Md.';
-      const unit = currentUser ? currentUser.unit : posyandu;
 
       let rep = `REKAPITULASI HASIL PEMANTAUAN STATUS GIZI BALITA
-KEMENTERIAN KESEHATAN RI / DINAS KESEHATAN KABUPATEN
+POSYANDU TERPADU TINGKAT DESA
 --------------------------------------------------------------------------------
 Posyandu   : ${posyandu}
-Unit Kerja : ${unit}
 Periode    : ${bln}
 Tanggal    : ${now}
-Petugas    : ${officer}
+Petugas    : ${officer} (Kader Meja 4)
 Standar    : WHO Child Growth Standards & Permenkes RI No. 2 Tahun 2020
 --------------------------------------------------------------------------------
 
@@ -2100,7 +1777,7 @@ II. DAFTAR SELURUH BALITA YANG DITIMBANG (${hasil.length} Anak)
       rep += `\nIII. TINDAK LANJUT PRIORITAS KHUSUS (${berisiko.length} Anak)\n`;
       if (berisiko.length) {
         berisiko.forEach(h => {
-          const tind = h.risk === 'TINGGI' ? 'Rujuk segera ke Puskesmas / Dokter Anak + PMT Pemulihan' : 'Pemantauan ketat siklus 14 hari + Suplementasi Protein Hewani';
+          const tind = h.risk === 'TINGGI' ? 'Rujuk segera ke Bidan Desa / Puskesmas + PMT Pemulihan' : 'Pemantauan ketat siklus 14 hari + Suplementasi Protein Hewani';
           rep += `• ${h.nama} (${h.usia} bln) -> ${tind}\n`;
         });
       } else {
@@ -2151,7 +1828,7 @@ Penanggung Jawab Penimbangan,                     Bidan Pembina Desa,
           const text = await file.text();
           parseCsvOffline(text, file.name);
         } else {
-          alert('Server pengolah berkas tidak tersambung. Silakan jalankan backend atau gunakan file format CSV.');
+          alert('Server pengolah berkas tidak tersambung. Silakan jalankan backend atau gunakan format CSV.');
         }
       }
       event.target.value = '';
@@ -2243,7 +1920,6 @@ Penanggung Jawab Penimbangan,                     Bidan Pembina Desa,
 
       tutupModalKonfirmasi();
       simpanKePenyimpananLokal();
-      gantiTab('tab-antropometri');
       showToast(`Berhasil menambahkan ${pendingExtractedData.length} data balita ke roster.`);
       analisis(true);
     }
@@ -2285,7 +1961,7 @@ Penanggung Jawab Penimbangan,                     Bidan Pembina Desa,
         if (h.isAcuteDrop) t += `• Peringatan: Penurunan Berat Badan Akut dari penimbangan sebelumnya.\n`;
         t += `• Arahan Kader: ${h.risk === 'TINGGI' ? 'Disarankan konsultasi ke Bidan Desa / Puskesmas minggu ini.' : (h.risk === 'SEDANG' ? 'Tambahkan porsi protein hewani (telur/ikan) dan timbang 2 minggu lagi.' : 'Pertumbuhan sangat baik, pertahankan pola makan bergizi!')}\n\n`;
       });
-      t += `_Disusun melalui Platform Warisan.AI (Standar WHO / Permenkes RI No. 2/2020)_`;
+      t += `_Disusun melalui Platform Warisan.AI (Standar WHO & Permenkes RI No. 2/2020)_`;
 
       navigator.clipboard.writeText(t).then(() => {
         showToast('Pesan konseling WhatsApp berhasil disalin.');
