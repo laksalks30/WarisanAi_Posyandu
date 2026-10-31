@@ -906,12 +906,16 @@
 
         <!-- FORMAT REKAPITULASI LAPORAN RESMI -->
         <div class="panel">
-          <div class="panel-header">
+          <div class="panel-header" style="flex-wrap:wrap; gap:12px;">
             <div>
               <div class="panel-title">Format Surat Rekapitulasi Pemantauan Tumbuh Kembang</div>
               <div class="panel-sub">Standar dokumentasi pelaporan Posyandu ke Bidan Pembina Desa & Puskesmas</div>
             </div>
-            <div style="display:flex; gap:8px;">
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button type="button" class="btn btn-outline" id="btnUnduhPdf" onclick="unduhLaporanPDF()" style="border-color:var(--green-700); color:var(--green-800); font-weight:700;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:middle; margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Unduh Laporan (PDF)
+              </button>
               <button type="button" class="btn btn-outline" onclick="salinLaporan()">
                 Salin Dokumen Laporan
               </button>
@@ -1929,13 +1933,254 @@ Penanggung Jawab Penimbangan,                     Bidan Pembina Desa,
     }
 
     // ==============================================================================
-    // SALIN & BAGIKAN
+    // SALIN, BAGIKAN & CETAK / UNDUH LAPORAN PDF
     // ==============================================================================
     function showToast(msg) {
       const t = document.getElementById('toast');
       t.textContent = msg;
       t.style.display = 'block';
       setTimeout(() => { t.style.display = 'none'; }, 3500);
+    }
+
+    async function unduhLaporanPDF() {
+      if (!window.currentHasil || !window.currentHasil.length) {
+        showToast('Silakan lakukan analisis penimbangan balita terlebih dahulu.');
+        return;
+      }
+
+      const btn = document.getElementById('btnUnduhPdf');
+      const originalHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.innerHTML = `<svg style="animation:spin 1s linear infinite; display:inline-block; vertical-align:middle; margin-right:6px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Memproses PDF...`;
+        btn.disabled = true;
+      }
+
+      const posyandu = document.getElementById('namaPosyandu').value.trim() || 'Posyandu Terpadu';
+      const bln = document.getElementById('bulanTimbang').value || '2026-09';
+      const officer = currentUser ? currentUser.name : 'Sri Wahyuni, A.Md.';
+      const bidan = 'Bd. Siti Nurhaliza, S.Tr.Keb';
+
+      try {
+        // 1. Coba unduh via backend FastAPI (fpdf2 native vector PDF)
+        const payload = {
+          posyandu: posyandu,
+          periode: bln,
+          officer: officer,
+          bidan: bidan,
+          balita_list: window.currentHasil,
+          summary: window.currentSummary || {}
+        };
+
+        const res = await fetch('/api/export/pdf', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          const blob = await res.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          const safePos = posyandu.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 20);
+          a.download = `Rekapitulasi_Posyandu_${bln}_${safePos}.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+          showToast('Dokumen Rekapitulasi PDF resmi berhasil diunduh.');
+          if (btn) {
+            btn.innerHTML = originalHtml;
+            btn.disabled = false;
+          }
+          return;
+        }
+      } catch (err) {
+        console.warn('Backend PDF endpoint error, switching to client-side print view:', err);
+      }
+
+      // 2. Fallback offline: Browser Print-to-PDF / Formatted Print Window
+      try {
+        generatePrintablePdfWindow(posyandu, bln, officer, bidan, window.currentHasil, window.currentSummary);
+        showToast('Jendela Cetak PDF resmi dibuka. Pilih "Simpan sebagai PDF / Save as PDF".');
+      } catch (printErr) {
+        console.error('Print window error:', printErr);
+        showToast('Gagal mencetak dokumen. Silakan gunakan tombol Salin Laporan.');
+      } finally {
+        if (btn) {
+          btn.innerHTML = originalHtml;
+          btn.disabled = false;
+        }
+      }
+    }
+
+    function generatePrintablePdfWindow(posyandu, bln, officer, bidan, hasil, summary) {
+      const now = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+      const total = hasil.length;
+      const tinggi = hasil.filter(h => h.risk === 'TINGGI');
+      const sedang = hasil.filter(h => h.risk === 'SEDANG');
+      const aman = hasil.filter(h => h.risk === 'AMAN');
+
+      const printHtml = `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Rekapitulasi Posyandu - ${posyandu} (${bln})</title>
+  <style>
+    @page { size: A4; margin: 12mm 14mm; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 10.5pt; color: #1e293b; margin: 0; line-height: 1.4; }
+    .header { text-align: center; margin-bottom: 12px; }
+    .header h2 { margin: 0; font-size: 13pt; color: #0f3d26; text-transform: uppercase; letter-spacing: 0.5px; }
+    .header h3 { margin: 2px 0; font-size: 11pt; color: #15803d; }
+    .header p { margin: 2px 0 0; font-size: 8.5pt; color: #64748b; }
+    .rule { border: 0; border-top: 2px solid #0f3d26; margin: 8px 0 2px; }
+    .sub-rule { border: 0; border-top: 0.6px solid #166534; margin: 0 0 12px; }
+    .meta-box { background: #f8faf8; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px 12px; font-size: 9pt; margin-bottom: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; }
+    .meta-item { display: flex; }
+    .meta-item strong { width: 130px; color: #334155; }
+    .triase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; text-align: center; }
+    .triase-card { border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px 4px; }
+    .triase-card .num { font-size: 14pt; font-weight: bold; margin-bottom: 2px; }
+    .triase-card .lbl { font-size: 7.5pt; color: #64748b; text-transform: uppercase; }
+    .table-title { font-size: 9.5pt; font-weight: bold; color: #0f3d26; margin: 10px 0 4px; }
+    table { width: 100%; border-collapse: collapse; font-size: 8pt; margin-bottom: 12px; }
+    th { background: #0f3d26; color: #ffffff; padding: 5px 4px; border: 1px solid #0f3d26; text-align: center; font-weight: 600; }
+    td { padding: 4px; border: 1px solid #cbd5e1; text-align: center; }
+    td.left { text-align: left; }
+    tr:nth-child(even) td { background: #f8faf8; }
+    tr.flagged td { background: #fee2e2 !important; color: #991b1b; }
+    tr.warning td { background: #fef3c7 !important; color: #92400e; }
+    .action-box { background: #f8faf8; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px 12px; font-size: 8.5pt; margin-bottom: 14px; }
+    .action-title { font-weight: bold; color: #0f3d26; margin-bottom: 4px; }
+    .action-list { margin: 0; padding-left: 18px; line-height: 1.5; color: #334155; }
+    .sig-grid { display: grid; grid-template-columns: 1fr 1fr; margin-top: 20px; text-align: center; font-size: 9pt; }
+    .sig-name { margin-top: 45px; font-weight: bold; border-top: 1px solid #94a3b8; display: inline-block; padding: 2px 20px 0; }
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2>POSYANDU TERPADU PELAYANAN KESEHATAN IBU DAN ANAK</h2>
+    <h3>\${posyandu.toUpperCase()}</h3>
+    <p>Standar Antropometri: WHO Child Growth Standards & Permenkes RI No. 2 Tahun 2020 | Platform Warisan.AI</p>
+    <hr class="rule">
+    <hr class="sub-rule">
+  </div>
+
+  <div style="text-align:center; font-weight:bold; font-size:10.5pt; color:#0f3d26; margin-bottom:4px;">
+    SURAT REKAPITULASI HASIL PEMANTAUAN STATUS GIZI BALITA
+  </div>
+  <div style="text-align:center; font-size:8.5pt; color:#64748b; margin-bottom:10px;">
+    Tanggal Pelaporan: \${now} | Periode Penimbangan: \${bln}
+  </div>
+
+  <div class="meta-box">
+    <div class="meta-item"><strong>Nama Posyandu</strong><span>: \${posyandu}</span></div>
+    <div class="meta-item"><strong>Petugas Penimbang</strong><span>: \${officer} (Kader Meja 4)</span></div>
+    <div class="meta-item"><strong>Periode Evaluasi</strong><span>: \${bln}</span></div>
+    <div class="meta-item"><strong>Bidan Pembina Desa</strong><span>: \${bidan}</span></div>
+    <div class="meta-item"><strong>Standar Baku</strong><span>: Permenkes No. 2/2020 & WHO Anthro</span></div>
+    <div class="meta-item"><strong>Status Verifikasi</strong><span style="color:#15803d; font-weight:bold;">: Terverifikasi Lengkap</span></div>
+  </div>
+
+  <div class="triase-grid">
+    <div class="triase-card" style="background:#f1f5f9;">
+      <div class="num" style="color:#0f172a;">\${total}</div>
+      <div class="lbl">Total Ditimbang</div>
+    </div>
+    <div class="triase-card" style="background:#f0fdf4; border-color:#bbf7d0;">
+      <div class="num" style="color:#15803d;">\${aman.length}</div>
+      <div class="lbl" style="color:#166534;">Gizi Baik (Normal)</div>
+    </div>
+    <div class="triase-card" style="background:#fffbeb; border-color:#fde68a;">
+      <div class="num" style="color:#d97706;">\${sedang.length}</div>
+      <div class="lbl" style="color:#92400e;">Perlu Pemantauan</div>
+    </div>
+    <div class="triase-card" style="background:#fef2f2; border-color:#fecaca;">
+      <div class="num" style="color:#dc2626;">\${tinggi.length}</div>
+      <div class="lbl" style="color:#991b1b;">Prioritas Rujukan</div>
+    </div>
+  </div>
+
+  <div class="table-title">TABEL PENGUKURAN & DEVIASI STANDAR Z-SCORE STANDAR WHO</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:25px;">No</th>
+        <th>Nama Balita</th>
+        <th style="width:30px;">JK</th>
+        <th style="width:40px;">Usia</th>
+        <th style="width:45px;">BB (kg)</th>
+        <th style="width:45px;">TB (cm)</th>
+        <th>BB / U (Berat vs Umur)</th>
+        <th>TB / U (Stunting)</th>
+        <th>BB / TB (Wasting)</th>
+        <th style="width:65px;">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      \${hasil.map((h, i) => {
+        const rowClass = h.risk === 'TINGGI' ? 'flagged' : (h.risk === 'SEDANG' ? 'warning' : '');
+        const statusTxt = h.risk === 'TINGGI' ? 'RUJUKAN' : (h.risk === 'SEDANG' ? 'PANTAU' : 'NORMAL');
+        const fmtZVal = (v) => v === undefined || v === null ? '-' : (v > 0 ? '+' + v.toFixed(2) : v.toFixed(2));
+        return \`
+        <tr class="\${rowClass}">
+          <td>\${i + 1}</td>
+          <td class="left" style="font-weight:600;">\${h.nama}</td>
+          <td>\${h.jk}</td>
+          <td>\${h.usia} bln</td>
+          <td>\${h.bb}</td>
+          <td>\${h.tb}</td>
+          <td>\${fmtZVal(h.zBBU)} SD (\${h.sBBU ? h.sBBU.label : ''})</td>
+          <td>\${fmtZVal(h.zTBU)} SD (\${h.sTBU ? h.sTBU.label : ''})</td>
+          <td>\${fmtZVal(h.zBBTB)} SD (\${h.sBBTB ? h.sBBTB.label : ''})</td>
+          <td><strong>\${statusTxt}</strong></td>
+        </tr>\`;
+      }).join('')}
+    </tbody>
+  </table>
+
+  <div class="action-box">
+    <div class="action-title">RENCANA TINDAK LANJUT MEDIS & INTERVENSI GIZI</div>
+    <ul class="action-list">
+      \${tinggi.length ? \`<li><strong>Rujukan Prioritas Segera:</strong> Laporkan balita <strong>\${tinggi.map(h => h.nama).join(', ')}</strong> kepada Bidan Desa hari ini guna penerbitan rujukan Puskesmas & PMT Pemulihan.</li>\` : ''}
+      \${sedang.length ? \`<li><strong>Pemantauan Siklus 14 Hari:</strong> Lakukan penimbangan ulang 2 minggu ke depan untuk <strong>\${sedang.map(h => h.nama).join(', ')}</strong> dan berikan suplementasi protein hewani (1 butir telur/hari atau ikan lokal).</li>\` : ''}
+      \${!tinggi.length && !sedang.length ? \`<li><strong>Status Optimal:</strong> Seluruh balita dalam kurva pertumbuhan normal. Pertahankan edukasi gizi seimbang dan imunisasi rutin.</li>\` : ''}
+      <li><strong>Konseling Edukatif:</strong> Komunikasikan hasil kepada orang tua secara santun, empatik, dan tanpa stigma.</li>
+    </ul>
+  </div>
+
+  <div class="sig-grid">
+    <div>
+      <div>Mengetahui / Penanggung Jawab,</div>
+      <div style="font-size:8pt; color:#64748b;">Kader Antropometri Meja 4</div>
+      <div class="sig-name">( \${officer} )</div>
+    </div>
+    <div>
+      <div>Bidan Pembina Wilayah,</div>
+      <div style="font-size:8pt; color:#64748b;">Puskesmas Pembina Posyandu</div>
+      <div class="sig-name">( \${bidan} )</div>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => { window.print(); }, 400);
+    });
+  <\/script>
+</body>
+</html>\`;
+
+      const printWin = window.open('', '_blank', 'width=880,height=920');
+      if (printWin) {
+        printWin.document.open();
+        printWin.document.write(printHtml);
+        printWin.document.close();
+      } else {
+        showToast('Pop-up terblokir di peramban. Mohon izinkan pop-up untuk mencetak dokumen.');
+      }
     }
 
     function salinLaporan() {

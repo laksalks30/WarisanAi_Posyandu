@@ -17,6 +17,7 @@ from pydantic import BaseModel
 
 from backend.anthro import evaluate_child, sanitize_name
 from backend.excel_handler import parse_posyandu_file, generate_posyandu_template_excel
+from backend.pdf_generator import generate_posyandu_pdf
 
 # Load konfigurasi environment
 def load_env():
@@ -87,6 +88,15 @@ class SyncRequest(BaseModel):
     balita_list: List[Dict[str, Any]]
     summary: Dict[str, Any]
     notes: Optional[str] = ""
+
+class ExportPdfRequest(BaseModel):
+    posyandu: str
+    periode: str
+    officer: Optional[str] = "Sri Wahyuni, A.Md."
+    bidan: Optional[str] = "Bd. Siti Nurhaliza, S.Tr.Keb"
+    balita_list: List[Dict[str, Any]]
+    summary: Optional[Dict[str, Any]] = None
+    instructions: Optional[List[str]] = None
 
 ACTIVE_SESSIONS: Dict[str, Dict[str, Any]] = {}
 
@@ -379,6 +389,33 @@ def health_check():
         "mcp_ready": True,
         "offline_sync_supported": True
     }
+
+
+@app.post("/api/export/pdf")
+def export_posyandu_pdf(req: ExportPdfRequest):
+    """Menghasilkan file PDF resmi Rekapitulasi Pemantauan Tumbuh Kembang Posyandu."""
+    try:
+        pdf_bytes = generate_posyandu_pdf(
+            posyandu=req.posyandu,
+            periode=req.periode,
+            balita_list=req.balita_list,
+            officer=req.officer or "Sri Wahyuni, A.Md.",
+            bidan=req.bidan or "Bd. Siti Nurhaliza, S.Tr.Keb",
+            summary=req.summary,
+            instructions=req.instructions
+        )
+        safe_posyandu = "".join([c if c.isalnum() else "_" for c in req.posyandu])[:20]
+        filename = f"Rekapitulasi_Posyandu_{req.periode}_{safe_posyandu}.pdf"
+        
+        return Response(
+            content=pdf_bytes,
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f'attachment; filename="{filename}"'
+            }
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Gagal menghasilkan dokumen PDF: {str(e)}")
 
 
 # ==============================================================================
