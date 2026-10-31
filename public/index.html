@@ -711,7 +711,7 @@
       <form id="loginForm" onsubmit="prosesLoginManual(event)">
         <div class="form-group">
           <label class="form-label" for="loginEmail">Nama Kader / ID Posyandu</label>
-          <input type="text" id="loginEmail" class="form-control" placeholder="misal: Sri Wahyuni / Posyandu Melati" value="Sri Wahyuni (Kader Posyandu Melati)">
+          <input type="text" id="loginEmail" class="form-control" placeholder="misal: Sri Wahyuni / Posyandu Dusun Nayan" value="Sri Wahyuni (Kader Posyandu Dusun Nayan)">
         </div>
         <div class="form-group">
           <label class="form-label" for="loginPassword">PIN / Kata Sandi</label>
@@ -747,7 +747,7 @@
         <div class="grid-2">
           <div class="form-group">
             <label class="form-label" for="namaPosyandu">Nama Posyandu / Desa / RW</label>
-            <input type="text" id="namaPosyandu" class="form-control" value="Posyandu Melati RW 03, Kel. Sendangadi" oninput="simpanKePenyimpananLokal(); analisis(false);">
+            <input type="text" id="namaPosyandu" class="form-control" value="Posyandu Dusun Nayan, Maguwoharjo" oninput="simpanKePenyimpananLokal(); analisis(false);">
           </div>
           <div class="form-group">
             <label class="form-label" for="bulanTimbang">Bulan & Tahun Penimbangan</label>
@@ -1077,7 +1077,7 @@
     }
 
     function quickLogin() {
-      currentUser = { name: 'Sri Wahyuni, A.Md. (Kader Melati)', role: 'KADER' };
+      currentUser = { name: 'Sri Wahyuni, A.Md. (Kader Dusun Nayan)', role: 'KADER' };
       localStorage.setItem('warisan_auth_user', JSON.stringify(currentUser));
       bukaWorkspace();
     }
@@ -1796,7 +1796,7 @@ IV. CATATAN & PENGESAHAN
 Penanggung Jawab Penimbangan,                     Bidan Pembina Desa,
 
 
-(${officer})                                     (Bd. Siti Nurhaliza, S.Tr.Keb)
+(${officer})                                     (Bd. Siti Nurhaliza, S.Tr.Keb - Bidan Wilayah Maguwoharjo)
 `;
       document.getElementById('laporanBox').textContent = rep;
     }
@@ -1958,7 +1958,7 @@ Penanggung Jawab Penimbangan,                     Bidan Pembina Desa,
       const posyandu = document.getElementById('namaPosyandu').value.trim() || 'Posyandu Terpadu';
       const bln = document.getElementById('bulanTimbang').value || '2026-09';
       const officer = currentUser ? currentUser.name : 'Sri Wahyuni, A.Md.';
-      const bidan = 'Bd. Siti Nurhaliza, S.Tr.Keb';
+      const bidan = 'Bd. Siti Nurhaliza, S.Tr.Keb (Bidan Wilayah Maguwoharjo)';
 
       try {
         // 1. Coba unduh via backend FastAPI (fpdf2 native vector PDF)
