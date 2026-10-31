@@ -1990,7 +1990,17 @@ Penanggung Jawab Penimbangan,                     Bidan Pembina Desa,
     }
 
     function unduhTemplateExcel() {
-      window.location.href = '/api/template/excel';
+      try {
+        const link = document.createElement('a');
+        link.href = '/template_pencatatan_posyandu.xlsx';
+        link.download = 'template_pencatatan_posyandu.xlsx';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast('Mengunduh berkas template Excel posyandu standar...');
+      } catch (err) {
+        window.location.href = '/api/template/excel';
+      }
     }
 
     // ==============================================================================

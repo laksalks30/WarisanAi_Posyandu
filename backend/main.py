@@ -110,7 +110,15 @@ class ExportPdfRequest(BaseModel):
 
 ACTIVE_SESSIONS: Dict[str, Dict[str, Any]] = {}
 
+@app.get("/api")
+@app.get("/api/")
+def api_root():
+    """Endpoint status root API."""
+    return {"status": "ok", "service": "WARISAN.AI API", "version": "2.0"}
+
+
 @app.post("/api/auth/login")
+@app.post("/auth/login")
 def login(req: LoginRequest):
     """
     Autentikasi praktis & aman untuk Kader Posyandu.
@@ -138,6 +146,7 @@ def login(req: LoginRequest):
     }
 
 @app.get("/api/auth/me")
+@app.get("/auth/me")
 def get_current_user(token: Optional[str] = None):
     """Verifikasi token sesi aktif kader."""
     if token and token in ACTIVE_SESSIONS:
@@ -152,6 +161,7 @@ def get_current_user(token: Optional[str] = None):
     return {"status": "authenticated", "user": default_user}
 
 @app.post("/api/auth/logout")
+@app.post("/auth/logout")
 def logout(token: Optional[str] = None):
     """Keluar dari sesi penimbangan."""
     if token and token in ACTIVE_SESSIONS:
@@ -164,6 +174,7 @@ def logout(token: Optional[str] = None):
 # ==============================================================================
 
 @app.post("/api/ingest/excel")
+@app.post("/ingest/excel")
 async def ingest_posyandu_file(file: UploadFile = File(...)):
     """
     Legacy Data Profiler:
@@ -189,6 +200,7 @@ async def ingest_posyandu_file(file: UploadFile = File(...)):
 
 
 @app.get("/api/template/excel")
+@app.get("/template/excel")
 def download_posyandu_template():
     """Unduh template Excel pencatatan posyandu standar."""
     excel_bytes = generate_posyandu_template_excel()
@@ -268,6 +280,7 @@ def generate_local_cognitive_counsel(posyandu: str, periode: str, analyzed: List
 
 
 @app.post("/api/ai/counsel")
+@app.post("/ai/counsel")
 async def generate_ai_counseling(req: CounselRequest):
     """
     Jembatan AI IBM Langflow & Bob:
@@ -340,6 +353,7 @@ async def generate_ai_counseling(req: CounselRequest):
 # ==============================================================================
 
 @app.post("/api/sync")
+@app.post("/sync")
 async def sync_offline_session(req: SyncRequest):
     """
     Menyimpan sesi penimbangan yang direkam kader saat offline
@@ -385,6 +399,7 @@ async def sync_offline_session(req: SyncRequest):
 
 
 @app.get("/api/records")
+@app.get("/records")
 def get_historical_records():
     """Mengambil daftar riwayat sesi penimbangan yang telah disinkronkan (mendukung Vercel Serverless)."""
     # 1. Cek di RECORDS_FILE (/tmp/data jika di Vercel)
@@ -431,6 +446,7 @@ def get_historical_records():
 
 
 @app.get("/api/health")
+@app.get("/health")
 def health_check():
     """Status kesehatan sistem dan konektivitas IBM Langflow."""
     return {
@@ -443,6 +459,7 @@ def health_check():
 
 
 @app.post("/api/export/pdf")
+@app.post("/export/pdf")
 def export_posyandu_pdf(req: ExportPdfRequest):
     """Menghasilkan file PDF resmi Rekapitulasi Pemantauan Tumbuh Kembang Posyandu."""
     try:
