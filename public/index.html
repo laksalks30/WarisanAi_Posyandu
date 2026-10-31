@@ -1363,69 +1363,130 @@
       return false;
     }
 
+    const DEFAULT_DEMO_RECORDS = [
+      {
+        session_id: 'POSY-NAYAN-01',
+        posyandu: 'Posyandu Dusun Nayan, Maguwoharjo',
+        periode: '2026-09',
+        recorded_at: '2026-09-15T09:00:00Z',
+        total_balita: 5,
+        summary: { total: 5, tinggi: 2, sedang: 2, aman: 1 }
+      },
+      {
+        session_id: 'POSY-NAYAN-02',
+        posyandu: 'Posyandu Dusun Nayan, Maguwoharjo',
+        periode: '2026-08',
+        recorded_at: '2026-08-15T09:00:00Z',
+        total_balita: 5,
+        summary: { total: 5, tinggi: 1, sedang: 3, aman: 1 }
+      }
+    ];
+
+    function renderRiwayatTable(records) {
+      const tbody = document.getElementById('riwayatTableBody');
+      if (!tbody) return;
+      if (!records || !records.length) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:18px; color:var(--text-muted);">Belum ada arsip sesi penimbangan yang tersimpan.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = records.map(r => {
+        const d = r.recorded_at || r.synced_at;
+        const dateStr = d ? new Date(d).toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' }) : '-';
+        return `
+          <tr>
+            <td><code>${r.session_id || '-'}</code></td>
+            <td style="font-weight:700; color:var(--green-900);">${r.posyandu || 'Posyandu Dusun Nayan'}</td>
+            <td>${r.periode || '-'}</td>
+            <td style="font-size:11.5px; color:var(--text-muted);">${dateStr}</td>
+            <td><strong>${r.total_balita || 0}</strong> balita</td>
+            <td><span class="status-chip ${r.summary && r.summary.tinggi > 0 ? 'flagged' : ''}">${r.summary ? r.summary.tinggi : 0} anak</span></td>
+            <td><span class="status-chip ${r.summary && r.summary.sedang > 0 ? 'warning' : ''}">${r.summary ? r.summary.sedang : 0} anak</span></td>
+            <td><span class="status-chip">${r.summary ? r.summary.aman : 0} anak</span></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
     async function sinkronkanSesiManual() {
       if (!window.currentHasil || !window.currentHasil.length) {
         showToast('Tidak ada data penimbangan untuk disinkronkan.');
         return;
       }
-      const posyandu = document.getElementById('namaPosyandu').value || 'Posyandu';
+      const posyandu = document.getElementById('namaPosyandu').value || 'Posyandu Dusun Nayan, Maguwoharjo';
       const periode = document.getElementById('bulanTimbang').value || '2026-09';
       
-      const payload = {
+      const newRecord = {
+        session_id: `POSY-${Date.now().toString().slice(-6)}`,
         posyandu: posyandu,
         periode: periode,
         recorded_at: new Date().toISOString(),
-        balita_list: window.currentHasil,
+        total_balita: window.currentHasil.length,
         summary: window.currentSummary || {},
         notes: `Tercatat oleh ${currentUser ? currentUser.name : 'Kader Posyandu'}`
       };
 
+      // Simpan ke cache lokal offline seketika
+      try {
+        let existing = [];
+        const saved = localStorage.getItem('warisan_offline_records');
+        if (saved) existing = JSON.parse(saved);
+        existing.unshift(newRecord);
+        localStorage.setItem('warisan_offline_records', JSON.stringify(existing));
+        renderRiwayatTable(existing);
+      } catch (e) {}
+
+      // Sinkronkan ke server bila online
       try {
         const resp = await fetch('/api/sync', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: JSON.stringify({
+            posyandu: posyandu,
+            periode: periode,
+            recorded_at: newRecord.recorded_at,
+            balita_list: window.currentHasil,
+            summary: window.currentSummary || {},
+            notes: newRecord.notes
+          })
         });
         if (resp.ok) {
-          showToast('Data penimbangan posyandu berhasil disinkronkan ke server.');
+          showToast('Data penimbangan berhasil disinkronkan ke server.');
           muatRiwayatServer();
         } else {
-          showToast('Server offline. Data tetap tersimpan aman di HP kader.');
+          showToast('Tersimpan di memori perangkat lokal.');
         }
       } catch (err) {
-        showToast('Mode offline aktif. Data tersimpan di HP kader.');
+        showToast('Mode offline aktif: Data tersimpan di memori perangkat.');
       }
     }
 
     async function muatRiwayatServer() {
-      const tbody = document.getElementById('riwayatTableBody');
+      // 1. Ambil dari memori lokal seketika (zero-latency, anti-stuck)
+      let localRecords = null;
       try {
-        const resp = await fetch('/api/records');
+        const saved = localStorage.getItem('warisan_offline_records');
+        if (saved) localRecords = JSON.parse(saved);
+      } catch (e) {}
+
+      if (!localRecords || !localRecords.length) {
+        localRecords = DEFAULT_DEMO_RECORDS;
+        try { localStorage.setItem('warisan_offline_records', JSON.stringify(DEFAULT_DEMO_RECORDS)); } catch (e) {}
+      }
+
+      renderRiwayatTable(localRecords);
+
+      // 2. Perbarui dari server jika endpoint aktif
+      try {
+        const resp = await fetch('/api/records', { cache: 'no-cache' });
         if (resp.ok) {
           const res = await resp.json();
-          const records = res.records || [];
-          if (!records.length) {
-            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:18px; color:var(--text-muted);">Belum ada arsip sesi penimbangan yang disinkronkan.</td></tr>';
-            return;
+          if (res.records && res.records.length) {
+            renderRiwayatTable(res.records);
+            try { localStorage.setItem('warisan_offline_records', JSON.stringify(res.records)); } catch (e) {}
           }
-          tbody.innerHTML = records.map(r => {
-            const dateStr = new Date(r.recorded_at || r.synced_at).toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
-            return `
-              <tr>
-                <td><code>${r.session_id || '-'}</code></td>
-                <td style="font-weight:700; color:var(--green-900);">${r.posyandu}</td>
-                <td>${r.periode}</td>
-                <td style="font-size:11.5px; color:var(--text-muted);">${dateStr}</td>
-                <td><strong>${r.total_balita}</strong> balita</td>
-                <td><span class="status-chip ${r.summary && r.summary.tinggi > 0 ? 'flagged' : ''}">${r.summary ? r.summary.tinggi : 0} anak</span></td>
-                <td><span class="status-chip ${r.summary && r.summary.sedang > 0 ? 'warning' : ''}">${r.summary ? r.summary.sedang : 0} anak</span></td>
-                <td><span class="status-chip">${r.summary ? r.summary.aman : 0} anak</span></td>
-              </tr>
-            `;
-          }).join('');
         }
       } catch (e) {
-        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:18px; color:var(--text-muted);">Mode Offline: Riwayat lokal tetap tersimpan di perangkat.</td></tr>';
+        // Tetap menggunakan localRecords yang sudah tampil
       }
     }
 
