@@ -2017,161 +2017,135 @@ Penanggung Jawab Penimbangan,                     Bidan Pembina Desa,
     function generatePrintablePdfWindow(posyandu, bln, officer, bidan, hasil, summary) {
       const now = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
       const total = hasil.length;
-      const tinggi = hasil.filter(h => h.risk === 'TINGGI');
-      const sedang = hasil.filter(h => h.risk === 'SEDANG');
-      const aman = hasil.filter(h => h.risk === 'AMAN');
+      const tinggi = hasil.filter(function(h) { return h.risk === 'TINGGI'; });
+      const sedang = hasil.filter(function(h) { return h.risk === 'SEDANG'; });
+      const aman = hasil.filter(function(h) { return h.risk === 'AMAN'; });
 
-      const printHtml = `<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>Rekapitulasi Posyandu - ${posyandu} (${bln})</title>
-  <style>
-    @page { size: A4; margin: 12mm 14mm; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 10.5pt; color: #1e293b; margin: 0; line-height: 1.4; }
-    .header { text-align: center; margin-bottom: 12px; }
-    .header h2 { margin: 0; font-size: 13pt; color: #0f3d26; text-transform: uppercase; letter-spacing: 0.5px; }
-    .header h3 { margin: 2px 0; font-size: 11pt; color: #15803d; }
-    .header p { margin: 2px 0 0; font-size: 8.5pt; color: #64748b; }
-    .rule { border: 0; border-top: 2px solid #0f3d26; margin: 8px 0 2px; }
-    .sub-rule { border: 0; border-top: 0.6px solid #166534; margin: 0 0 12px; }
-    .meta-box { background: #f8faf8; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px 12px; font-size: 9pt; margin-bottom: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; }
-    .meta-item { display: flex; }
-    .meta-item strong { width: 130px; color: #334155; }
-    .triase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; text-align: center; }
-    .triase-card { border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px 4px; }
-    .triase-card .num { font-size: 14pt; font-weight: bold; margin-bottom: 2px; }
-    .triase-card .lbl { font-size: 7.5pt; color: #64748b; text-transform: uppercase; }
-    .table-title { font-size: 9.5pt; font-weight: bold; color: #0f3d26; margin: 10px 0 4px; }
-    table { width: 100%; border-collapse: collapse; font-size: 8pt; margin-bottom: 12px; }
-    th { background: #0f3d26; color: #ffffff; padding: 5px 4px; border: 1px solid #0f3d26; text-align: center; font-weight: 600; }
-    td { padding: 4px; border: 1px solid #cbd5e1; text-align: center; }
-    td.left { text-align: left; }
-    tr:nth-child(even) td { background: #f8faf8; }
-    tr.flagged td { background: #fee2e2 !important; color: #991b1b; }
-    tr.warning td { background: #fef3c7 !important; color: #92400e; }
-    .action-box { background: #f8faf8; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px 12px; font-size: 8.5pt; margin-bottom: 14px; }
-    .action-title { font-weight: bold; color: #0f3d26; margin-bottom: 4px; }
-    .action-list { margin: 0; padding-left: 18px; line-height: 1.5; color: #334155; }
-    .sig-grid { display: grid; grid-template-columns: 1fr 1fr; margin-top: 20px; text-align: center; font-size: 9pt; }
-    .sig-name { margin-top: 45px; font-weight: bold; border-top: 1px solid #94a3b8; display: inline-block; padding: 2px 20px 0; }
-    @media print {
-      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <h2>POSYANDU TERPADU PELAYANAN KESEHATAN IBU DAN ANAK</h2>
-    <h3>\${posyandu.toUpperCase()}</h3>
-    <p>Standar Antropometri: WHO Child Growth Standards & Permenkes RI No. 2 Tahun 2020 | Platform Warisan.AI</p>
-    <hr class="rule">
-    <hr class="sub-rule">
-  </div>
-
-  <div style="text-align:center; font-weight:bold; font-size:10.5pt; color:#0f3d26; margin-bottom:4px;">
-    SURAT REKAPITULASI HASIL PEMANTAUAN STATUS GIZI BALITA
-  </div>
-  <div style="text-align:center; font-size:8.5pt; color:#64748b; margin-bottom:10px;">
-    Tanggal Pelaporan: \${now} | Periode Penimbangan: \${bln}
-  </div>
-
-  <div class="meta-box">
-    <div class="meta-item"><strong>Nama Posyandu</strong><span>: \${posyandu}</span></div>
-    <div class="meta-item"><strong>Petugas Penimbang</strong><span>: \${officer} (Kader Meja 4)</span></div>
-    <div class="meta-item"><strong>Periode Evaluasi</strong><span>: \${bln}</span></div>
-    <div class="meta-item"><strong>Bidan Pembina Desa</strong><span>: \${bidan}</span></div>
-    <div class="meta-item"><strong>Standar Baku</strong><span>: Permenkes No. 2/2020 & WHO Anthro</span></div>
-    <div class="meta-item"><strong>Status Verifikasi</strong><span style="color:#15803d; font-weight:bold;">: Terverifikasi Lengkap</span></div>
-  </div>
-
-  <div class="triase-grid">
-    <div class="triase-card" style="background:#f1f5f9;">
-      <div class="num" style="color:#0f172a;">\${total}</div>
-      <div class="lbl">Total Ditimbang</div>
-    </div>
-    <div class="triase-card" style="background:#f0fdf4; border-color:#bbf7d0;">
-      <div class="num" style="color:#15803d;">\${aman.length}</div>
-      <div class="lbl" style="color:#166534;">Gizi Baik (Normal)</div>
-    </div>
-    <div class="triase-card" style="background:#fffbeb; border-color:#fde68a;">
-      <div class="num" style="color:#d97706;">\${sedang.length}</div>
-      <div class="lbl" style="color:#92400e;">Perlu Pemantauan</div>
-    </div>
-    <div class="triase-card" style="background:#fef2f2; border-color:#fecaca;">
-      <div class="num" style="color:#dc2626;">\${tinggi.length}</div>
-      <div class="lbl" style="color:#991b1b;">Prioritas Rujukan</div>
-    </div>
-  </div>
-
-  <div class="table-title">TABEL PENGUKURAN & DEVIASI STANDAR Z-SCORE STANDAR WHO</div>
-  <table>
-    <thead>
-      <tr>
-        <th style="width:25px;">No</th>
-        <th>Nama Balita</th>
-        <th style="width:30px;">JK</th>
-        <th style="width:40px;">Usia</th>
-        <th style="width:45px;">BB (kg)</th>
-        <th style="width:45px;">TB (cm)</th>
-        <th>BB / U (Berat vs Umur)</th>
-        <th>TB / U (Stunting)</th>
-        <th>BB / TB (Wasting)</th>
-        <th style="width:65px;">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      \${hasil.map((h, i) => {
+      let rowsHtml = '';
+      for (let i = 0; i < hasil.length; i++) {
+        const h = hasil[i];
         const rowClass = h.risk === 'TINGGI' ? 'flagged' : (h.risk === 'SEDANG' ? 'warning' : '');
         const statusTxt = h.risk === 'TINGGI' ? 'RUJUKAN' : (h.risk === 'SEDANG' ? 'PANTAU' : 'NORMAL');
-        const fmtZVal = (v) => v === undefined || v === null ? '-' : (v > 0 ? '+' + v.toFixed(2) : v.toFixed(2));
-        return \`
-        <tr class="\${rowClass}">
-          <td>\${i + 1}</td>
-          <td class="left" style="font-weight:600;">\${h.nama}</td>
-          <td>\${h.jk}</td>
-          <td>\${h.usia} bln</td>
-          <td>\${h.bb}</td>
-          <td>\${h.tb}</td>
-          <td>\${fmtZVal(h.zBBU)} SD (\${h.sBBU ? h.sBBU.label : ''})</td>
-          <td>\${fmtZVal(h.zTBU)} SD (\${h.sTBU ? h.sTBU.label : ''})</td>
-          <td>\${fmtZVal(h.zBBTB)} SD (\${h.sBBTB ? h.sBBTB.label : ''})</td>
-          <td><strong>\${statusTxt}</strong></td>
-        </tr>\`;
-      }).join('')}
-    </tbody>
-  </table>
+        const fmtZVal = function(v) { return (v === undefined || v === null) ? '-' : (v > 0 ? '+' + v.toFixed(2) : v.toFixed(2)); };
+        const bbuLbl = h.sBBU ? h.sBBU.label : '';
+        const tbuLbl = h.sTBU ? h.sTBU.label : '';
+        const bbtbLbl = h.sBBTB ? h.sBBTB.label : '';
 
-  <div class="action-box">
-    <div class="action-title">RENCANA TINDAK LANJUT MEDIS & INTERVENSI GIZI</div>
-    <ul class="action-list">
-      \${tinggi.length ? \`<li><strong>Rujukan Prioritas Segera:</strong> Laporkan balita <strong>\${tinggi.map(h => h.nama).join(', ')}</strong> kepada Bidan Desa hari ini guna penerbitan rujukan Puskesmas & PMT Pemulihan.</li>\` : ''}
-      \${sedang.length ? \`<li><strong>Pemantauan Siklus 14 Hari:</strong> Lakukan penimbangan ulang 2 minggu ke depan untuk <strong>\${sedang.map(h => h.nama).join(', ')}</strong> dan berikan suplementasi protein hewani (1 butir telur/hari atau ikan lokal).</li>\` : ''}
-      \${!tinggi.length && !sedang.length ? \`<li><strong>Status Optimal:</strong> Seluruh balita dalam kurva pertumbuhan normal. Pertahankan edukasi gizi seimbang dan imunisasi rutin.</li>\` : ''}
-      <li><strong>Konseling Edukatif:</strong> Komunikasikan hasil kepada orang tua secara santun, empatik, dan tanpa stigma.</li>
-    </ul>
-  </div>
+        rowsHtml += '<tr class="' + rowClass + '">'
+          + '<td>' + (i + 1) + '</td>'
+          + '<td class="left" style="font-weight:600;">' + h.nama + '</td>'
+          + '<td>' + h.jk + '</td>'
+          + '<td>' + h.usia + ' bln</td>'
+          + '<td>' + h.bb + '</td>'
+          + '<td>' + h.tb + '</td>'
+          + '<td>' + fmtZVal(h.zBBU) + ' SD (' + bbuLbl + ')</td>'
+          + '<td>' + fmtZVal(h.zTBU) + ' SD (' + tbuLbl + ')</td>'
+          + '<td>' + fmtZVal(h.zBBTB) + ' SD (' + bbtbLbl + ')</td>'
+          + '<td><strong>' + statusTxt + '</strong></td>'
+          + '</tr>';
+      }
 
-  <div class="sig-grid">
-    <div>
-      <div>Mengetahui / Penanggung Jawab,</div>
-      <div style="font-size:8pt; color:#64748b;">Kader Antropometri Meja 4</div>
-      <div class="sig-name">( \${officer} )</div>
-    </div>
-    <div>
-      <div>Bidan Pembina Wilayah,</div>
-      <div style="font-size:8pt; color:#64748b;">Puskesmas Pembina Posyandu</div>
-      <div class="sig-name">( \${bidan} )</div>
-    </div>
-  </div>
+      let actionsHtml = '';
+      if (tinggi.length) {
+        const namaTinggi = tinggi.map(function(h) { return h.nama; }).join(', ');
+        actionsHtml += '<li><strong>Rujukan Prioritas Segera:</strong> Laporkan balita <strong>' + namaTinggi + '</strong> kepada Bidan Desa hari ini guna penerbitan rujukan Puskesmas & PMT Pemulihan.</li>';
+      }
+      if (sedang.length) {
+        const namaSedang = sedang.map(function(h) { return h.nama; }).join(', ');
+        actionsHtml += '<li><strong>Pemantauan Siklus 14 Hari:</strong> Lakukan penimbangan ulang 2 minggu ke depan untuk <strong>' + namaSedang + '</strong> dan berikan suplementasi protein hewani (1 butir telur/hari atau ikan lokal).</li>';
+      }
+      if (!tinggi.length && !sedang.length) {
+        actionsHtml += '<li><strong>Status Optimal:</strong> Seluruh balita dalam kurva pertumbuhan normal. Pertahankan edukasi gizi seimbang dan imunisasi rutin.</li>';
+      }
+      actionsHtml += '<li><strong>Konseling Edukatif:</strong> Komunikasikan hasil kepada orang tua secara santun, empatik, dan tanpa stigma.</li>';
 
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => { window.print(); }, 400);
-    });
-  <\/script>
-</body>
-</html>\`;
+      const printHtml = '<!DOCTYPE html>'
+        + '<html lang="id">'
+        + '<head>'
+        + '<meta charset="UTF-8">'
+        + '<title>Rekapitulasi Posyandu - ' + posyandu + ' (' + bln + ')</title>'
+        + '<style>'
+        + '@page { size: A4; margin: 12mm 14mm; }'
+        + 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 10.5pt; color: #1e293b; margin: 0; line-height: 1.4; }'
+        + '.header { text-align: center; margin-bottom: 12px; }'
+        + '.header h2 { margin: 0; font-size: 13pt; color: #0f3d26; text-transform: uppercase; letter-spacing: 0.5px; }'
+        + '.header h3 { margin: 2px 0; font-size: 11pt; color: #15803d; }'
+        + '.header p { margin: 2px 0 0; font-size: 8.5pt; color: #64748b; }'
+        + '.rule { border: 0; border-top: 2px solid #0f3d26; margin: 8px 0 2px; }'
+        + '.sub-rule { border: 0; border-top: 0.6px solid #166534; margin: 0 0 12px; }'
+        + '.meta-box { background: #f8faf8; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px 12px; font-size: 9pt; margin-bottom: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; }'
+        + '.meta-item { display: flex; }'
+        + '.meta-item strong { width: 130px; color: #334155; }'
+        + '.triase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; text-align: center; }'
+        + '.triase-card { border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px 4px; }'
+        + '.triase-card .num { font-size: 14pt; font-weight: bold; margin-bottom: 2px; }'
+        + '.triase-card .lbl { font-size: 7.5pt; color: #64748b; text-transform: uppercase; }'
+        + '.table-title { font-size: 9.5pt; font-weight: bold; color: #0f3d26; margin: 10px 0 4px; }'
+        + 'table { width: 100%; border-collapse: collapse; font-size: 8pt; margin-bottom: 12px; }'
+        + 'th { background: #0f3d26; color: #ffffff; padding: 5px 4px; border: 1px solid #0f3d26; text-align: center; font-weight: 600; }'
+        + 'td { padding: 4px; border: 1px solid #cbd5e1; text-align: center; }'
+        + 'td.left { text-align: left; }'
+        + 'tr:nth-child(even) td { background: #f8faf8; }'
+        + 'tr.flagged td { background: #fee2e2 !important; color: #991b1b; }'
+        + 'tr.warning td { background: #fef3c7 !important; color: #92400e; }'
+        + '.action-box { background: #f8faf8; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px 12px; font-size: 8.5pt; margin-bottom: 14px; }'
+        + '.action-title { font-weight: bold; color: #0f3d26; margin-bottom: 4px; }'
+        + '.action-list { margin: 0; padding-left: 18px; line-height: 1.5; color: #334155; }'
+        + '.sig-grid { display: grid; grid-template-columns: 1fr 1fr; margin-top: 20px; text-align: center; font-size: 9pt; }'
+        + '.sig-name { margin-top: 45px; font-weight: bold; border-top: 1px solid #94a3b8; display: inline-block; padding: 2px 20px 0; }'
+        + '@media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }'
+        + '</style>'
+        + '</head>'
+        + '<body>'
+        + '<div class="header">'
+        + '<h2>POSYANDU TERPADU PELAYANAN KESEHATAN IBU DAN ANAK</h2>'
+        + '<h3>' + posyandu.toUpperCase() + '</h3>'
+        + '<p>Standar Antropometri: WHO Child Growth Standards & Permenkes RI No. 2 Tahun 2020 | Platform Warisan.AI</p>'
+        + '<hr class="rule">'
+        + '<hr class="sub-rule">'
+        + '</div>'
+        + '<div style="text-align:center; font-weight:bold; font-size:10.5pt; color:#0f3d26; margin-bottom:4px;">'
+        + 'SURAT REKAPITULASI HASIL PEMANTAUAN STATUS GIZI BALITA'
+        + '</div>'
+        + '<div style="text-align:center; font-size:8.5pt; color:#64748b; margin-bottom:10px;">'
+        + 'Tanggal Pelaporan: ' + now + ' | Periode Penimbangan: ' + bln
+        + '</div>'
+        + '<div class="meta-box">'
+        + '<div class="meta-item"><strong>Nama Posyandu</strong><span>: ' + posyandu + '</span></div>'
+        + '<div class="meta-item"><strong>Petugas Penimbang</strong><span>: ' + officer + ' (Kader Meja 4)</span></div>'
+        + '<div class="meta-item"><strong>Periode Evaluasi</strong><span>: ' + bln + '</span></div>'
+        + '<div class="meta-item"><strong>Bidan Pembina Desa</strong><span>: ' + bidan + '</span></div>'
+        + '<div class="meta-item"><strong>Standar Baku</strong><span>: Permenkes No. 2/2020 & WHO Anthro</span></div>'
+        + '<div class="meta-item"><strong>Status Verifikasi</strong><span style="color:#15803d; font-weight:bold;">: Terverifikasi Lengkap</span></div>'
+        + '</div>'
+        + '<div class="triase-grid">'
+        + '<div class="triase-card" style="background:#f1f5f9;"><div class="num" style="color:#0f172a;">' + total + '</div><div class="lbl">Total Ditimbang</div></div>'
+        + '<div class="triase-card" style="background:#f0fdf4; border-color:#bbf7d0;"><div class="num" style="color:#15803d;">' + aman.length + '</div><div class="lbl" style="color:#166534;">Gizi Baik (Normal)</div></div>'
+        + '<div class="triase-card" style="background:#fffbeb; border-color:#fde68a;"><div class="num" style="color:#d97706;">' + sedang.length + '</div><div class="lbl" style="color:#92400e;">Perlu Pemantauan</div></div>'
+        + '<div class="triase-card" style="background:#fef2f2; border-color:#fecaca;"><div class="num" style="color:#dc2626;">' + tinggi.length + '</div><div class="lbl" style="color:#991b1b;">Prioritas Rujukan</div></div>'
+        + '</div>'
+        + '<div class="table-title">TABEL PENGUKURAN & DEVIASI STANDAR Z-SCORE STANDAR WHO</div>'
+        + '<table>'
+        + '<thead><tr>'
+        + '<th style="width:25px;">No</th><th>Nama Balita</th><th style="width:30px;">JK</th><th style="width:40px;">Usia</th><th style="width:45px;">BB (kg)</th><th style="width:45px;">TB (cm)</th><th>BB / U (Berat vs Umur)</th><th>TB / U (Stunting)</th><th>BB / TB (Wasting)</th><th style="width:65px;">Status</th>'
+        + '</tr></thead>'
+        + '<tbody>' + rowsHtml + '</tbody>'
+        + '</table>'
+        + '<div class="action-box">'
+        + '<div class="action-title">RENCANA TINDAK LANJUT MEDIS & INTERVENSI GIZI</div>'
+        + '<ul class="action-list">' + actionsHtml + '</ul>'
+        + '</div>'
+        + '<div class="sig-grid">'
+        + '<div><div>Mengetahui / Penanggung Jawab,</div><div style="font-size:8pt; color:#64748b;">Kader Antropometri Meja 4</div><div class="sig-name">( ' + officer + ' )</div></div>'
+        + '<div><div>Bidan Pembina Wilayah,</div><div style="font-size:8pt; color:#64748b;">Puskesmas Pembina Posyandu</div><div class="sig-name">( ' + bidan + ' )</div></div>'
+        + '</div>'
+        + '<script>'
+        + 'window.addEventListener("DOMContentLoaded", function() {'
+        + '  setTimeout(function() { window.print(); }, 400);'
+        + '});'
+        + '</scr' + 'ipt>'
+        + '</body>'
+        + '</html>';
 
       const printWin = window.open('', '_blank', 'width=880,height=920');
       if (printWin) {
