@@ -1,14 +1,17 @@
 {
   "mcpServers": {
     "lf-starter_project": {
-      "command": "C:\\Users\\USER\\.local\\bin\\mcp-proxy.exe",
+      "command": "cmd",
       "args": [
+        "/c",
+        "uvx",
+        "mcp-proxy",
         "--transport",
         "streamablehttp",
-        "-H",
+        "--headers",
         "x-api-key",
-        "sk-JlEl1nh8E-z7-_GndZJUqAZTCg6fsfbWfahl5aKNcrI",
-        "http://127.0.0.1:7860/api/v1/mcp/project/4c2c33f7-ea9a-4b56-a0e9-bb5bbf853273/streamable"
+        "YOUR_API_KEY",
+        "http://127.0.0.1:7860/api/v1/mcp/project/33240ff5-f4df-453c-9150-0767519d1d23/streamable"
       ]
     }
   }
