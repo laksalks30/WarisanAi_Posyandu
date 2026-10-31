@@ -684,7 +684,7 @@
           <div id="userAvatar" class="user-avatar">K</div>
           <div>
             <strong id="userName">Kader Posyandu</strong>
-            <span style="color:var(--text-muted); font-size:11px;">(Meja 4)</span>
+            
           </div>
           <button type="button" class="btn-link-logout" onclick="lakukanLogout()">[Keluar]</button>
         </div>
@@ -705,7 +705,7 @@
       <div class="login-header">
         <div class="login-logo">W</div>
         <div class="login-title">Masuk Sistem Posyandu</div>
-        <div class="login-sub">Sistem Pencatatan Antropometri & Deteksi Dini Gizi Balita Meja 4</div>
+        <div class="login-sub">Sistem Pencatatan Antropometri & Deteksi Dini Gizi Balita</div>
       </div>
 
       <form id="loginForm" onsubmit="prosesLoginManual(event)">
@@ -783,12 +783,12 @@
         </div>
       </div>
 
-      <!-- ROSTER PENIMBANGAN AKTIF (MEJA 4) -->
+      <!-- ROSTER PENIMBANGAN AKTIF -->
       <div class="panel">
         <div class="panel-header">
           <div class="panel-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            Daftar Pengukuran Balita (Meja 4 Posyandu)
+            Daftar Pengukuran & Penimbangan Balita
           </div>
           <label style="font-size:12px; display:inline-flex; align-items:center; gap:6px; cursor:pointer; color:var(--text-secondary);">
             <input type="checkbox" id="privacyToggle" onchange="analisis(false)">
@@ -1049,7 +1049,7 @@
       document.getElementById('userAvatar').textContent = name[0] || 'K';
       
       muatRiwayatServer();
-      showToast(`Selamat bertugas di Meja 4 Posyandu, ${name}`);
+      showToast(`Selamat bertugas di Posyandu, ${name}`);
     }
 
     async function prosesLoginManual(event) {
@@ -1760,7 +1760,7 @@ POSYANDU TERPADU TINGKAT DESA
 Posyandu   : ${posyandu}
 Periode    : ${bln}
 Tanggal    : ${now}
-Petugas    : ${officer} (Kader Meja 4)
+Petugas    : ${officer} (Kader Posyandu)
 Standar    : WHO Child Growth Standards & Permenkes RI No. 2 Tahun 2020
 --------------------------------------------------------------------------------
 
@@ -2112,7 +2112,7 @@ Penanggung Jawab Penimbangan,                     Bidan Pembina Desa,
         + '</div>'
         + '<div class="meta-box">'
         + '<div class="meta-item"><strong>Nama Posyandu</strong><span>: ' + posyandu + '</span></div>'
-        + '<div class="meta-item"><strong>Petugas Penimbang</strong><span>: ' + officer + ' (Kader Meja 4)</span></div>'
+        + '<div class="meta-item"><strong>Petugas Penimbang</strong><span>: ' + officer + ' (Kader Posyandu)</span></div>'
         + '<div class="meta-item"><strong>Periode Evaluasi</strong><span>: ' + bln + '</span></div>'
         + '<div class="meta-item"><strong>Bidan Pembina Desa</strong><span>: ' + bidan + '</span></div>'
         + '<div class="meta-item"><strong>Standar Baku</strong><span>: Permenkes No. 2/2020 & WHO Anthro</span></div>'
@@ -2136,7 +2136,7 @@ Penanggung Jawab Penimbangan,                     Bidan Pembina Desa,
         + '<ul class="action-list">' + actionsHtml + '</ul>'
         + '</div>'
         + '<div class="sig-grid">'
-        + '<div><div>Mengetahui / Penanggung Jawab,</div><div style="font-size:8pt; color:#64748b;">Kader Antropometri Meja 4</div><div class="sig-name">( ' + officer + ' )</div></div>'
+        + '<div><div>Mengetahui / Penanggung Jawab,</div><div style="font-size:8pt; color:#64748b;">Kader Penimbang Posyandu</div><div class="sig-name">( ' + officer + ' )</div></div>'
         + '<div><div>Bidan Pembina Wilayah,</div><div style="font-size:8pt; color:#64748b;">Puskesmas Pembina Posyandu</div><div class="sig-name">( ' + bidan + ' )</div></div>'
         + '</div>'
         + '<script>'

@@ -95,7 +95,7 @@ def generate_posyandu_pdf(
     pdf.set_font('Helvetica', 'B', 8.5)
     pdf.cell(32, 4, 'Petugas Penimbang', 0, 0)
     pdf.set_font('Helvetica', '', 8.5)
-    pdf.cell(60, 4, f': {officer} (Kader Meja 4)', 0, 1)
+    pdf.cell(60, 4, f': {officer} (Kader Posyandu)', 0, 1)
 
     pdf.set_xy(13, init_y + 5)
     pdf.set_font('Helvetica', 'B', 8.5)
@@ -340,12 +340,12 @@ def generate_posyandu_pdf(
     pdf.set_font('Helvetica', '', 8.5)
     pdf.set_text_color(30, 41, 59)
 
-    # Kolom Kiri: Kader Meja 4
+    # Kolom Kiri: Kader Posyandu
     pdf.set_xy(15, sig_y)
     pdf.cell(80, 4, 'Mengetahui / Penanggung Jawab Penimbangan,', align='C', new_x='LMARGIN', new_y='NEXT')
     pdf.set_xy(15, sig_y + 4)
     pdf.set_font('Helvetica', 'I', 7.5)
-    pdf.cell(80, 4, 'Kader Antropometri (Meja 4)', align='C', new_x='LMARGIN', new_y='NEXT')
+    pdf.cell(80, 4, 'Kader Penimbang Posyandu', align='C', new_x='LMARGIN', new_y='NEXT')
 
     pdf.set_xy(15, sig_y + 20)
     pdf.set_font('Helvetica', 'B', 8.5)

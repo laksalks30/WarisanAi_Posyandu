@@ -123,7 +123,7 @@ def login(req: LoginRequest):
         "id": f"KDR-{int(time.time()) % 10000:04d}",
         "name": display_name,
         "role": "KADER",
-        "role_label": "Kader Posyandu (Meja 4)",
+        "role_label": "Kader Posyandu",
         "unit": "Posyandu Dusun Nayan, Maguwoharjo",
         "login_at": datetime.now().isoformat()
     }
@@ -146,7 +146,7 @@ def get_current_user(token: Optional[str] = None):
         "id": "KDR-001",
         "name": "Sri Wahyuni, A.Md.",
         "role": "KADER",
-        "role_label": "Kader Posyandu (Meja 4)",
+        "role_label": "Kader Posyandu",
         "unit": "Posyandu Dusun Nayan, Maguwoharjo"
     }
     return {"status": "authenticated", "user": default_user}
